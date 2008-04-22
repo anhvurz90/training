@@ -1,17 +1,17 @@
 <project>
-  <!--
+
     <parent>
-    <groupId>org.exoplatform.portal</groupId>
+    <groupId>org.exoplatform.training</groupId>
     <artifactId>config</artifactId>
     <version>trunk</version>
     </parent> 
-  -->
+
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.exoplatform.training</groupId>
-  <artifactId>exo.training.portlets</artifactId>
+  <artifactId>exo.training.portlets.portlet-api</artifactId>
   <packaging>war</packaging>
   <version>1.0</version>
-  <name>eXo training portlets</name>
+  <name>eXo training portlet-api portlets</name>
   <url>http://www.exoplatform.org</url>
   <description>Solution portlets for eXo training labs</description>
 
