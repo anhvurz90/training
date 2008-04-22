@@ -1,0 +1,143 @@
+<% uicomponent.addInterceptor("ecm-explorer/interceptor/FormationInterceptor.groovy", "post") ; %>
+<div class="UIFormWithTitle"> 
+	<% uiform.begin() %>
+  <div class="HorizontalLayout" style="border: 0px;">	  
+   <table class="UIFormGrid">
+			<tr>
+			  <td class="FieldLabel"><%=_ctx.appRes("Article.dialog.label.name")%></td>
+			  <td class="FieldComponent">
+			  <%
+	        String[] fieldName = ["jcrPath=/node",  "editable=if-null", "mixintype=exo:rss-enable", "validate=empty,name"] ;
+	        uicomponent.addTextField("name", fieldName) ; 
+      	%>	      
+        </td>
+			</tr>
+			
+			<tr>
+			  <td class="FieldLabel">Equipe Recevant</td>
+			  <td class="FieldComponent">
+				<%
+	        String[] fieldRecevant = ["jcrPath=/node/frm:equipeRecevant", "validate=empty"] ;
+	        uicomponent.addTextField("recevant", fieldRecevant) ;
+	      %>
+				</td>
+			</tr>  
+
+			<tr>
+			  <td class="FieldLabel">Equipe Invitee</td>
+			  <td class="FieldComponent">
+				<%
+	        String[] fieldInvitee = ["jcrPath=/node/frm:equipeInvitee", "validate=empty"] ;
+	        uicomponent.addTextField("invitee", fieldInvitee) ;
+	      %>
+				</td>
+			</tr>  
+			<%
+			String[] fieldTitle = ["jcrPath=/node/exo:title", "no title"]
+	        uicomponent.addHiddenField("title", fieldTitle) ;
+			%>
+			
+	    <tr>		          					
+	      <td class="FieldLabel">Sport</td>
+	      <td class="FieldComponent">
+		      <%
+		        String[] fieldSport = ["jcrPath=/node/frm:sport", "script=ecm-explorer/widget/FillSports.groovy"] ;
+		        uicomponent.addSelectBoxField("sport", fieldSport) ;
+		      %>
+		    </td>
+	    </tr>			
+	    <tr>		          					
+	      <td class="FieldLabel">Sport (constraints)</td>
+	      <td class="FieldComponent">
+		      <%
+		        String[] fieldSport2 = ["jcrPath=/node/frm:sport", "script=ecm-explorer/widget/FillSelectWithConstraints.groovy", "scriptParams=frm:match,frm:sport"] ;
+		        uicomponent.addSelectBoxField("sport2", fieldSport2) ;
+		      %>
+		    </td>
+	    </tr>				
+	    <tr>		          					
+	      <td class="FieldLabel">Rencontre amicale</td>
+	      <td class="FieldComponent">
+		      <%
+		        String[] fieldAmical = ["jcrPath=/node/frm:amical",  "options=true,false"] ;
+		        uicomponent.addSelectBoxField("amical", fieldAmical) ;
+		      %>
+		    </td>
+	    </tr>			
+			
+	    <tr>		          					
+	      <td class="FieldLabel">Date de la rencontre</td>
+	      <td class="FieldComponent">
+		      <%
+		        String[] fieldRencontre = ["jcrPath=/node/frm:rencontre", "validate=datetime"] ; 
+		        uicomponent.addCalendarField("rencontre", fieldRencontre) ;
+		      %>
+		    </td>
+	    </tr>
+	    <tr>		          					
+	      <td class="FieldLabel">R&eacute;sum&eacute;</td>
+	      <td class="FieldComponent">
+		      <%
+		        String[] fieldSummary =  ["jcrPath=/node/exo:summary", "options=basic", ""];
+		        uicomponent.addWYSIWYGField("summary", fieldSummary) ;        
+		      %>
+		    </td>
+	    </tr>
+
+			<tr>
+			  <td class="FieldLabel">Affiche</td>
+			  <td class="FieldComponent">
+			<%
+			  String[] resource = ["jcrPath=/node/exo:image", "nodetype=nt:resource", "visible=false"] ; 
+			  String[] encoding = ["jcrPath=/node/exo:image/jcr:encoding", "visible=false", "UTF-8"] ;
+			  String[] lastModified = ["jcrPath=/node/exo:image/jcr:lastModified", "visible=false"] ;
+			  uicomponent.addHiddenField("imageResource", resource) ;
+			  uicomponent.addHiddenField("imageEncoding", encoding) ;
+			  uicomponent.addHiddenField("imageLastModified", lastModified) ;
+			%>			  
+		      <%
+		        String[] fieldImage = ["jcrPath=/node/exo:image/jcr:data"] ;
+		        uicomponent.addUploadField("image", fieldImage) ;
+		      %>
+				</td>
+			</tr>  
+			
+	    <tr>		          					
+	      <td class="FieldLabel"><%=_ctx.appRes("Sample.dialog.label.mime-type")%></td>
+	      <td class="FieldComponent">
+		      <%
+		        String[] fieldMimeType = ["jcrPath=/node/exo:image/jcr:mimeType",  "image/gif", "options=image/gif,image/jpeg,image/png"] ;
+		        uicomponent.addSelectBoxField("mimetype", fieldMimeType) ;
+		      %>
+		    </td>
+	    </tr>			
+			
+		</table>    
+		    
+		<%/* start render action*/%>
+		<div class="UIAction"> 
+	    <table class="ActionContainer" align="center">
+	    	<tr>
+	    		<td align="center">
+			      <% for(action in uicomponent.getActions()) { 
+			      		 String actionLabel = _ctx.appRes(uicomponent.getName() + ".action." + action); 
+								 String link = uicomponent.event(action) ;
+			      %>
+			          <a href="$link" class="ActionButton LightBlueStyle">
+									<div class="ButtonLeft">
+									  <div class="ButtonRight">
+										  <div class="ButtonMiddle">
+										    $actionLabel
+								      </div>
+								    </div>
+							    </div>
+								</a>
+			      <%}%>          
+	      	</td>
+	      </tr>
+	    </table>
+	  </div>
+	  <%/* end render action*/%>
+  </div>
+  <%uiform.end()%>
+</div>
