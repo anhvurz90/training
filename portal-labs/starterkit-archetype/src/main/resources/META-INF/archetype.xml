@@ -1,0 +1,10 @@
+<archetype>
+  <id>starterkit</id>
+  <sources>
+    <source>src/main/java/org/exoplatform/training/portlet/helloworld/HelloWorld.java</source>
+  </sources>
+  <resources>
+    <resource>src/main/webapp/WEB-INF/portlet.xml</resource>
+    <resource>src/main/webapp/WEB-INF/web.xml</resource>
+  </resources>
+</archetype>

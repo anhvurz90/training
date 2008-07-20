@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" version="2.0">
+	
+	<portlet>
+		<description xml:lang="EN">Hello world portlet 002</description>
+		<portlet-name>HelloWorld-002</portlet-name>
+		<portlet-class>
+					org.exoplatform.training.portlet.helloworld.HelloWorld
+				</portlet-class>
+		<supports>
+			<mime-type>text/html</mime-type>
+			<portlet-mode>view</portlet-mode>
+		</supports>
+		<portlet-info>
+			<title>Hello World-002</title>
+		</portlet-info>
+	</portlet>
+	
+	
+	<portlet>
+		<description xml:lang="EN">Hello world JSP portlet with Edit mode 002</description>
+		<portlet-name>HelloWorldJSPwithEdit-002</portlet-name>
+		<portlet-class>
+      org.exoplatform.training.portlet.helloworld.HelloWorldJSP
+    </portlet-class>
+		<supports>
+			<mime-type>text/html</mime-type>
+			<portlet-mode>view</portlet-mode>
+			<portlet-mode>edit</portlet-mode>
+			<portlet-mode>help</portlet-mode>
+		</supports>
+		<portlet-info>
+			<title>Hello World JSP-002</title>
+		</portlet-info>
+		<portlet-preferences>
+			<preference>
+				<name>message</name>
+				<value>Hello World!</value>
+				<read-only>false</read-only>
+			</preference>
+		</portlet-preferences>
+	</portlet>
+	
+</portlet-app>
