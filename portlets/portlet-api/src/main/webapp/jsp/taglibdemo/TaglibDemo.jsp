@@ -33,8 +33,9 @@ Portlets have their own URLs that you can build using the portlet taglib. <br />
 
 <p><h2>portlet:actionURL</h2>
   <% String color = renderRequest.getParameter("color"); %> 
-  <portlet:actionURL var="actionURL" name="bg">
+  <portlet:actionURL var="actionURL" >
     <portlet:param name="actionParam" value="<%=color %>" />
+	<portlet:param name="javax.portlet.action" value="bg" />
   </portlet:actionURL> 
   <code>&lt;portlet:actionURL&gt;</code> will generate an URL to call <code>processAction()</code> method.<br/>
   It can be used to perform some business logic and update some 
