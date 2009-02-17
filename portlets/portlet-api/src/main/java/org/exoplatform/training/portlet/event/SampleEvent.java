@@ -17,6 +17,7 @@
 package org.exoplatform.training.portlet.event;
 
 import java.io.Serializable;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Created by The eXo Platform SAS
@@ -24,6 +25,7 @@ import java.io.Serializable;
  *          exo@exoplatform.com
  * 7 mars 08  
  */
+@XmlRootElement
 public class SampleEvent implements Serializable {
   private String content;
   
