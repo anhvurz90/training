@@ -22,7 +22,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
     <groupId>org.exoplatform.training-configuration-50-portalContainer</groupId>
-    <artifactId>exo.portal.training.extension.root</artifactId>
+    <artifactId>exo-training-extension-root</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent> 
 
@@ -30,18 +30,17 @@
   <artifactId>training-extension</artifactId>
   <packaging>ear</packaging>
   <name>eXo Training Portal Sample Extension Ear</name>
-  <url>http://www.exoplatform.org</url>
   <description>eXo Training Sample Extension Ear</description>
 
   <dependencies>
     <dependency>
       <groupId>org.exoplatform.training-configuration-50-portalContainer</groupId>
-      <artifactId>exo.portal.training.extension.config</artifactId>
+      <artifactId>exo-training-extension-config</artifactId>
       <version>1.0.0-SNAPSHOT</version>
     </dependency>
     <!--dependency>
       <groupId>org.exoplatform.training-configuration-50-portalContainer</groupId>
-      <artifactId>exo.portal.training.extension.jar</artifactId>
+      <artifactId>exo-training-extension-jar</artifactId>
       <version>1.0.0-SNAPSHOT</version>
     </dependency-->
     <!--dependency>
@@ -52,13 +51,13 @@
     </dependency-->
     <dependency>
       <groupId>org.exoplatform.training-configuration-50-portalContainer</groupId>
-      <artifactId>exo.portal.training.extension.war</artifactId>
+      <artifactId>exo-training-extension-war</artifactId>
       <version>1.0.0-SNAPSHOT</version>
       <type>war</type>
     </dependency>
     <dependency>
       <groupId>org.exoplatform.training-configuration-50-portalContainer</groupId>
-      <artifactId>exo.portal.training.extension.war-rest</artifactId>
+      <artifactId>exo-training-extension-war-rest</artifactId>
       <version>1.0.0-SNAPSHOT</version>
       <type>war</type>
     </dependency>
@@ -73,22 +72,22 @@
            <modules>
              <jarModule>
                <groupId>org.exoplatform.training-configuration-50-portalContainer</groupId>
-               <artifactId>exo.portal.training.extension.config</artifactId>
+               <artifactId>exo-training-extension-config</artifactId>
                <includeInApplicationXml>true</includeInApplicationXml>
              </jarModule>
              <webModule>
                <groupId>org.exoplatform.training-configuration-50-portalContainer</groupId>
-               <artifactId>exo.portal.training.extension.war</artifactId>
+               <artifactId>exo-training-extension-war</artifactId>
                <contextRoot>trdemo</contextRoot>
              </webModule>
              <webModule>
                <groupId>org.exoplatform.training-configuration-50-portalContainer</groupId>
-               <artifactId>exo.portal.training.extension.war</artifactId>
+               <artifactId>exo-training-extension-war</artifactId>
                <contextRoot>rest-trdemo</contextRoot>
              </webModule>
              <jarModule>
                <groupId>org.exoplatform.training-configuration-50-portalContainer</groupId>
-               <artifactId>exo.portal.training.extension.jar</artifactId>
+               <artifactId>exo-training-extension-jar</artifactId>
                <includeInApplicationXml>true</includeInApplicationXml>
              </jarModule>
           </modules>

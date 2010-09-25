@@ -30,6 +30,7 @@
                 </value>
                 <value>
                   <string>portal</string>
+				</value>
               <value>
                 <string>dashboard</string>
               </value>
@@ -192,7 +193,9 @@
         </object>
       </object-param>
     </init-params>
-  </component>
+   </component-plugin>
+  </external-component-plugins>
+
 
   <!--
 		it is necessary to declare this empty plugin in order to activate the
