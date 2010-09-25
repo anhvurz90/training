@@ -28,7 +28,7 @@
   
 
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>exo.portal.ecm-spff-wcm.extension.config</artifactId>
+  <artifactId>exo.portal.training.extension.config</artifactId>
   <name>eXo Training Portal Sample Extension Configuration</name>
   <packaging>jar</packaging>
   <url>http://www.exoplatform.org</url> 
