@@ -44,7 +44,7 @@
 						<field name="dependencies">
 							<collection type="java.util.ArrayList">
 								<value>
-									<string>ecm-spff-wcm</string>
+									<string>training</string>
 								</value>
 							</collection>
 						</field>
