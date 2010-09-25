@@ -46,7 +46,7 @@ into tomcat/lib and you have the related relam name "gatein-domain" defined in t
 1. Add the file sample-ext.war from sample/extension/war/target/ to the tomcat/webapps directory
 2. Add the folder starter from starter/war/target/ to the tomcat/webapps directory 
 3. Rename the directory (unzipped folder) starter to "starter.war" (for more details see the warning below)
-4. Add the jar file exo.portal.training.extension.config-X.Y.Z.jar from sample/extension/config/target/ to the tomcat/lib directory
+4. Add the jar file exo-training-extension-config-X.Y.Z.jar from sample/extension/config/target/ to the tomcat/lib directory
 
 WARNING: This can only work if the starter.war is the last war file to be loaded, so don't hesitate to rename it if your war files are loaded 
 following to the alphabetic order
