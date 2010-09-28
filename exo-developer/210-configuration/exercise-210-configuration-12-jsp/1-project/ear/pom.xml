@@ -30,18 +30,17 @@
   <artifactId>gatein-sample-extension</artifactId>
   <packaging>ear</packaging>
   <name>eXo Training Portal Sample Extension Ear</name>
-  <url>http://www.exoplatform.org</url>
   <description>eXo Training Sample Extension Ear</description>
 
   <dependencies>
     <dependency>
       <groupId>org.exoplatform.portal</groupId>
-      <artifactId>exo.portal.training.extension.config</artifactId>
+      <artifactId>exo-training-extension-config</artifactId>
       <version>3.2.0-Beta01-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.exoplatform.portal</groupId>
-      <artifactId>exo.portal.training.extension.jar</artifactId>
+      <artifactId>exo-training-extension-jar</artifactId>
       <version>3.2.0-Beta01-SNAPSHOT</version>
     </dependency>
     <dependency>
@@ -52,7 +51,7 @@
     </dependency>
     <dependency>
       <groupId>org.exoplatform.portal</groupId>
-      <artifactId>exo.portal.training.extension.war</artifactId>
+      <artifactId>exo-training-extension-war</artifactId>
       <version>3.2.0-Beta01-SNAPSHOT</version>
       <type>war</type>
     </dependency>
@@ -67,17 +66,17 @@
            <modules>
              <jarModule>
                <groupId>org.exoplatform.portal</groupId>
-               <artifactId>exo.portal.training.extension.config</artifactId>
+               <artifactId>exo-training-extension-config</artifactId>
                <includeInApplicationXml>true</includeInApplicationXml>
              </jarModule>
              <webModule>
                <groupId>org.exoplatform.portal</groupId>
-               <artifactId>exo.portal.training.extension.war</artifactId>
+               <artifactId>exo-training-extension-war</artifactId>
                <contextRoot>sample-ext</contextRoot>
              </webModule>
              <jarModule>
                <groupId>org.exoplatform.portal</groupId>
-               <artifactId>exo.portal.training.extension.jar</artifactId>
+               <artifactId>exo-training-extension-jar</artifactId>
                <includeInApplicationXml>true</includeInApplicationXml>
              </jarModule>
           </modules>
