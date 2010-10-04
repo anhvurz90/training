@@ -33,6 +33,6 @@
   <description>eXo Training Sample Extension War</description>
   
   <build>  
-    <finalName>training</finalName>
+    <finalName>bike-extension</finalName>
   </build>
 </project>

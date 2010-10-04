@@ -33,25 +33,21 @@
 			<!-- The full qualified name of the PortalContainerDefinitionChangePlugin -->
 			<type>org.exoplatform.container.definition.PortalContainerDefinitionChangePlugin</type>
 			<init-params>
-				<values-param>
+				<value-param>
 					<name>apply.default</name>
 					<value>true</value>
-				</values-param>
+				</value-param>
 				<object-param>
 					<name>change</name>
-					<object type="org.exoplatform.container.definition.PortalContainerDefinitionChange$AddDependenciesAfter">
+					<object type="org.exoplatform.container.definition.PortalContainerDefinitionChange$AddDependencies">
 						<!-- The list of name of the dependencies to add -->
 						<field name="dependencies">
 							<collection type="java.util.ArrayList">
 								<value>
-									<string>bikes-extension</string>
+									<string>bike-extension</string>
 								</value>
 							</collection>
-						</field>
-						<!-- The name of the target dependency -->
-						<field name="target">
-							<string>platform-extension</string>
-						</field>						
+						</field>		
 					</object>
 				</object-param>				
 			</init-params>
