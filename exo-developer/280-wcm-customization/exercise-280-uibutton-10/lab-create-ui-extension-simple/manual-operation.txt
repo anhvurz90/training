@@ -1,0 +1,41 @@
+Manual operation
+
+-- Modify the CSS file to add the button --
+...
+.MyActionNameIcon {
+	height: 24px;
+  background: url('DefaultSkin/AddDocument.gif') no-repeat left center; /* orientation=lt */
+	background: url('DefaultSkin/AddDocument.gif') no-repeat right center; /* orientation=rt */
+}
+....
+
+webapps/ecm/skin/icons/24x24/DefaultStylesheet.css
+
+
+--- Add the resources bundle properties ---
+
+Add the name of the button for the ECM Admin portlet in the file
+webapps/ecm/WEB-INF/classes/locale/portlet/ecm/ECMAdminPortlet_en.xml 
+
+...
+ <UIViewFormTabPane>
+...
+    <label>
+      <myActionName>My Action</myActionName>
+      <version>Restore Version</version>
+....
+
+
+--- Add the resource bundle for the File Explorer ----
+Add the name of the button for the new button in the file 
+webapps/ecm/WEB-INF/classes/locale/portlet/ecm/JCRExplorerPortlet_en.xml
+
+...
+  <UIActionBar>
+    <tooltip>
+      <MyActionName>My Action</MyActionName>
+      <AddFolder>Add Folder</AddFolder>
+....
+
+
+=>> be sure in "sample" environment to delete the DB an restart your server.
