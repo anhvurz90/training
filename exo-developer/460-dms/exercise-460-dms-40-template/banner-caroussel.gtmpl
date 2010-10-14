@@ -1,0 +1,87 @@
+<%
+	 	import javax.jcr.Node;
+		import org.exoplatform.wcm.webui.paginator.UICustomizeablePaginator;
+		import org.exoplatform.wcm.webui.clv.UICLVPortlet;
+		import org.exoplatform.wcm.webui.Utils;
+		import org.exoplatform.services.wcm.core.NodeLocation;
+		import org.exoplatform.services.wcm.images.RESTImagesRendererService;
+
+%>
+
+<style>
+ .webBanner {
+     height : 294px;
+     width: 100%;
+     overflow: hidden;
+     display: block;
+     margin:0.5em 0;
+  }
+
+.webBannerText {
+   line-height: normal;
+   color: #ffffff;
+   font-size: 17px;
+} 
+
+.webBannerText h2 {
+   font-size: 21px;
+   font-weight: bold;
+} 
+
+</style>
+
+
+			<%
+			if (uicomponent.getUIPageIterator().getAvailable() > 0) {
+			  def currentPageData = uicomponent.getCurrentPageData();
+			  %>
+			  		<%
+							for (viewNode in currentPageData) {
+								if(!Utils.isViewable(viewNode)) continue;
+
+								def title = uicomponent.getTitle(viewNode);
+								def summary = uicomponent.getSummary(viewNode);
+								def imageURI = "";
+								def linkURL = null;
+								def top = "0";
+								def left = "0";								
+							
+								if(viewNode.hasProperty("exo:linkURL")) {
+									linkURL = viewNode.getProperty("exo:linkURL").getString() ;
+								}								
+								if(viewNode.hasProperty("exo:textPositionTop")) {
+									top = viewNode.getProperty("exo:textPositionTop").getString() ;
+								}
+								if(viewNode.hasProperty("exo:textPositionLeft")) {
+									left = viewNode.getProperty("exo:textPositionLeft").getString() ;
+								}
+								if (viewNode.hasProperty("exo:image")) {
+									RESTImagesRendererService imagesRenderer = uicomponent.getApplicationComponent(RESTImagesRendererService.class);																imageURI = imagesRenderer.generateImageURI(viewNode,"exo:image")
+								}
+								
+								%>
+								
+								<%=uicomponent.addQuickEditDiv("Column1", viewNode)%>
+
+
+<% if (linkURL != null) { %>
+ <a href="$linkURL">
+<%}%>
+    
+<div class="webBanner" style="background: url('$imageURI') no-repeat scroll left top transparent; clear: both;" >
+
+    <div style="margin-top: <%=top%>px; margin-left: <%=left%>px;" class="webBannerText" >
+    <h2>$title</h2>
+    <p>$summary</p> 
+    </div>
+ </div>
+<% if (linkURL != null) { %>
+ </a>
+<%}%>
+<hr>
+								</div> <% // to close the quick edit link :( %>
+
+				    		<%
+				  		}
+			}
+		%>

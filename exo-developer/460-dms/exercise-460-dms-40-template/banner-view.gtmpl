@@ -1,0 +1,72 @@
+<%
+	import org.exoplatform.services.wcm.images.RESTImagesRendererService;
+	def node = uicomponent.getNode();
+	def name = node.getName();
+	def imageURI = "";
+	def title = "";
+	def summary = "";
+	def top = "0";
+	def left = "0";
+	def linkURL = null;
+%>
+
+  <%
+	if (node.hasProperty("exo:image")) {
+		RESTImagesRendererService imagesRenderer = uicomponent.getApplicationComponent(RESTImagesRendererService.class);								
+		imageURI = imagesRenderer.generateImageURI(node,"exo:image")
+	}
+	if(node.hasProperty("exo:title")) {
+		title = node.getProperty("exo:title").getString() ;
+	}	
+	if(node.hasProperty("exo:summary")) {
+		summary = node.getProperty("exo:summary").getString() ;
+	}
+	if(node.hasProperty("exo:textPositionTop")) {
+		top = node.getProperty("exo:textPositionTop").getString() ;
+	}
+	if(node.hasProperty("exo:textPositionLeft")) {
+		left = node.getProperty("exo:textPositionLeft").getString() ;
+	}
+	if(node.hasProperty("exo:linkURL")) {
+		linkURL = node.getProperty("exo:linkURL").getString() ;
+	}	
+	%>
+
+
+<style>
+ .webBanner {
+     height : 294px;
+     width: 100%;
+     overflow: hidden;
+     display: block;
+     margin:0.5em 0;
+  }
+
+.webBannerText {
+   line-height: normal;
+   color: #ffffff;
+   font-size: 17px;
+} 
+
+.webBannerText h2 {
+   font-size: 21px;
+   font-weight: bold;
+} 
+
+</style>
+
+
+<% if (linkURL != null) { %>
+ <a href="$linkURL">
+<%}%>
+    
+<div class="webBanner" style="background: url('$imageURI') no-repeat scroll left top transparent; clear: both;" >
+
+    <div style="margin-top: <%=top%>px; margin-left: <%=left%>px;" class="webBannerText" >
+    <h2>$title</h2>
+    <p>$summary</p> 
+    </div>
+ </div>
+<% if (linkURL != null) { %>
+ </a>
+<%}%>

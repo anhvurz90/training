@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<nodeTypes xmlns:nt="http://www.jcp.org/jcr/nt/1.5" xmlns:mix="http://www.jcp.org/jcr/mix/1.5" xmlns:jcr="http://www.jcp.org/jcr/1.5">
+
+	<nodeType name="exo:wcmBanner" isMixin="false" hasOrderableChildNodes="false" primaryItemName="">
+		<!-- Allow references, and contains Title and Summari coming from rss-enable mixin -->
+		<supertypes>
+			<supertype>nt:base</supertype>
+			<supertype>mix:referenceable</supertype>
+			<supertype>exo:rss-enable</supertype>
+		</supertypes>
+		<propertyDefinitions>
+		
+			<propertyDefinition name="exo:image" requiredType="Binary" autoCreated="false" mandatory="false" onParentVersion="COPY" protected="false" multiple="false">
+				<valueConstraints/>
+			</propertyDefinition>
+			
+			<propertyDefinition name="exo:textPositionTop" requiredType="Long" autoCreated="false" mandatory="false" onParentVersion="COPY" protected="false" multiple="false">
+				<valueConstraints/>
+			</propertyDefinition>
+
+			<propertyDefinition name="exo:textPositionLeft" requiredType="Long" autoCreated="false" mandatory="false" onParentVersion="COPY" protected="false" multiple="false">
+				<valueConstraints/>
+			</propertyDefinition>
+
+			<propertyDefinition name="exo:linkURL" requiredType="String" autoCreated="false" mandatory="false" onParentVersion="COPY" protected="false" multiple="false">
+				<valueConstraints/>
+			</propertyDefinition>
+
+		</propertyDefinitions>
+	</nodeType>
+
+
+</nodeTypes>

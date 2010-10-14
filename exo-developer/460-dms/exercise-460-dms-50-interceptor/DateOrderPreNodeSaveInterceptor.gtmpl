@@ -1,0 +1,38 @@
+
+import java.util.Map
+import java.util.GregorianCalendar
+import javax.jcr.Session
+import javax.jcr.Node
+import java.text.SimpleDateFormat
+
+import org.exoplatform.services.cms.scripts.CmsScript
+import org.exoplatform.services.cms.JcrInputProperty
+
+import org.apache.commons.logging.Log
+import org.exoplatform.services.log.ExoLogger
+import org.exoplatform.web.application.ApplicationMessage
+import org.exoplatform.webui.exception.MessageException
+
+public class DateOrderPreNodeSaveInterceptor implements CmsScript{
+
+
+public DateOrderPreNodeSaveInterceptor(){
+}
+
+public void execute(Object context) throws Exception{
+System.out.println("DATE INTERCEPTOR");
+	Map inputValues = (Map) context
+	GregorianCalendar today =new GregorianCalendar()
+	GregorianCalendar startDate = inputValues.get("/node/exo:startEvent").getValue()
+	GregorianCalendar endDate = inputValues.get("/node/exo:endEvent").getValue()
+	if(startDate.time >= endDate.time) {
+		System.out.println("DATE INTERCEPTOR: WARNING");
+		throw new MessageException(
+			new ApplicationMessage("Start date must be inferior to end date", null, ApplicationMessage.WARNING))
+	}
+}
+
+public void setParams(String[] params) {}
+
+}
+
