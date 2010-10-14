@@ -38,17 +38,17 @@
       <artifactId>exo-training-extension-config</artifactId>
       <version>1.0.0-SNAPSHOT</version>
     </dependency>
-    <dependency>
+    <!--dependency>
       <groupId>org.exoplatform.training-configuration-10</groupId>
       <artifactId>exo-training-extension-jar</artifactId>
       <version>1.0.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
+    </dependency-->
+    <!--dependency>
       <groupId>org.exoplatform.training-configuration-10</groupId>
       <artifactId>exo.portal.component.web.api</artifactId>
       <version>1.0.0-SNAPSHOT</version>
       <scope>provided</scope>
-    </dependency>
+    </dependency-->
     <dependency>
       <groupId>org.exoplatform.training-configuration-10</groupId>
       <artifactId>exo-training-extension-war</artifactId>
@@ -74,11 +74,11 @@
                <artifactId>exo-training-extension-war</artifactId>
                <contextRoot>sample-ext</contextRoot>
              </webModule>
-             <jarModule>
+             <!--jarModule>
                <groupId>org.exoplatform.training-configuration-10</groupId>
                <artifactId>exo-training-extension-jar</artifactId>
                <includeInApplicationXml>true</includeInApplicationXml>
-             </jarModule>
+             </jarModule-->
           </modules>
         </configuration>
       </plugin>
