@@ -9,13 +9,13 @@ Manual operation
 }
 ....
 
-webapps/ecm/skin/icons/24x24/DefaultStylesheet.css
+webapps/ecmadmin/skin/icons/24x24/DefaultStylesheet.css
 
 
 --- Add the resources bundle properties ---
 
 Add the name of the button for the ECM Admin portlet in the file
-webapps/ecm/WEB-INF/classes/locale/portlet/ecm/ECMAdminPortlet_en.xml 
+webapps/ecmadmin/WEB-INF/classes/locale/portlet/administration/ECMAdminPortlet_en.xml 
 
 ...
  <UIViewFormTabPane>
@@ -28,7 +28,7 @@ webapps/ecm/WEB-INF/classes/locale/portlet/ecm/ECMAdminPortlet_en.xml
 
 --- Add the resource bundle for the File Explorer ----
 Add the name of the button for the new button in the file 
-webapps/ecm/WEB-INF/classes/locale/portlet/ecm/JCRExplorerPortlet_en.xml
+webapps/ecmexplorer/WEB-INF/classes/locale/portlet/explorer/JCRExplorerPortlet_en.xml
 
 ...
   <UIActionBar>
