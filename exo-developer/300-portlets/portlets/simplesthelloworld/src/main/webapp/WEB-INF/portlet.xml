@@ -13,7 +13,7 @@ version="2.0"
         <mime-type>text/html</mime-type>
       </supports>
       <portlet-info>
-          <title>Simplest Hello World Portlet</title>
+          <title>Simplest Hello World Portlet Roxana</title>
       </portlet-info>
    </portlet>
 </portlet-app>

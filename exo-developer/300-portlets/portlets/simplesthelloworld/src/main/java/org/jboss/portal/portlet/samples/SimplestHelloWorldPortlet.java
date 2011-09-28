@@ -34,7 +34,7 @@ public class SimplestHelloWorldPortlet extends GenericPortlet
    public void doView(RenderRequest request, RenderResponse response) throws IOException
    {
       PrintWriter writer = response.getWriter();
-      writer.write("Hello World !");
+      writer.write("Hello eXo !");
       writer.close();
    }
 }
