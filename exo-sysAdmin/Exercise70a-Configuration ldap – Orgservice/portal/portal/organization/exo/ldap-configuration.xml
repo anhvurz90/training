@@ -24,6 +24,30 @@
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="http://www.exoplaform.org/xml/ns/kernel_1_0.xsd http://www.exoplaform.org/xml/ns/kernel_1_0.xsd"
    xmlns="http://www.exoplaform.org/xml/ns/kernel_1_0.xsd">
+   <component>
+    <key>org.exoplatform.services.database.HibernateService</key>
+    <jmx-name>database:type=HibernateService</jmx-name>
+    <type>org.exoplatform.services.database.impl.HibernateServiceImpl</type>
+    <init-params>
+      <properties-param>
+        <name>hibernate.properties</name>
+        <description>Default Hibernate Service</description>
+        <property name="hibernate.show_sql" value="false"/>
+        <property name="hibernate.current_session_context_class" value="thread"/>
+        <property name="hibernate.cache.use_second_level_cache" value="true"/>
+        <property name="hibernate.cache.use_query_cache" value="true"/>
+        <!--CHANGEME HashtableCacheProvider shold not be used in production env-->
+        <property name="hibernate.cache.provider_class" value="org.hibernate.cache.HashtableCacheProvider"/>
+        <property name="hibernate.connection.datasource" value="${gatein.idm.datasource.name}${container.name.suffix}"/>
+        <property name="hibernate.connection.autocommit" value="true"/>
+        <!--
+        	Should be automatically detected. Force otherwise 
+        <property name="hibernate.dialect" value="org.hibernate.dialect.XXXDialect"/>
+         -->
+      </properties-param>
+    </init-params>
+  </component>
+   
 	<component>
   	<key>org.exoplatform.services.ldap.LDAPService</key>
 		<type>org.exoplatform.services.ldap.impl.LDAPServiceImpl</type>
