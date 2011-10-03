@@ -1,3 +1,4 @@
 http://www.jasig.org/cas_server_3_4_10_release => server cas
 http://downloads.jasig.org/cas-clients/cas-client-3.2.1-release.zip => client cas
 http://download.forgerock.org/downloads/opendj/2.4.3/OpenDJ-2.4.3.zip => OpenDJ
+http://visualvm.java.net/download.html => visualvm
