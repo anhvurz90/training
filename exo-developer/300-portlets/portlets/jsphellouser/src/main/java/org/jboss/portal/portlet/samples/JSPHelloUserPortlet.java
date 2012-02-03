@@ -38,6 +38,9 @@ public class JSPHelloUserPortlet extends GenericPortlet
    
    public void doView(RenderRequest request, RenderResponse response) throws PortletException, IOException
    {
+   	
+   	   	System.out.println("doView called !!");
+
       String sYourName = (String) request.getParameter("yourname");
       if (sYourName != null)
       {
@@ -54,7 +57,8 @@ public class JSPHelloUserPortlet extends GenericPortlet
    protected void doHelp(RenderRequest rRequest, RenderResponse rResponse) throws PortletException, IOException,
          UnavailableException
    {
-      rResponse.setContentType("text/html");
+    	System.out.println("doHelp called !!");
+     rResponse.setContentType("text/html");
       PortletRequestDispatcher prd = getPortletContext().getRequestDispatcher("/jsp/help.jsp");
       prd.include(rRequest, rResponse);
    }
@@ -62,6 +66,7 @@ public class JSPHelloUserPortlet extends GenericPortlet
    protected void doEdit(RenderRequest rRequest, RenderResponse rResponse) throws PortletException, IOException,
          UnavailableException
    {
+   	System.out.println("doEdit called !!");
       rResponse.setContentType("text/html");
       PortletRequestDispatcher prd = getPortletContext().getRequestDispatcher("/jsp/edit.jsp");
       prd.include(rRequest, rResponse);
@@ -70,6 +75,7 @@ public class JSPHelloUserPortlet extends GenericPortlet
    public void processAction(ActionRequest aRequest, ActionResponse aResponse) throws PortletException, IOException,
          UnavailableException
    {
+   	System.out.println("processAction called !!");
       String sYourname = (String) aRequest.getParameter("yourname");
       aResponse.setRenderParameter("yourname", sYourname);
    }

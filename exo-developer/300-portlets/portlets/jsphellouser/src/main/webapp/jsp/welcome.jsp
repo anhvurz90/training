@@ -4,7 +4,7 @@
 
 <br/>
 
-<div class="portlet-font">Welcome on the JSP Hello User portlet,
+<div class="portlet-font">Witamy - Willkommen on the JSP Hello User portlet,
 my name is JBoss Portal. What's yours ?</div>
 
 <br/>

@@ -6,11 +6,15 @@
       the parent isn't required, you can drop it if you add a groupId
       and version
    -->
-   <parent>
+   <!--parent>
       <groupId>org.gatein.portal.examples.portlets</groupId>
       <artifactId>parent</artifactId>
-      <version>3.2.0-Beta01-SNAPSHOT</version>
-   </parent>
+      
+      <version>3.2.0-Beta01-SNAPSHOT</version-->
+      <!--version>3.2.0-Beta01-SNAPSHOT</version>
+   </parent-->
+<groupId>org.gatein.portal.examples.portlets</groupId>
+      <version>1.0-training-SNAPSHOT</version>
 
    <artifactId>gatein-simplest-helloworld</artifactId>
    <packaging>war</packaging>

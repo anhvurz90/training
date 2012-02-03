@@ -22,7 +22,7 @@ public DateOrderPreNodeSaveInterceptor(){
 public void execute(Object context) throws Exception{
 System.out.println("DATE INTERCEPTOR");
 	Map inputValues = (Map) context
-	GregorianCalendar today =new GregorianCalendar()
+	
 	GregorianCalendar startDate = inputValues.get("/node/exo:startEvent").getValue()
 	GregorianCalendar endDate = inputValues.get("/node/exo:endEvent").getValue()
 	if(startDate.time >= endDate.time) {

@@ -6,15 +6,20 @@
       the parent isn't required, you can drop it if you add a groupId
       and version
    -->
-   <parent>
+   <!--parent>
       <groupId>org.gatein.portal.examples.portlets</groupId>
       <artifactId>parent</artifactId>
-      <version>3.2.0-Beta01-SNAPSHOT</version>
-   </parent>
+      
+      <version>3.2.0-Beta01-SNAPSHOT</version-->
+      <!--version>3.2.0-Beta01-SNAPSHOT</version>
+   </parent-->
+<groupId>org.gatein.portal.examples.portlets</groupId>
+      <version>1.0-training-SNAPSHOT</version>
 
-   <artifactId>gatein-jsp-hellouser</artifactId>
+   <artifactId>gatein-jsp-portlet</artifactId>
    <packaging>war</packaging>
-   <name>eXo Training Portal Examples - JSP Hello User Portlet</name>
+   <name>eXo Training Portal Examples - JSP Exmaple World Portlet</name>
+   <description />
 
    <build>
       <plugins>
@@ -33,6 +38,7 @@
       <dependency>
          <groupId>javax.portlet</groupId>
          <artifactId>portlet-api</artifactId>
+         <version>2.0</version>
          <scope>provided</scope>
       </dependency>
    </dependencies>
