@@ -1,6 +1,7 @@
 Manual operation
 
 -- Modify the CSS file to add the button --
+webapps/ecmadmin/skin/icons/24x24/DefaultStylesheet.css
 ...
 .MyActionNameIcon {
 	height: 24px;
@@ -9,7 +10,7 @@ Manual operation
 }
 ....
 
-webapps/ecmadmin/skin/icons/24x24/DefaultStylesheet.css
+
 
 
 --- Add the resources bundle properties ---
@@ -38,4 +39,4 @@ webapps/ecmexplorer/WEB-INF/classes/locale/portlet/explorer/JCRExplorerPortlet_e
 ....
 
 
-=>> be sure in "sample" environment to delete the DB an restart your server.
+=>> restart your server.
