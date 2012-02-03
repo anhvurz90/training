@@ -86,6 +86,9 @@
                 <value>
                   <string>/platform/web-contributors</string>
                 </value>
+                 <value>
+                  <string>/platform/training</string>
+                </value>
               </collection>
             </field>
             <field name="ownerType">

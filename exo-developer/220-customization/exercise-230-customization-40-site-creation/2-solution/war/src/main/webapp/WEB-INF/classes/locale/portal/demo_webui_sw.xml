@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bundle>
+  <Signin>
+    <welcome>Welcome</welcome>
+    <login>Login</login>
+    <logout>Logout</logout>
+    <language>Change language</language>
+    <register>Register</register>
+  </Signin>
+
+  <BIKEPortal>
+    <label>BIKE Template</label>
+  </BIKEPortal>
+</bundle>
