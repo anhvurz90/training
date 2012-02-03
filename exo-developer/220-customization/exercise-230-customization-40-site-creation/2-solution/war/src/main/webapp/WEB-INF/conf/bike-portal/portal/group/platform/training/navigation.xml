@@ -30,7 +30,7 @@
       <node>
         <uri>siteExplorer</uri>
         <name>siteExplorer</name>
-        <label>#{myTrainingGroupPage}</label>
+        <label>#{platform.training.myTrainingGroupPage}</label>
         <page-reference>group::platform/training::SiteExplorer</page-reference>
       </node>
 
