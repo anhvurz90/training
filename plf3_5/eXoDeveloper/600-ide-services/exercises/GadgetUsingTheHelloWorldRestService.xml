@@ -1,0 +1,27 @@
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+<ModulePrefs title="Hello Rest Service Gadget" />
+<Content type="html">
+<![CDATA[
+ 
+  <script type="text/javascript">  
+     
+    function handler()
+    {    
+        if (client.readyState == 4 /* complete */) {
+            if (client.status == 200) {
+              document.write(client.responseText);
+            }
+        }
+    }
+      
+    var client = new window.XMLHttpRequest();
+    client.open("GET", "http://localhost:8080/rest/private/my-service/helloworld/Andrea" , true);  
+    client.onreadystatechange = handler;
+    client.send();
+     
+  </script>
+  
+  
+]]></Content></Module>
