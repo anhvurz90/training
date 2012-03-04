@@ -1,0 +1,205 @@
+<%
+  /**
+   * Created by The eXo Platform SAS
+   * Author : eXoPlatform
+   *          chuong.phan@exoplatform.com, phan.le.thanh.chuong@gmail.com
+   * Jun 28, 2009  
+   */
+ 
+  import org.exoplatform.wcm.webui.paginator.UICustomizeablePaginator;
+
+  import org.exoplatform.services.wcm.core.NodeLocation;
+  import org.exoplatform.wcm.webui.clv.UICLVPortlet;
+  import org.exoplatform.wcm.webui.Utils;
+
+%>
+
+<style type="text/css">
+body {
+    background:#fff url(../images/bg_body.gif) repeat-x;
+    font:80% Trebuchet MS, Arial, Helvetica, Sans-Serif;
+    color:#333;
+    line-height:180%;
+    margin:0;
+    padding:0;
+    text-align:center;
+  }
+  h1{
+    font-size:180%;
+    font-weight:normal;
+    margin:0;
+    padding:0 20px;
+    }
+  h2{
+    font-size:160%;
+    font-weight:normal;
+    }  
+  h3{
+    font-size:140%;
+    font-weight:normal;
+    }  
+  img{border:none;}
+  pre{
+    display:block;
+    font:12px "Courier New", Courier, monospace;
+    padding:10px;
+    border:1px solid #bae2f0;
+    background:#e3f4f9;  
+    margin:.5em 0;
+    width:674px;
+    }  
+      
+    /* image replacement */
+        .graphic, #prevBtn, #nextBtn, #slider1prev, #slider1next{
+            margin:0;
+            padding:0;
+            display:block;
+            overflow:hidden;
+            text-indent:-8000px;
+            }
+    /* // image replacement */
+      
+  #container{  
+    margin:0 auto;
+    position:relative;
+    text-align:left;
+    width:696px;
+    background:#fff;    
+    margin-bottom:2em;
+    }  
+  #header{
+    height:80px;
+    line-height:80px;
+    background:#5DC9E1;
+    color:#fff;
+    }        
+  #content{
+    position:relative;
+    }      
+
+/* Easy Slider */
+
+  #slider ul, #slider li,
+  #slider2 ul, #slider2 li{
+    margin:0;
+    padding:0;
+    list-style:none;
+    }
+  #slider2{margin-top:1em;}
+  #slider li, #slider2 li{ 
+    /* 
+      define width and height of list item (slide)
+      entire slider area will adjust according to the parameters provided here
+    */ 
+    width:696px;
+    height:241px;
+    overflow:hidden; 
+    }  
+  #prevBtn, #nextBtn,
+  #slider1next, #slider1prev{ 
+    display:block;
+    width:30px;
+    height:77px;
+    position:absolute;
+    left:-30px;
+    top:71px;
+    z-index:1000;
+    }  
+  #nextBtn, #slider1next{ 
+    left:696px;
+    }                            
+  #prevBtn a, #nextBtn a,
+  #slider1next a, #slider1prev a{  
+    display:block;
+    position:relative;
+    width:30px;
+    height:77px;
+    background:url(../images/btn_prev.gif) no-repeat 0 0;  
+    }  
+  #nextBtn a, #slider1next a{ 
+    background:url(../images/btn_next.gif) no-repeat 0 0;  
+    }  
+    
+  /* numeric controls */  
+
+  ol#controls{
+    margin:1em 0;
+    padding:0;
+    height:28px;  
+    }
+  ol#controls li{
+    margin:0 10px 0 0; 
+    padding:0;
+    float:left;
+    list-style:none;
+    height:28px;
+    line-height:28px;
+    }
+  ol#controls li a{
+    float:left;
+    height:28px;
+    line-height:28px;
+    border:1px solid #ccc;
+    background:#DAF3F8;
+    color:#555;
+    padding:0 10px;
+    text-decoration:none;
+    }
+  ol#controls li.current a{
+    background:#5DC9E1;
+    color:#fff;
+    }
+  ol#controls li a:focus, #prevBtn a:focus, #nextBtn a:focus{outline:none;}
+  
+/* // Easy Slider */
+</style>  
+  
+
+<SCRIPT language="Javascript">
+jQuery(document).ready(function(){  
+      jQuery("#slider").easySlider({
+        auto: true, 
+        continuous: true
+      });
+    });
+</SCRIPT>
+
+
+<div class="UICLVSlideBanner" id="$uicomponent.id">
+   <%
+    def header = uicomponent.getHeader();
+    def isShowHeader = uicomponent.isShowField(UICLVPortlet.PREFERENCE_SHOW_HEADER) && header != null && header.trim().length() != 0;      
+
+          if (uicomponent.getUIPageIterator().getAvailable() == 0) {
+            %>
+              <div style="height: 20px; text-align: center; font-size: 13px; background: white; padding: 10px; margin: 5px;">
+                <%= _ctx.appRes("UICLVConfig.label.content-not-found") %>
+              </div>
+            <%
+          } else {
+            def count = 0;
+            def currentPageData = uicomponent.getCurrentPageData();
+            %>
+            <div id="slider">
+              <ul>
+            <%  
+            for (viewNode in currentPageData) {
+              if(!Utils.isViewable(viewNode)) continue;
+                  def itemName = viewNode.getName();
+                  def itemLink = uicomponent.getWebdavURL(viewNode);      
+            %>
+      <li>
+        <a href="$itemLink"><img alt="$itemName" src="$itemLink" /></a></li>
+      <li>
+        <%}%>
+              </ul></div>
+
+
+        <div class="CaptionFunc">
+           <%
+            if (uicomponent.showPaginator()) {
+              uicomponent.renderChild(UICustomizeablePaginator.class);
+            }}
+            %>
+          <div style="clear:left"><span></span></div>
+         </div>
