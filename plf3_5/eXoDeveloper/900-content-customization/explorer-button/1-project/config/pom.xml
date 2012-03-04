@@ -1,0 +1,54 @@
+<project>  
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.exoplatform.training.ecm</groupId>
+  <artifactId>exo.training.ecm.uiextension.simpleaction</artifactId>
+  <packaging>jar</packaging>
+  <name>UI Extension Framework Tutorial Classes</name>
+  <version>trunk</version>
+  <url>http://www.exoplatform.org</url>
+  <description>UI Extension Framework Tutorial Classes</description>
+
+  <dependencies>    
+    <dependency>
+      <groupId>org.exoplatform.ecm.dms.core</groupId>
+      <artifactId>exo.ecm.dms.core.webui.ext</artifactId>
+      <version>2.5.3</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.exoplatform.ecm.dms.core</groupId>
+      <artifactId>exo.ecm.dms.core.portlet.ecm.core.main</artifactId>
+      <version>2.5</version>
+      <scope>provided</scope>
+    </dependency>	
+  </dependencies>
+  
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/java</directory>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration> 
+        	<source>1.5</source>
+        	<target>1.5</target>
+        	<optimize>true</optimize>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  
+  
+    <repositories>
+      <repository>
+          <id>Exo</id>
+          <name>Exo</name>
+          <url>http://repository.exoplatform.org/public/</url>
+      </repository>      
+  </repositories> 
+  
+</project>
