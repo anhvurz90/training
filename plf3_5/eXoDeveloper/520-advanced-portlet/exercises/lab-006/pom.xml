@@ -1,0 +1,50 @@
+<project>
+
+    <!--parent>
+    <groupId>org.exoplatform.training</groupId>
+    <artifactId>config</artifactId>
+    <version>trunk</version>
+    </parent--> 
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.exoplatform.training.lab006</groupId>
+  <artifactId>exo.training.portlets.portlet-api.lab006</artifactId>
+  <packaging>war</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>eXo training portlet-api portlets</name>
+  <url>http://www.exoplatform.org</url>
+  <description>Solution portlets for eXo training labs 006 - Preferences</description>
+	
+  <repositories>	
+	<repository>
+          <id>exo-int</id>
+          <name>exoplatform.org internal repository</name>
+          <url>http://maven2.exoplatform.org/rest/maven2</url>
+          <layout>default</layout>
+    </repository>
+  </repositories>
+
+  <dependencies>
+    <dependency>
+      <groupId>javax.portlet</groupId>
+      <artifactId>portlet-api</artifactId>
+      <version>2.0</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+        </configuration>
+      </plugin>
+    </plugins>
+    <finalName>lab-006</finalName>
+  </build>
+</project>
+

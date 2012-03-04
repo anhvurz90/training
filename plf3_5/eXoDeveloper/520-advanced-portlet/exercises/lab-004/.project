@@ -1,0 +1,13 @@
+<projectDescription>
+  <name>exo.training.portlets.portlet-api.lab004</name>
+  <comment>Solution portlets for eXo training labs 004 - Preferences</comment>
+  <projects/>
+  <buildSpec>
+    <buildCommand>
+      <name>org.eclipse.jdt.core.javabuilder</name>
+    </buildCommand>
+  </buildSpec>
+  <natures>
+    <nature>org.eclipse.jdt.core.javanature</nature>
+  </natures>
+</projectDescription>
