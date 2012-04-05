@@ -90,7 +90,7 @@
 			}
 
 			.UILogin .LoginContent .CenterLoginContent {
-			  height: 170px;
+			  height: 157px;
 			}
 
 			.UILogin .LoginContent input {
@@ -114,7 +114,7 @@
 			
 			.UILogin .LoginContent .LoginButton {
 			  height: 25px ;
-			  padding: 8px 0 5px;
+			  padding: 3px 0 5px;
 			}
 
 			.UILogin .LoginContent .LoginButtonContainer {
@@ -131,20 +131,20 @@
 			}
 
 			.UILogin .LoginContent .LoginButton .LeftButton {
-			  line-height: 25px;
+			 
 			  padding-left: 11px;
 			  background: url('/platform-extension/login/jsp/images/LoginBackground.gif') no-repeat left -242px;
 				float: left;
 			}
 
 			.UILogin .LoginContent .LoginButton .RightButton {
-			  line-height: 25px;
+			
 			  padding-right: 11px;
 			  background: url('/platform-extension/login/jsp/images/LoginBackground.gif') no-repeat right bottom;
 			}
 
 			.UILogin .LoginContent .LoginButton .MiddleButton {
-			  height: 25px; 
+			 
 			  line-height: 25px; 
 			  background: url('/platform-extension/login/jsp/images/LoginBackground.gif') center bottom;
 			}
@@ -157,7 +157,7 @@
     <div class="UILogin">
       <div class="LoginHeader"></div>
       <div class="LoginContent">
-				<div style="height: 22px;line-height: 22px;">
+				<div style="line-height: 12px; padding: 6px 3px 0 0; height: 27px; font-size: 11px;">
 					<%/*Begin form*/%>
           <%
             if(username.length() > 0 || password.length() > 0) {
@@ -173,7 +173,7 @@
           		<input type="hidden" name="initialURI" value="<%=uri%>"/>
                 <% } %>
 								
-					<div class="FieldLabel">Hello<%=res.getString("UILoginForm.label.UserName")%></div>
+					<div class="FieldLabel">Welcome to the Bices!    <%=res.getString("UILoginForm.label.UserName")%></div>
 					<div><input class="UserName" name="username" value="<%=username%>"/></div>
 				
 					<div class="FieldLabel"><%=res.getString("UILoginForm.label.password")%></div>
