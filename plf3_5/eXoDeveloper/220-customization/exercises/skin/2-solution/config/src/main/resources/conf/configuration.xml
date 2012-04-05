@@ -24,7 +24,7 @@
 						<field name="dependencies">
 							<collection type="java.util.ArrayList">
 								<value>
-									<string>SimpleSkin</string>
+									<string>bike-skin-resources</string>
 								</value>
 							</collection>
 						</field>				

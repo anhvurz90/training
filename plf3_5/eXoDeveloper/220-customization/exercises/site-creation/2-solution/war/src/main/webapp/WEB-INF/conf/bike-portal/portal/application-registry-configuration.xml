@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!--
 
-    Copyright (C) 2009 eXo Platform SAS.
+    Copyright (C) 2012 eXo Platform SAS.
     
     This is free software; you can redistribute it and/or modify it
     under the terms of the GNU Lesser General Public License as
@@ -35,14 +35,14 @@
       <description>this listener init the portlets are registered in PortletRegister</description>
       <init-params>
         <object-param>
-          <name>Contents</name>
-          <description>Contents</description>
+          <name>BikeApplications</name>
+          <description>BikeApplications</description>
           <object type="org.exoplatform.application.registry.ApplicationCategory">
             <field name="name">
-              <string>Contents</string>
+              <string>BikeApplications</string>
             </field>
             <field name="displayName">
-              <string>Contents</string>
+              <string>BikeApplications</string>
             </field>
             <field name="accessPermissions">
               <collection type="java.util.ArrayList" item-type="java.lang.String">
@@ -56,7 +56,7 @@
                 <value>
                   <object type="org.exoplatform.application.registry.Application">
                     <field name="categoryName">
-                      <string>Contents</string>
+                      <string>BikeApplications</string>
                     </field>
                     <field name="applicationName">
                       <string>SingleContentViewer</string>
@@ -82,7 +82,7 @@
                 <value>
                   <object type="org.exoplatform.application.registry.Application">
                     <field name="categoryName">
-                      <string>Contents</string>
+                      <string>BikeApplications</string>
                     </field>
                     <field name="applicationName">
                       <string>ContentListViewerPortlet</string>
@@ -105,255 +105,10 @@
                     </field>
                   </object>
                 </value>
-                <value>
-                  <object type="org.exoplatform.application.registry.Application">
-                    <field name="categoryName">
-                      <string>Contents</string>
-                    </field>
-                    <field name="applicationName">
-                      <string>ParameterizedContentViewerPortlet</string>
-                    </field>
-                    <field name="displayName">
-                      <string>Content by URL</string>
-                    </field>
-                    <field name="type">
-                      <string>portlet</string>
-                    </field>
-                    <field name="contentId">
-                      <string>presentation/ParameterizedContentViewerPortlet</string>
-                    </field>
-                    <field name="accessPermissions">
-                      <collection type="java.util.ArrayList" item-type="java.lang.String">
-                        <value>
-                          <string>*:/platform/users</string>
-                        </value>
-                      </collection>
-                    </field>
-                  </object>
-                </value>
-                <value>
-                  <object type="org.exoplatform.application.registry.Application">
-                    <field name="categoryName">
-                      <string>Contents</string>
-                    </field>
-                    <field name="applicationName">
-                      <string>CategoryNavigationPortlet</string>
-                    </field>
-                    <field name="displayName">
-                      <string>Category Navigation</string>
-                    </field>
-                    <field name="type">
-                      <string>portlet</string>
-                    </field>
-                    <field name="contentId">
-                      <string>presentation/CategoryNavigationPortlet</string>
-                    </field>
-                    <field name="accessPermissions">
-                      <collection type="java.util.ArrayList" item-type="java.lang.String">
-                        <value>
-                          <string>*:/platform/users</string>
-                        </value>
-                      </collection>
-                    </field>
-                  </object>
-                </value>
-                <value>
-                  <object type="org.exoplatform.application.registry.Application">
-                    <field name="categoryName">
-                      <string>Contents</string>
-                    </field>
-                    <field name="applicationName">
-                      <string>ParameterizedContentListViewerPortlet</string>
-                    </field>
-                    <field name="displayName">
-                      <string>Category Contents</string>
-                    </field>
-                    <field name="type">
-                      <string>portlet</string>
-                    </field>
-                    <field name="contentId">
-                      <string>presentation/ParameterizedContentListViewerPortlet</string>
-                    </field>
-                    <field name="accessPermissions">
-                      <collection type="java.util.ArrayList" item-type="java.lang.String">
-                        <value>
-                          <string>*:/platform/users</string>
-                        </value>
-                      </collection>
-                    </field>
-                  </object>
-                </value>
               </collection>
             </field>
           </object>
         </object-param>
-
-        <object-param>
-          <name>Newsletter</name>
-          <description>Newsletter</description>
-          <object type="org.exoplatform.application.registry.ApplicationCategory">
-            <field name="name">
-              <string>Newsletter</string>
-            </field>
-            <field name="displayName">
-              <string>Newsletter</string>
-            </field>
-            <field name="accessPermissions">
-              <collection type="java.util.ArrayList" item-type="java.lang.String">
-                <value>
-                  <string>*:/platform/users</string>
-                </value>
-              </collection>
-            </field>
-            <field name="applications">
-              <collection type="java.util.ArrayList">
-                <value>
-                  <object type="org.exoplatform.application.registry.Application">
-                    <field name="categoryName">
-                      <string>Newsletter</string>
-                    </field>
-                    <field name="applicationName">
-                      <string>NewsletterViewerPortlet</string>
-                    </field>
-                    <field name="displayName">
-                      <string>Newsletter</string>
-                    </field>
-                    <field name="type">
-                      <string>portlet</string>
-                    </field>
-                    <field name="contentId">
-                      <string>newsletter/NewsletterViewerPortlet</string>
-                    </field>
-                    <field name="accessPermissions">
-                      <collection type="java.util.ArrayList" item-type="java.lang.String">
-                        <value>
-                          <string>*:/platform/users</string>
-                        </value>
-                      </collection>
-                    </field>
-                  </object>
-                </value>
-                <value>
-                  <object type="org.exoplatform.application.registry.Application">
-                    <field name="categoryName">
-                      <string>Newsletter</string>
-                    </field>
-                    <field name="applicationName">
-                      <string>NewsletterManagerPortlet</string>
-                    </field>
-                    <field name="displayName">
-                      <string>Newsletter Manager</string>
-                    </field>
-                    <field name="type">
-                      <string>portlet</string>
-                    </field>
-                    <field name="contentId">
-                      <string>newsletter/NewsletterManagerPortlet</string>
-                    </field>
-                    <field name="accessPermissions">
-                      <collection type="java.util.ArrayList" item-type="java.lang.String">
-                        <value>
-                          <string>*:/platform/users</string>
-                        </value>
-                      </collection>
-                    </field>
-                  </object>
-                </value>
-              </collection>
-            </field>
-          </object>
-        </object-param>
-
-        <object-param>
-          <name>Forms</name>
-          <description>Forms</description>
-          <object type="org.exoplatform.application.registry.ApplicationCategory">
-            <field name="name">
-              <string>Forms</string>
-            </field>
-            <field name="displayName">
-              <string>Forms</string>
-            </field>
-            <field name="accessPermissions">
-              <collection type="java.util.ArrayList" item-type="java.lang.String">
-                <value>
-                  <string>*:/platform/users</string>
-                </value>
-              </collection>
-            </field>
-            <field name="applications">
-              <collection type="java.util.ArrayList">
-                <value>
-                  <object type="org.exoplatform.application.registry.Application">
-                    <field name="categoryName">
-                      <string>Forms</string>
-                    </field>
-                    <field name="applicationName">
-                      <string>FormGeneratorPortlet</string>
-                    </field>
-                    <field name="displayName">
-                      <string>Form Generator</string>
-                    </field>
-                    <field name="type">
-                      <string>portlet</string>
-                    </field>
-                    <field name="contentId">
-                      <string>formgenerator/FormGeneratorPortlet</string>
-                    </field>
-                    <field name="accessPermissions">
-                      <collection type="java.util.ArrayList" item-type="java.lang.String">
-                        <value>
-                          <string>*:/platform/users</string>
-                        </value>
-                      </collection>
-                    </field>
-                  </object>
-                </value>
-                <!-- value>                 
-		                <object type="org.exoplatform.application.registry.Application">                     
-		                  <field name="categoryName"><string>WCM Form Generator</string></field>
-		                  <field name="applicationName"><string>FastContentCreatorPortlet</string></field>
-						          <field name="displayName"><string>Fast Content Creator portlet</string></field>
-		                  <field name="type"><string>portlet</string></field>
-		                  <field name="contentId"><string>WCM Form Generator/FastContentCreatorPortlet</string></field>
-		                  <field name="accessPermissions">
-								        <collection type="java.util.ArrayList" item-type="java.lang.String">													
-													<value><string>*:/platform/users</string></value>													
-								        </collection>
-						          </field>                                 
-		                </object>
-	                </value-->
-                <value>
-                  <object type="org.exoplatform.application.registry.Application">
-                    <field name="categoryName">
-                      <string>Forms</string>
-                    </field>
-                    <field name="applicationName">
-                      <string>FastContentCreatorBasicPortlet</string>
-                    </field>
-                    <field name="displayName">
-                      <string>Content Creator</string>
-                    </field>
-                    <field name="type">
-                      <string>portlet</string>
-                    </field>
-                    <field name="contentId">
-                      <string>formgenerator/FastContentCreatorBasicPortlet</string>
-                    </field>
-                    <field name="accessPermissions">
-                      <collection type="java.util.ArrayList" item-type="java.lang.String">
-                        <value>
-                          <string>*:/platform/users</string>
-                        </value>
-                      </collection>
-                    </field>
-                  </object>
-                </value>
-              </collection>
-            </field>
-          </object>
-        </object-param>
-
       </init-params>
     </component-plugin>
   </external-component-plugins>

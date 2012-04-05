@@ -24,21 +24,29 @@ import org.exoplatform.webui.core.model.SelectItemCategory;
 
 List options = new ArrayList();
 
-  SelectItemCategory classic = new SelectItemCategory("ClassicPortal");
-  classic.addSelectItemOption(
-      new PortalTemplateConfigOption("", "classic", "Classic Portal", "ClassicPortal").addGroup("/platform/guests")
-  );
-  options.add(classic);
-  
   SelectItemCategory acme = new SelectItemCategory("ACMEPortal");
   acme.addSelectItemOption(
-      new PortalTemplateConfigOption("", "acme", "ACME Portal", "ACMEPortal").addGroup("/platform/guests")
+      new PortalTemplateConfigOption("ACMEPortal", "acme", "ACME Portal", "ACMEPortal").addGroup("/platform/guests")
   );
+  options.add(acme);  
   
-  SelectItemCategory bike = new SelectItemCategory("BIKEPortal");
-  bike.addSelectItemOption(
-      new PortalTemplateConfigOption("", "bike", "BIKE Portal", "BIKEPortal").addGroup("/platform/guests")
+  SelectItemCategory intranet = new SelectItemCategory("IntranetPortal");
+  intranet.addSelectItemOption(
+      new PortalTemplateConfigOption("IntranetPortal", "intranet", "Intranet Portal", "IntranetPortal").addGroup("/platform/guests")
   );
-  options.add(bike);
+  options.add(intranet);
+  
+  SelectItemCategory basic = new SelectItemCategory("EmptyPortal");
+  basic.addSelectItemOption(
+      new PortalTemplateConfigOption("EmptyPortal", "empty", "Empty Portal", "EmptyPortal").addGroup("/platform/guests")
+  );
+  options.add(basic);
+  
+    SelectItemCategory bike = new SelectItemCategory("BIKEPortal");
+  bike.addSelectItemOption(
+      new PortalTemplateConfigOption("BIKEPortal", "bike", "BIKE Portal", "BIKEPortal").addGroup("/platform/guests")
+  );
+  options.add(basic);
+   
   
 return options ;
