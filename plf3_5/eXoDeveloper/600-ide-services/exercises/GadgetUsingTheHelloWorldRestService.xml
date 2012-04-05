@@ -17,7 +17,7 @@
     }
       
     var client = new window.XMLHttpRequest();
-    client.open("GET", "http://localhost:8080/rest/private/my-service/helloworld/Andrea" , true);  
+    client.open("GET", "/rest/private/my-service/helloworld/Andrea" , true);  
     client.onreadystatechange = handler;
     client.send();
      
