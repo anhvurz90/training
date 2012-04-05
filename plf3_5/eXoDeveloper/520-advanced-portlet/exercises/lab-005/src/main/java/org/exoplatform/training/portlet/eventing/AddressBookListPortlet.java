@@ -56,6 +56,14 @@ public class AddressBookListPortlet extends GenericPortlet {
 				AddressBookEntry eventRes = (AddressBookEntry) request.getAttribute("eventRes");
 				if (event2 != null) System.out.println("Event has arrived in doView: " + event2.toString() );
 				if (eventRes != null) System.out.println("EventRes has arrived in doView: " + eventRes.toString() );
+				
+				
+			AddressBookEntry entry = new AddressBookEntry();
+			entry.setFirstName( "firstName" );
+			entry.setLastName( "lastName" );
+			entry.setAddress( "address" );
+			
+			request.setAttribute("event", entry );
 		processRequest( request,  response); 
 	}
 
@@ -74,7 +82,7 @@ public class AddressBookListPortlet extends GenericPortlet {
 			entry.setFirstName( "firstName" );
 			entry.setLastName( "lastName" );
 			entry.setAddress( "address" );
-				request.setAttribute("event", entry );
+			request.setAttribute("event", entry );
 		
 		// Put the event in some parameter
         //request.setAttribute("event", event);
