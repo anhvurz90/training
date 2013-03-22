@@ -1,0 +1,128 @@
+   private static void printRights(Session s, String path) throws PathNotFoundException, RepositoryException
+   {
+      StringBuilder msg = new StringBuilder();
+      msg.append("path=").append(path).append(" user id=").append(s.getUserID()).append(" permissions=");
+      try
+      {
+         s.checkPermission(path, PermissionType.READ);
+         msg.append('r');
+      }
+      catch (AccessControlException e)
+      {
+      }
+      try
+      {
+         s.checkPermission(path, PermissionType.SET_PROPERTY);
+         msg.append('s');
+      }
+      catch (AccessControlException e)
+      {
+      }
+      try
+      {
+         s.checkPermission(path, PermissionType.ADD_NODE);
+         msg.append('a');
+      }
+      catch (AccessControlException e)
+      {
+      }
+      try
+      {
+         s.checkPermission(path, PermissionType.REMOVE);
+         msg.append('d');
+      }
+      catch (AccessControlException e)
+      {
+      }
+      log.info(msg);
+   }
+
+   public void testPermissionUseCases() throws Exception
+   {
+      Session sysSession = repository.getSystemSession(session.getWorkspace().getName());
+      Session managerSession = repository.login(credentials, "ws");
+      Session userSession = repository.login(new CredentialsImpl("root", "exo".toCharArray()), "ws");
+      ExtendedNode rootTestNode = (ExtendedNode)sysSession.getRootNode().addNode("testPermissionUseCases1");
+      rootTestNode.addMixin("exo:owneable");
+      rootTestNode.addMixin("exo:privilegeable");
+      rootTestNode.setPermission(IdentityConstants.ANY, new String[]{PermissionType.READ, PermissionType.REMOVE,
+         PermissionType.SET_PROPERTY});
+      sysSession.save();
+      log.info("########## USE CASE 1 ################");
+      ExtendedNode node = (ExtendedNode)rootTestNode.addNode("node1");
+      ExtendedNode subNode = (ExtendedNode)node.addNode("subNode1");
+      sysSession.save();
+      log.info("rootTestNode : " + ((ExtendedNode)session.getItem(rootTestNode.getPath())).getACL().dump());
+      log.info("node: " + ((ExtendedNode)session.getItem(node.getPath())).getACL().dump());
+      log.info("subNode: " + ((ExtendedNode)session.getItem(subNode.getPath())).getACL().dump());
+      printRights(userSession, node.getPath());
+      printRights(managerSession, node.getPath());
+      printRights(userSession, subNode.getPath());
+      printRights(managerSession, subNode.getPath());
+      
+      log.info("########## USE CASE 2 ################");
+      rootTestNode = (ExtendedNode)sysSession.getRootNode().addNode("testPermissionUseCases2");
+      node = (ExtendedNode)rootTestNode.addNode("node1");
+      subNode = (ExtendedNode)node.addNode("subNode1");
+      sysSession.save();
+      node = (ExtendedNode)managerSession.getItem(node.getPath());
+      node.addMixin("exo:owneable");
+      managerSession.save();
+      rootTestNode.addMixin("exo:owneable");
+      rootTestNode.addMixin("exo:privilegeable");
+      rootTestNode.setPermission(IdentityConstants.ANY, new String[]{PermissionType.READ, PermissionType.REMOVE,
+         PermissionType.SET_PROPERTY});
+      sysSession.save();
+      log.info("rootTestNode : " + ((ExtendedNode)session.getItem(rootTestNode.getPath())).getACL().dump());
+      log.info("node: " + ((ExtendedNode)session.getItem(node.getPath())).getACL().dump());
+      log.info("subNode: " + ((ExtendedNode)session.getItem(subNode.getPath())).getACL().dump());
+      printRights(userSession, node.getPath());
+      printRights(managerSession, node.getPath());
+      printRights(userSession, subNode.getPath());
+      printRights(managerSession, subNode.getPath());
+
+      log.info("########## USE CASE 3 ################");
+      rootTestNode = (ExtendedNode)sysSession.getRootNode().addNode("testPermissionUseCases3");
+      node = (ExtendedNode)rootTestNode.addNode("node1");
+      subNode = (ExtendedNode)node.addNode("subNode1");
+      sysSession.save();
+      node = (ExtendedNode)managerSession.getItem(node.getPath());
+      node.addMixin("exo:privilegeable");
+      node.setPermission(IdentityConstants.ANY, new String[]{PermissionType.READ, PermissionType.REMOVE});
+      managerSession.save();
+      rootTestNode.addMixin("exo:owneable");
+      rootTestNode.addMixin("exo:privilegeable");
+      rootTestNode.setPermission(IdentityConstants.ANY, new String[]{PermissionType.READ, PermissionType.REMOVE,
+         PermissionType.SET_PROPERTY});
+      sysSession.save();
+      log.info("rootTestNode : " + ((ExtendedNode)session.getItem(rootTestNode.getPath())).getACL().dump());
+      log.info("node: " + ((ExtendedNode)session.getItem(node.getPath())).getACL().dump());
+      log.info("subNode: " + ((ExtendedNode)session.getItem(subNode.getPath())).getACL().dump());
+      printRights(userSession, node.getPath());
+      printRights(managerSession, node.getPath());
+      printRights(userSession, subNode.getPath());
+      printRights(managerSession, subNode.getPath());
+
+      log.info("########## USE CASE 4 ################");
+      rootTestNode = (ExtendedNode)sysSession.getRootNode().addNode("testPermissionUseCases4");
+      node = (ExtendedNode)rootTestNode.addNode("node1");
+      subNode = (ExtendedNode)node.addNode("subNode1");
+      sysSession.save();
+      node = (ExtendedNode)managerSession.getItem(node.getPath());
+      node.addMixin("exo:privilegeable");
+      node.addMixin("exo:owneable");
+      node.setPermission(IdentityConstants.ANY, new String[]{PermissionType.READ, PermissionType.REMOVE});
+      managerSession.save();
+      rootTestNode.addMixin("exo:owneable");
+      rootTestNode.addMixin("exo:privilegeable");
+      rootTestNode.setPermission(IdentityConstants.ANY, new String[]{PermissionType.READ, PermissionType.REMOVE,
+         PermissionType.SET_PROPERTY});
+      sysSession.save();
+      log.info("rootTestNode : " + ((ExtendedNode)session.getItem(rootTestNode.getPath())).getACL().dump());
+      log.info("node: " + ((ExtendedNode)session.getItem(node.getPath())).getACL().dump());
+      log.info("subNode: " + ((ExtendedNode)session.getItem(subNode.getPath())).getACL().dump());
+      printRights(userSession, node.getPath());
+      printRights(managerSession, node.getPath());
+      printRights(userSession, subNode.getPath());
+      printRights(managerSession, subNode.getPath());
+   }
