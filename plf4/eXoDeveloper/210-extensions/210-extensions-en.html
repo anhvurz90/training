@@ -1,0 +1,1495 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>reveal.js - The HTML Presentation Framework</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<link rel="stylesheet" href="../../reveal/css/reveal.css">
+		<!--<link rel="stylesheet" href="../../reveal/css/theme/default.css" id="theme">-->
+		<link rel="stylesheet" href="../../reveal/exo/exo-theme.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="../../reveal/lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="../../reveal/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section data-state="chapter-title">
+					<div class="titles">
+						<h1>Configuration and Extensions</h1>
+						<h2>Basic Customization</h2>
+					</div>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<div class="speaker">eXo Platform Academy</div>
+					<div class="date">May 2013</div>
+				</section>
+
+				<section class="toc">
+					<h1>Agenda</h1>
+					<ol>
+						<li>Folder Structure</li>
+						<li>Configuration</li>
+						<li>Extension Concept</li>
+						<li>Service Configuration</li>
+					</ol>
+					
+					<aside class="notes">
+						Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
+					</aside>
+				</section>
+
+				<section data-state="chapter-transition">
+					<div class="titles">
+						<h1>Folder Structure</h1>
+						<h2></h2>
+					</div>
+				</section>
+
+				<section>
+					<h1>Folder Overview</h1>
+					<img src="images/01-folder-structure.png" style="float: right;width:300px"/>
+					<ul>
+						<li><b>Standard tomcat, but enhanced</b>
+							<ul>
+								<li>jars in tomcat/lib</li>
+								<li>wars in tomcat/webapps</li>
+								<li>declarations in conf/Catalina/</li>
+								<li>modified conf/server.xml</li>
+								<li>modified conf/jaas.config</li>
+								<li>start_eXo file</li>
+								<li>extension launcher and folder</li>
+								<li>bin/gatein file</li>
+								<li>new gatein folder</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+        
+				<section>
+					<h1>WebApps</h1>
+					<div style="float: right;">
+						<img src="images/02-webapps.png" style="width:211px"/>
+					</div>
+					<ul>
+						<li>About 60 webapps</li>
+						<li>Several webapps per project</li>
+					</ul>
+				</section>
+
+				<section>
+					<h1>Gatein Folder</h1>
+					<img src="images/03-gatein.png" style="float: right;width: 216px"/>
+					<ul>
+						<li>Configuration</li>
+						<li>Data</li>
+						<li>Index</li>
+						<li>Logs</li>
+					</ul>
+				</section>
+
+				<section>
+					<h1>Data Folder</h1>
+					<img src="images/04-data.png" style="float: right; width: 133px"/>
+					<ul>
+						<li><b>HSQL database</b>
+							<ul>
+								<li>Not for production</li>
+							</ul>
+						</li>
+						<li><b>Index</b>
+							<ul>
+								<li>Lucene index data</li>
+							</ul>
+						</li>
+						<li><b>Swap</b>
+							<ul>
+								<li>Temporary data</li>
+							</ul>
+						</li>
+						<li><b>Values</b>
+							<ul>
+								<li>Binary Data that is not stored in the database</li>
+							</ul>
+						</li>
+						<li><b>JTA</b>
+							<ul>
+								<li>Java Transaction API</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+
+				<section data-state="chapter-transition">
+					<div class="titles">
+						<h1>Configuration</h1>
+						<h2>A short Introduction</h2>
+					</div>
+				</section>
+        
+        		<section>
+					<h1>External Configuration</h1>
+					<ul>
+						<li>tomcat/gatein/conf/ and subfolders</li>
+						<li>Highest Priority</li>
+						<li>tomcat/gatein/conf/configuration.properties for SysAdmin properties</li>
+					</ul>
+					<br/>
+					<div style="text-align: center;"><img src="images/05-conf.png" style="width:220px"/></div>
+				</section>
+
+				<section>
+					<h1>Configuration Properties</h1>
+					<ul>
+						<li>tomcat/gatein/conf/configuration.properties</li>
+					</ul>
+					<pre><code class="properties" contenteditable>
+# Super User declaration
+exo.super.user=root
+
+# Security domain name: This variable controls the value of "portal.container.realm" too
+# i.e: ${portal.container.realm}=${exo.security.domain}
+# Take care to keep up-to-date java.security.auth.login.config ($CATALINA_BASE/conf/jaas.conf)
+exo.security.domain=gatein-domain
+
+# Create user dashboard while creating user identity
+gatein.portal.idm.createuserportal=false
+
+# Destroy user dashboard while deleting user identity
+gatein.portal.idm.destroyuserportal=true
+					</code></pre>
+				</section>        
+        
+				<section>
+					<h1>Configuration Properties</h1>
+					<ul>
+						<li><b>Boost eXo and augment the cache liveTimes !</b>
+							<ul>
+								<li>liveTimes are seconds: 600s = 10min</li>
+							</ul>
+						</li>
+					</ul>
+					<pre><code class="properties" contenteditable>###########################
+#
+# Caches
+#
+
+# == Gatein Caches Configuration == #
+
+# Portal Cache Configuration - MOP session Manager
+#  - Standalone (live time in seconds)
+gatein.cache.mop.maxsize=5000
+gatein.cache.mop.livetime=600
+#  - Cluster (expiration in milliseconds)
+gatein.cache.mop.maxnodes=5000
+gatein.cache.mop.expiration=600000
+
+# Portal Cache Configuration - Navigation Service
+#  - Standalone (live time in seconds)
+gatein.cache.navigation.maxsize=5000
+gatein.cache.navigation.livetime=600
+#  - Cluster (expiration in milliseconds)
+gatein.cache.navigation.maxnodes=5000
+gatein.cache.navigation.expiration=600000
+
+# Portal Cache Configuration - Description Service
+#  - Standalone (live time in seconds)
+gatein.cache.description.maxsize=5000
+gatein.cache.description.livetime=600
+#  - Cluster (expiration in milliseconds)
+gatein.cache.description.maxnodes=5000
+gatein.cache.description.expiration=600000
+
+# Portal Cache Configuration - Page Service
+#  - Standalone (live time in seconds)
+gatein.cache.page.maxsize=5000
+gatein.cache.page.livetime=600
+#  - Cluster (expiration in milliseconds)
+gatein.cache.page.maxnodes=5000
+gatein.cache.page.expiration=600000
+
+# Portal Cache Configuration - Template Service
+#  - Standalone (live time in seconds)
+cache.exo.portal.TemplateService.capacity=3000
+cache.exo.portal.TemplateService.liveTime=3600
+
+# Portal Cache Configuration - ResourceBundleData
+#  - Standalone (live time in seconds)
+cache.exo.portal.ResourceBundleData.capacity=3000
+cache.exo.portal.ResourceBundleData.liveTime=-1
+
+# == COMMONS Caches Configuration == #
+
+# Commons Cache Configuration - Settings Service
+#  - Standalone (live time in seconds)
+cache.exo.commons.SettingService.Capacity=2000
+cache.exo.commons.SettingService.TimeToLive=60000
+#  - Cluster (expiration in milliseconds)
+cache.exo.commons.SettingService.MaxNodes=2000
+cache.exo.commons.SettingService.ExpirationTimeout=6000000
+
+# == WCM Caches Configuration == #
+
+# WCM Cache Configuration - Query Service
+#  - Standalone (live time in seconds)
+#  - Cluster (expiration in milliseconds)
+wcm.cache.queryservice.maxnodes=5000
+wcm.cache.queryservice.expirationtimeout=600000
+
+# WCM Cache Configuration - Query Service
+#  - Standalone (live time in seconds)
+#  - Cluster (expiration in milliseconds)
+wcm.cache.managedrive.maxnodes=5000
+wcm.cache.managedrive.expirationtimeout=600000
+
+# WCM Cache Configuration - Script Service
+#  - Standalone (live time in seconds)
+wcm.cache.scriptservice.capacity=300
+wcm.cache.scriptservice.timetolive=86400
+
+# WCM Cache Configuration - Templates Service
+#  - Standalone (time to live in seconds)
+wcm.cache.templateservice.capacity=3000
+wcm.cache.templateservice.timetolive=86400
+
+# WCM Cache Configuration - Initial Webcontent
+#  - Standalone (time to live in seconds)
+wcm.cache.webcontent.initialwebcontentplugin.capacity=300
+wcm.cache.webcontent.initialwebcontentplugin.timetolive=86400
+
+# WCM Cache Configuration - Fragment Cache Service (Markup Cache)
+#  - Standalone (time to live in seconds)
+wcm.cache.fragmentcacheservice.capacity=10000
+wcm.cache.fragmentcacheservice.timetolive=30
+
+# WCM Cache Configuration - PDF Viewer Service
+#  - Standalone (time to live in seconds)
+wcm.cache.pdfviewer.capacity=1000
+wcm.cache.pdfviewer.timetolive=3600
+
+# WCM Cache Configuration - SEO Cache
+#  - Standalone (time to live in seconds)
+wcm.cache.seoservice.capacity=1000
+wcm.cache.seoservice.timetolive=3600
+
+# WCM Cache Configuration - Javascript Cache
+#  - Standalone (time to live in seconds)
+cache.exo.ecms.javascript.maxSize=1000
+cache.exo.ecms.javascript.liveTime=3600
+
+# WCM Cache Configuration - Composer
+#  - Standalone (time to live in seconds)
+wcm.cache.wcmcomposer.capacity=1000
+wcm.cache.wcmcomposer.timetolive=3600
+
+# == SOCIAL Caches Configuration == #
+
+# Social Cache Configuration - Identity
+#  - Standalone (time to live in seconds)
+cache.exo.social.IdentityCache.Capacity=500
+cache.exo.social.IdentityCache.TimeToLive=-1
+
+# Social Cache Configuration - Identity Index
+#  - Standalone (time to live in seconds)
+cache.exo.social.IdentityIndexCache.Capacity=500
+cache.exo.social.IdentityIndexCache.TimeToLive=-1
+
+# Social Cache Configuration - Profile
+#  - Standalone (time to live in seconds)
+cache.exo.social.ProfileCache.Capacity=500
+cache.exo.social.ProfileCache.TimeToLive=-1
+
+# Social Cache Configuration - Identities
+#  - Standalone (time to live in seconds)
+cache.exo.social.IdentitiesCache.Capacity=2000
+cache.exo.social.IdentitiesCache.TimeToLive=86400
+
+# Social Cache Configuration - Identities Count
+#  - Standalone (time to live in seconds)
+cache.exo.social.IdentitiesCountCache.Capacity=2000
+cache.exo.social.IdentitiesCountCache.TimeToLive=86400
+
+# Social Cache Configuration - Relationship
+#  - Standalone (time to live in seconds)
+cache.exo.social.RelationshipCache.Capacity=20000
+cache.exo.social.RelationshipCache.TimeToLive=-1
+
+# Social Cache Configuration - Relationship From Identity
+#  - Standalone (time to live in seconds)
+cache.exo.social.RelationshipFromIdentityCache.Capacity=20000
+cache.exo.social.RelationshipFromIdentityCache.TimeToLive=-1
+
+# Social Cache Configuration - Relationships Count
+#  - Standalone (time to live in seconds)
+cache.exo.social.RelationshipsCountCache.Capacity=800
+cache.exo.social.RelationshipsCountCache.TimeToLive=-1
+
+# Social Cache Configuration - Relationships
+#  - Standalone (time to live in seconds)
+cache.exo.social.RelationshipsCache.Capacity=800
+cache.exo.social.RelationshipsCache.TimeToLive=-1
+
+# Social Cache Configuration - Activity
+#  - Standalone (time to live in seconds)
+cache.exo.social.ActivityCache.Capacity=10000
+cache.exo.social.ActivityCache.TimeToLive=-1
+
+# Social Cache Configuration - Activities Count
+#  - Standalone (time to live in seconds)
+cache.exo.social.ActivitiesCountCache.Capacity=4000
+cache.exo.social.ActivitiesCountCache.TimeToLive=-1
+
+# Social Cache Configuration - Activities
+#  - Standalone (time to live in seconds)
+cache.exo.social.ActivitiesCache.Capacity=4000
+cache.exo.social.ActivitiesCache.TimeToLive=-1
+
+# Social Cache Configuration - Space
+#  - Standalone (time to live in seconds)
+cache.exo.social.SpaceCache.Capacity=1000
+cache.exo.social.SpaceCache.TimeToLive=-1
+
+# Social Cache Configuration - Space Ref
+#  - Standalone (time to live in seconds)
+cache.exo.social.SpaceRefCache.Capacity=10000
+cache.exo.social.SpaceRefCache.TimeToLive=-1
+
+# Social Cache Configuration - Spaces Count
+#  - Standalone (time to live in seconds)
+cache.exo.social.SpacesCountCache.Capacity=4000
+cache.exo.social.SpacesCountCache.TimeToLive=86400
+
+# Social Cache Configuration - Spaces
+#  - Standalone (time to live in seconds)
+cache.exo.social.SpacesCache.Capacity=1000
+cache.exo.social.SpacesCache.TimeToLive=86400
+
+# == FORUM Caches Configuration == #
+
+# Forum Cache Configuration - User Profiles
+#  - Standalone (time to live in seconds)
+cache.exo.forum.UserProfiles.Capacity=500
+cache.exo.forum.UserProfiles.TimeToLive=-1
+
+# Forum Cache Configuration - Category List
+#  - Standalone (time to live in seconds)
+cache.exo.forum.CategoryList.Capacity=50
+cache.exo.forum.CategoryList.TimeToLive=-1
+
+# Forum Cache Configuration - Category Data
+#  - Standalone (time to live in seconds)
+cache.exo.forum.CategoryData.Capacity=150
+cache.exo.forum.CategoryData.TimeToLive=-1
+
+# Forum Cache Configuration - Forum List
+#  - Standalone (time to live in seconds)
+cache.exo.forum.ForumList.Capacity=500
+cache.exo.forum.ForumList.TimeToLive=-1
+
+# Forum Cache Configuration - Forum Data
+#  - Standalone (time to live in seconds)
+cache.exo.forum.ForumData.Capacity=2500
+cache.exo.forum.ForumData.TimeToLive=-1
+
+# Forum Cache Configuration - Topic Data
+#  - Standalone (time to live in seconds)
+cache.exo.forum.TopicData.Capacity=500
+cache.exo.forum.TopicData.TimeToLive=-1
+
+# Forum Cache Configuration - Watch List Data
+#  - Standalone (time to live in seconds)
+cache.exo.forum.WatchListData.Capacity=500
+cache.exo.forum.WatchListData.TimeToLive=-1
+
+# Forum Cache Configuration - Link List Data
+#  - Standalone (time to live in seconds)
+cache.exo.forum.LinkListData.Capacity=250
+cache.exo.forum.LinkListData.TimeToLive=-1
+
+# Forum Cache Configuration - Object Name Data
+#  - Standalone (time to live in seconds)
+cache.exo.forum.ObjectNameData.Capacity=500
+cache.exo.forum.ObjectNameData.TimeToLive=-1
+
+# Forum Cache Configuration - Misc Data
+#  - Standalone (time to live in seconds)
+cache.exo.forum.MiscData.Capacity=600
+cache.exo.forum.MiscData.TimeToLive=-1
+
+# == WIKI Caches Configuration == #
+
+# Wiki Cache Configuration - Spaces
+#  - Standalone (time to live in seconds)
+cache.exo.wiki.PageRenderingCache.Capacity=1000
+cache.exo.wiki.PageRenderingCache.TimeToLive=-1
+
+# == CALENDAR Caches Configuration == #
+
+# Calendar Cache Configuration - Group Calendar
+#  - Standalone (time to live in seconds)
+cache.exo.calendar.GroupCalendarCache.Capacity=1000
+cache.exo.calendar.GroupCalendarCache.TimeToLive=3600
+					</code></pre>
+
+				</section>        
+
+				<section>
+					<h1>Datasource</h1>
+					<ul>
+						<li>The datasource is managed by the application server (tomcat)</li>
+						<li>eXo accesses the datasources using JNDI lookup</li>
+						<li>IDM : Identity Management (Organization: Users and Groups)</li>
+					</ul>
+
+					<pre><code class="properties" contenteditable>###########################
+#
+# Datasources
+#
+
+# JNDI Name of the IDM datasource
+# portal name will be appended to this name before the JNDI lookup
+# example : java:/comp/env/exo-idm in "portal" portal will result in a JNDI lookup on context : java:/comp/env/exo-idm_portal
+gatein.idm.datasource.name=java:/comp/env/exo-idm
+
+# Optional database schema for use with IDM tables (empty by default), uncomment this line to specify required schema name
+#gatein.idm.datasource.schema=EXO1
+
+# name of the datasource that will be used by eXo JCR
+# portal name will be appended to this name before the JNDI lookup
+# example : java:/comp/env/exo-jcr in "portal" portal will result in a JNDI lookup on context : java:/comp/env/exo-jcr_portal
+gatein.jcr.datasource.name=java:/comp/env/exo-jcr
+
+# indicates if the jcr datasource is using managed transactions.
+# false by default.
+#gatein.jcr.datasource.managed=true
+
+# JCR dialect.
+# auto : enabled auto detection
+gatein.jcr.datasource.dialect=auto
+					</code></pre>
+
+
+				</section>
+
+				<section>
+					<h1>Datasource</h1>
+					<ul>
+						<li>In tomcat/conf/server.xml is the JNDI Resource configuration</li>
+					</ul>
+
+					<pre><code class="xml" contenteditable>&lt;!-- eXo JCR Datasource for portal --&gt;
+&lt;Resource name="exo-jcr_portal" auth="Container" type="javax.sql.DataSource"
+              initialSize="5" maxActive="20" minIdle="5" maxIdle="15" maxWait="10000"
+              validationQuery="SELECT 1 FROM INFORMATION_SCHEMA.SYSTEM_USERS" validationQueryTimeout="5"
+              testWhileIdle="true" testOnBorrow="true" testOnReturn="false"
+              timeBetweenEvictionRunsMillis="30000" minEvictableIdleTimeMillis="60000"
+              removeAbandoned="true" removeAbandonedTimeout="300" logAbandoned="false"
+              poolPreparedStatements="true"
+              username="sa" password="" driverClassName="org.hsqldb.jdbcDriver" 
+              url="jdbc:hsqldb:file:${gatein.data.dir}/hsql/exo-plf;shutdown=true;hsqldb.write_delay=false;"/&gt;</code></pre>
+
+					<div style="float:right;"><img src="images/06-datasource.png" style="width:174px"/></div>
+					<ul>
+						<li><b>Remarks</b>
+							<ul>
+								<li>At the first startup the tables are created</li>
+								<li>The provided user has to have permissions for table creation</li>
+								<li>After the first startup the permission can be removed</li>
+							</ul>
+						</li>
+					</ul>
+
+				</section> 
+
+				<section>
+					<h1>Controller</h1>
+					<ul>
+						<li>New concept since eXo Platform 3.5</li>
+						<li>URL composition</li>
+						<li>"/portal/" cannot be altered or removed</li>
+						<li>tomcat/gatein/conf/controller.xml</li>
+					</ul>
+					<br/>
+					<div style="text-align: center;">
+						<img src="images/07-url-se.png" style="width:444px"/>
+						<br/>
+						<img src="images/08-controller.png" style="width:225px"/>
+					</div>
+				</section>
+
+				<section>
+					<h1>Controller</h1>
+					<div style="text-align: center;">
+						<img src="images/07-url-se.png" style="width:444px"/>
+						<br/>
+					<pre><code class="xml" contenteditable><route path="/">
+
+	<!-- The portal handler -->
+	<route-param qname="gtn:handler">
+	  <value>portal</value>
+	</route-param>
+
+	<!-- The group access -->
+	<route path="/g/{gtn:sitename}/{gtn:path}">
+	  <request-param qname="gtn:lang" name="lang" value-mapping="never-empty">
+	    <pattern>([A-Za-z]{2}(-[A-Za-z]{2})?)?</pattern>
+	  </request-param>
+	  <route-param qname="gtn:sitetype">
+	    <value>group</value>
+	  </route-param>
+	  <path-param qname="gtn:path" encoding="preserve-path">
+	    <pattern>.*</pattern>
+	  </path-param>
+	</route>
+
+	<!-- The user access -->
+	<route path="/u/{gtn:sitename}/{gtn:path}">
+	  <request-param qname="gtn:lang" name="lang" value-mapping="never-empty">
+	    <pattern>([A-Za-z]{2}(-[A-Za-z]{2})?)?</pattern>
+	  </request-param>
+	  <route-param qname="gtn:sitetype">
+	    <value>user</value>
+	  </route-param>
+	  <path-param qname="gtn:path" encoding="preserve-path">
+	    <pattern>.*</pattern>
+	  </path-param>
+	</route>
+
+	<!-- The portal access -->
+	<route path="/{gtn:lang}/{gtn:sitename}/{gtn:path}">
+	  <route-param qname="gtn:sitetype">
+	    <value>portal</value>
+	  </route-param>
+	  <path-param qname="gtn:lang" encoding="preserve-path">
+	    <pattern>([A-Za-z]{2}(-[A-Za-z]{2})?)?</pattern>
+	  </path-param>
+	  <path-param qname="gtn:path" encoding="preserve-path">
+	    <pattern>.*</pattern>
+	  </path-param>
+	</route>
+</route></code></pre>
+
+					</div>
+				</section>
+
+				<section>
+					<h1>Exercise: Configuration</h1>
+					<ul>
+						<li><b>Controller</b>
+							<ul>
+								<li>Find where the language is defined in controller.xml</li>
+								<li>Test out French: http://localhost:8080/portal/fr/acme/</li>
+								<li>Test out group pages with a “lang” parameter</li>
+							</ul>
+						</li>
+						<li><b>Stop the server</b></li>
+						<li><b>Boost eXo Cache</b>
+							<ul>
+								<li>Open tomcat/gatein/conf/configuration.properties</li>
+								<li>Search for liveTime=600 and set them to 99000</li>
+							</ul>
+						</li>
+						<li><b>Start the server</b></li>
+						<li><b>Extra: Modify user the page pattern in controller.xml</b></li>
+						<li><b>Extra: If you have a database on hand create, modify tomcat/conf/server.xml in order to point to your database</b></li>
+					</ul>
+				</section>
+ 
+				<section data-state="chapter-transition">
+					<div class="titles">
+						<h1>Extension Concept</h1>
+						<h2>A War + Activation Jar</h2>
+					</div>				
+				</section> 
+
+				<section>
+					<h1>Reason</h1>            
+					<ul>
+						<li><b>Support</b>
+							<ul>
+								<li>Avoids modifying source code in eXo deliveries</li>
+								<li>No support from eXo for modified code</li>
+							</ul>
+						</li>
+						<br />
+						<li><b>Advantages</b>
+							<ul>
+								<li>Easy migration to new version</li>
+								<li>Easy application of patches from eXo support</li>
+								<li>Clear limit between eXo’s code and customer’s code</li>
+								<li>Like a PlugIn that you re-apply after each migration</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<h1>Concept</h1>            
+					<ul>
+						<li><b>Allows to customize</b>
+							<ul>
+								<li>HTML, CSS, Javascript, JSP</li>
+								<li>Groovy Templates</li>
+								<li>Configuration</li>
+								<li>Internationalization</li>
+							</ul>
+						</li>
+						<br />
+						<li><b>A war file</b>
+							<ul>
+								<li>Contains all customization files</li>
+								<li>You can overwrite/replace files contained in other wars</li>
+								<li>Use the exact same path and name</li>
+							</ul>
+						</li>
+						<br />
+						<li><b>An activation jar</b>
+							<ul>
+								<li>Declares your war as eXo extension</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				
+				<section>
+					<h1>War Project</h1>            
+					<ul>
+						<li><b>Customizations</b>
+							<ul>
+								<li>Put all your customizations in a war file</li>
+								<li>If you wish to override, use the exact same path and file name</li>
+							</ul>
+						</li>
+						<br />
+						<li><b>web.xml</b>
+							<ul>
+								<li>Define the name of your extension in the tag "display-name"</li>
+								<li>The name of the war file does NOT matter</li>
+								<li>Declare the listener PortalContainerConfigOwner</li>
+							</ul>
+						</li>
+						<br />
+					</ul>
+					<pre><code contenteditable>  &lt;display-name>bike-extension&lt;/display-name></code></pre>
+					<pre><code contenteditable>  &lt;listener-class>
+    org.exoplatform.container.web.PortalContainerConfigOwner
+  &lt;/listener-class></code></pre>
+				</section>
+        
+				<section>
+				    <h1>Activation JAR</h1>            
+					<ul>
+						<li><b>configuration.xml</b>
+							<ul>
+						<img src="images/09-configuration.png" style="float: right;top: -60px;margin-top: -3%;width: 212px"/>
+								<li>The JAR contains exactly one file in the folder "/conf"</li>
+								<li>Name: configuration.xml</li>
+							</ul>
+						</li>
+						<li><b>Activate the war</b>
+							<ul>
+								<li>Service: org.exoplatform.container.definition. PortalContainerConfig</li>
+								<li>Point to the name of the extension, defined in the web.xml tag "display-name"</li>
+							</ul>
+						</li>
+					</ul>
+					<pre><code contenteditable>&lt;object type="org.exoplatform.container.definition.PortalContainerDefinitionChange$AddDependencies">
+  &lt;!-- The list of names of the dependencies to add -->
+  &lt;field name="dependencies">
+    &lt;collection type="java.util.ArrayList">
+      &lt;value>
+        &lt;string>bike-extension&lt;/string>
+      &lt;/value>
+    &lt;/collection>
+  &lt;/field>
+&lt;/object></code></pre>
+				</section>
+
+				<section>
+					<h1>Deployment</h1>            
+					<ul>
+						<li><b>Tomcat</b>
+							<ul>
+								<li>Stop tomcat</li>
+								<li>Copy the jar to tomcat/lib</li>
+								<li>Copy the war to tomcat/webapps</li>
+							</ul>
+						</li>
+						<!-- NOT NEEDED IN PLF4 IMO
+						br />
+						<li><b>Tomcat loading order</b>
+							<ul>
+								<li>You extension must be load before the starter.war</li>
+								<li>To ensure this declare your extension</li>
+								<li>Declare the bike-extension in tomcat/conf/catalina/localhost/</li>
+							</ul>
+						</li>
+						<pre><code contenteditable>&lt;Context path="/bike-extension" docBase="bike-extension"
+     debug="0" reloadable="true" crossContext="true"></Context></code></pre>				
+     						-->
+					</ul>
+					<ul>
+						<li><b>JBoss</b>
+							<ul>
+								<li>In JBoss, create a ear containing the war and jar and deploy it</li>
+							</ul>
+						</li>
+					</ul>			
+				</section>
+
+				<section>
+					<h1>Test</h1>            
+					<ul>
+						<li><b>Testing</b>
+							<ul>
+								<li>After copying the war and jar you can test the extension</li>
+								<li>Restart tomcat</li>
+								<li>When re-deploying a modified war, stop tomcat and restart</li>
+								<li>By default, war file are not unpacked in the webapps folder</li>
+							</ul>
+						</li>				
+					</ul>		
+				</section>
+
+				<section data-state="chapter-transition">
+					<div class="titles">
+						<h1>Extension Exercise</h1>
+						<h2>A War + Activation Jar</h2>
+					</div>				
+				</section>
+
+				<section>
+					<h1>Extension Exercise Overview</h1>            
+					<ul>
+						<li><b>In this exercise you will</b>
+							<ul>
+								<li>Modify the Admin Tool Bar</li>
+								<li>Alter the login interface</li>
+								<li>Add a language</li>
+							</ul>
+						</li>
+						<br/>
+						<li><b>Maven</b>
+							<ul>
+								<li>Go to the folder with pom.xml and execute "mvn clean install"</li>
+								<li>If you are online maven will download a lot of files</li>
+								<li>Alternatively you can use the provided repository</li>
+							</ul>
+						</li>
+					</ul>		
+				</section>
+
+				<section>
+					<h1>Admin Tool Bar Configuration</h1>            
+					<ul>
+						<li><b>Current Admin Tool Bar configuration:</b>
+							<ul>
+								<li>webapps\platform-extension\WEB-INF\conf\portal\portal\sharedlayout.xml</li>
+							</ul>
+						</li>
+						<div style="text-align: center;"><img src="images/10-toolbar.png" style="width: 807px"/></div>
+						<li><b>Overriden in your extension:</b>
+							<ul>
+								<li>bike-extension\WEB-INF\conf\portal\portal\sharedlayout.xml</li>
+							</ul>
+						</li>
+						<li><b>In “sharedlayout.xml“:</b>
+							<ul>
+								<li>definition of several portlets</li>
+								<li>each entry in the Admin Tool Bar is a small portlet</li>
+								<li>The file configures the order of these entries in the tool bar</li>
+							</ul>
+						</li>
+						<div style="text-align: center;"><img src="images/11-sharedlayout.png" style="width:217px"/></div>
+					</ul>		
+				</section>
+				
+				<section>
+					<h1>Admin Tool Bar Configuration</h1>            
+					<div style="text-align: center;">
+						<br/>
+						<img src="images/12-quick.png" style="width: 731px"/>
+						<br/>
+<pre><code class="xml" contenteditable><container id="UICreatePlatformToolBarPortletID" template="system:/groovy/portal/webui/container/UIContainer.gtmpl">
+    <access-permissions>*:/platform/users</access-permissions>
+    <portlet-application>
+        <portlet>
+            <application-ref>platformNavigation</application-ref>
+            <portlet-ref>UICreatePlatformToolBarPortlet</portlet-ref>
+        </portlet>
+        <access-permissions>*:/platform/users</access-permissions>
+        <show-info-bar>false</show-info-bar>
+    </portlet-application>
+</container>
+</code></pre>
+
+					</div>
+				</section>
+				
+				<section>
+					<h1>Admin Tool Bar Configuration</h1>            
+					<div style="text-align: center;">
+						<br/>
+						<img src="images/12-quick.png" style="width: 731px"/>
+						<br/>
+<pre><code class="xml" contenteditable><container id="UICreatePlatformToolBarPortletID" template="system:/groovy/portal/webui/container/UIContainer.gtmpl">
+    <!-- Restricted to Contributors -->
+    <access-permissions>*:/platform/web-contributors</access-permissions>
+    <portlet-application>
+        <portlet>
+            <application-ref>platformNavigation</application-ref>
+            <portlet-ref>UICreatePlatformToolBarPortlet</portlet-ref>
+        </portlet>
+        <access-permissions>*:/platform/users</access-permissions>
+        <show-info-bar>false</show-info-bar>
+    </portlet-application>
+</container>
+</code></pre>
+					</div>
+				</section>
+
+				<section>
+					<h1>Maven Offline Repository</h1>            
+					<ul>
+						<li><b>Install Maven</b></li>
+						<li><b>Open the project file "…/exercises/custom-extension/1-project"</b></li>
+						<li><b>Execute "mvn clean" in the shell</b>
+							<ul>
+								<li>There will be errors (if you are offline),</li>
+								<li>If you are online, there will be downloads,</li>
+								<li>If you wish to work without downloads, you should stop the execution.</li>
+							</ul>
+						</li>
+						<li><b>Use the prepared Maven repository</b>
+							<ul>
+								<li>Copy maven-repository.zip to §HOME/$username/.m2/</li>
+								<li>Rename (or delete) the existing folder named "repository"</li>
+								<li>Unzip maven-repository.zip</li>
+								<li>Execute "mvn clean" in the shell</li>
+								<li>No more errors or downloads, because the delivered repository is used</li>
+							</ul>
+						</li>
+					</ul>		
+				</section>
+
+				<section>
+					<h1>Exercise: Custom Extension 1/3</h1>            
+					<ul>
+						<li><b>Open exercise …/custom-extension/</b></li>
+						<li><b>Copy the sharedlayout from the webapps/platform-extension</b>
+							<ul>
+								<li>exercises/custom-extension/1-project/war/src/main/webapp/WEB-INF/conf/portal/portalWEB-INF/conf/portal/portal/sharedlayout.xml</li>
+							</ul>
+						</li>
+						<li><b>Change the order of the portlets in the Admin Tool Bar</b>
+							<ul>
+								<li>Move the container around the Unified Search portlet after the container of the Quick Edit portlet</li>
+								<li>.../exercises/custom-extension/1-project/war/src/main/webapp/WEB-INF/conf/portal/portal/sharedlayout.xml</li>
+							</ul>
+						</li>
+						<li><b>In order to be faster, integrate the next two customizations before compiling and starting eXo</b></li>
+					</ul>		
+				</section>
+
+				<section>
+					<h1>Exercise: Custom Extension 2/3</h1>            
+					<ul>
+						<li><b>Use the same project folder:</b>
+							<ul>
+								<li>.../custom-extension/1-project/war/src/main/webapp</li>
+							</ul>
+						</li>
+						<li><b>Create your own version of the jsp file</b>
+							<ul>
+								<li>Copy tomcat/webapps/platform-extension\login\jsp\login.jsp to your project (path: exercises/custom-extension/1-project/war/src/main/webapp/login/jsp)</li>
+								<li>Add “Welcome to the Bike Shop” to the jsp</li>
+							</ul>
+						</li>
+						<li><b>Remember: You have to copy login.jsp to the exact same path in your bike-extension</b></li>
+					</ul>		
+				</section>
+
+				<section>
+					<h1>Exercise: Custom Extension 3/3</h1>            
+					<ul>
+						<li><b>Copy</b>
+							<ul>
+								<li>.../tomcat/webapps/portal/WEB-INF/conf/common/locales-config.xml to exact .../exercises/custom-extension/1-project/war/src/main/webapp/WEB-INF/conf/common/locales-config.xml </li>
+							</ul>
+						</li>
+						<li><b>Add Afrikaans language (“af“) to locales-config.xml</b></li>
+					</ul>		
+				</section>
+
+				<section>
+					<h1>Exercise: Deploy and Test!</h1>            
+					<ul>
+						<li><b>Open .../exercises/custom-extension/1-project and execute "mvn clean install"</b></li>
+						<li><b>Copy</b>
+							<ul>
+								<li>Copy the compiled war (.../1-project/war/target/bike-extension.war) to the tomcat/webapps folder</li>
+								<li>Copy the compiled jar (.../1-project/config/target) file to the tomcat/lib folder</li>
+							</ul>
+						</li>
+						<li><b>Start eXo</b></li>
+							<ul>
+								<li>Use "start_eXo.sh --dev" if you want to unpack the wars</li>
+							</ul>
+						<li><b>Test !</b>
+							<ul>
+								<li>At login you should see the modified login.jsp (http://localhost:8080/portal/intranet)</li>
+								<li>After login you should see modified Admin Tool Bar</li>
+								<li>Click on change language and you should see Afrikaans in the list</li>
+							</ul>
+						</li>
+					</ul>		
+				</section>
+
+				<section data-state="chapter-transition">
+					<div class="titles">
+						<h1>Services</h1>
+					</div>				
+				</section>
+
+				<section>
+					<h1>Introduction</h1>
+					<ul>
+						<li>Services are java classes with a defined API</li>
+						<li>Services are deployed to the tomcat/lib folder</li>
+						<li>A service can have a default configuration
+							<ul>
+								<li>In the jar: /conf/configuration.xml</li>
+							</ul>
+						</li>
+					</ul>
+					<br/>
+					<div style="text-align: center;"><img src="images/13-lib.png" style="width:357px"/></div>
+				</section> 
+
+				<section>
+					<h1>Service Keywords</h1>            
+					<ul>
+						<li><b>Inversion of Control</b></li>
+						<li><b>eXo uses the PicoContainer framework</b>
+							<ul>
+								<li>In PicoContainer services are referenced as "Components"</li>
+							</ul>
+						</li>
+						<li><b>eXo Container (based on a PicoContainer)</b>
+							<ul>
+								<li>Reads the configuration files and creates exactly one instance of each service (singleton pattern)</li>
+							</ul>
+						</li>
+						<li><b>The consumer of a service</b>
+							<ul>
+								<li>Does not create an instance (... new myService())</li>
+								<li>Calls the exoContainer to provide a reference to the requested service</li>
+							</ul>
+						</li>
+					</ul>		
+				</section>
+
+				<section>
+					<h1>Service Keywords</h1>            
+					<ul>
+						<li><b>Interface – Implementation</b>
+							<ul>
+								<li>A service is defined by the java interface</li>
+								<li>A service can have different implementations</li>
+								<li>Only one implementation can be used during runtime</li>
+								<li>The configuration files define which implementation is used</li>
+							</ul>
+						</li>
+						<li><b>Singleton</b>
+							<ul>
+								<li>Each service is created only once (new myService())</li>
+								<li>The exoContainer holds the reference to this instance</li>
+								<li>When requested, the consumer receives the reference</li>
+							</ul>
+						</li>
+					</ul>		
+				</section>
+
+				<section>
+					<h1>Service Configuration</h1>
+						<ul>
+							<li><b>To declare a service to the eXo Container</b>
+								<ul>
+									<li>you must add an xml configuration to a specific place</li>
+									<li>jar, webapp or external configuration</li>
+									<li>eXoContainer reads the files named "configuration.xml"</li>
+									<li>These files contain very often imports of other configuration files</li>
+								</ul>
+							</li>
+						</ul>
+<pre><code class="xml" contenteditable style="height:320px;"><?xml version="1.0" encoding="UTF-8"?>
+<configuration
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://www.exoplatform.org/xml/ns/kernel_1_2.xsd http://www.exoplatform.org/xml/ns/kernel_1_2.xsd"
+   xmlns="http://www.exoplatform.org/xml/ns/kernel_1_2.xsd">
+
+
+  <!-- builtin configuration -->
+  <import>war:/conf/platform/jcr-configuration.xml</import>
+  <import>war:/conf/platform/dms/dms-configuration.xml</import>
+  <import>war:/conf/platform/dms/dms-ext-configuration.xml</import>
+	<import>war:/conf/dms-extension/dms/dms-drives-configuration.xml</import>
+	<import>war:/conf/dms-extension/dms/dms-views-configuration.xml</import>  
+  <!-- portal templates configuration-->
+  <import>war:/conf/platform/portal/portal-configuration.xml</import>
+  <!-- Add Favicon filter-->
+  <import>war:/conf/platform/portal/web-filter-configuration.xml</import>
+
+  <import>war:/conf/platform/portal/resource-bundle-configuration.xml</import>
+  <!-- Add portal templates artifacts -->
+  <import>war:/conf/platform/wcm/deployment/template-empty-deployment-configuration.xml</import>
+
+  <!-- Redefine TransactionService timeout-->
+  <import>war:/conf/platform/common/common-configuration.xml</import>
+  
+  <import>war:/conf/platform/upgrade/upgrade-configuration.xml</import>
+  <import>war:/conf/platform/cache-configuration.xml</import>
+  
+  <import>war:/conf/platform/application-registry-configuration.xml</import>
+  
+  <!-- Redefine Authoring dashboard-->
+  <import>war:/conf/authoring/authoring-configuration.xml</import>
+
+  <import>war:/conf/welcome-screens/account-setup/account-setup-configuration.xml</import>
+</configuration>
+</code></pre>
+				</section> 
+
+				<section>
+					<h1>Configuration Priority</h1>            
+					<ul>
+						<li style="list-style-image: none;list-style-type: decimal;"><b>Default configuration inside of jar files</b>
+							<ul>
+								<li>/conf/portal/configuration.xml</li>
+							</ul>
+						</li>
+						<li style="list-style-image: none;list-style-type: decimal;"><b>Webapp configuration inside of war files</b>
+							<ul>
+								<li>/WEB-INF/conf/configuration.xml</li>
+							</ul>
+						</li>
+						<li style="list-style-image: none;list-style-type: decimal;"><b>External configuration</b>
+							<ul>
+								<li>/tomcat/gatein/conf/portal/portal/configuration.xml</li>
+							</ul>
+						</li>
+						<br/>
+						<br/>
+						<li>The external configuration overwrites everything</li>
+						<li>The configuration.xml files are read automatically</li>
+						<li>A configuration.xml can import other configuration files</li>
+					</ul>		
+				</section>
+
+				<section>
+					<h1>Service Configuration</h1>
+					<ul>
+						<li><b>The registration of a service</b>
+							<ul>
+								<li>done with the &lt;component&gt; elements</li>
+								<li>You have to define a service, otherwise the service is not known by the eXoContainer</li>
+							</ul>
+						</li>
+						<li><b>Interface: defined by &lt;key&gt;</b></li>
+						<li><b>Implementation: defined by &lt;type&gt;</b></li>
+						<li><b>Example</b>
+							<ul>
+								<li>tomcat/webapps/portal/web-inf/conf/mail/portal-mail-configuration.xml</li>
+							</ul>
+						</li>
+					</ul>
+<pre><code class="xml" contenteditable style="height:150px;"><component>
+    <key>org.exoplatform.services.mail.MailService</key>
+    <type>org.exoplatform.services.mail.impl.MailServiceImpl</type>
+    <init-params>
+      <properties-param>
+        <name>config</name>
+        <property name="mail.smtp.auth.username" value="${gatein.email.smtp.username}"/>
+        <property name="mail.smtp.auth.password" value="${gatein.email.smtp.password}"/>
+        <property name="mail.smtp.host" value="${gatein.email.smtp.host}"/>
+        <property name="mail.smtp.port" value="${gatein.email.smtp.port}"/>
+        <property name="mail.smtp.starttls.enable" value="${gatein.email.smtp.starttls.enable}"/>
+        <property name="mail.smtp.auth" value="${gatein.email.smtp.auth}"/>
+        <property name="mail.smtp.debug" value="false"/>
+        <property name="mail.smtp.socketFactory.port" value="${gatein.email.smtp.socketFactory.port}"/>
+        <property name="mail.smtp.socketFactory.class" value="${gatein.email.smtp.socketFactory.class}"/>
+        <property name="mail.smtp.socketFactory.fallback" value="false"/>
+      </properties-param>
+    </init-params>
+</component>	
+</code></pre>
+				</section> 
+
+				<section>
+					<h1>Service Reference</h1>
+					<ul>
+						<li><b>A service is always referenced by its interface (&lt;key&gt;), not by the implementation (&lt;type&gt;)</b></li>
+						<br/>
+						<li><b>Example</b>
+							<ul>
+								<li>tomcat/webapps/portal/web-inf/conf/mail/portal-mail-configuration.xml</li>
+							</ul>
+						</li>
+					</ul>
+<pre><code class="xml" contenteditable style="height:300px;"><component>
+    <key>org.exoplatform.services.mail.MailService</key>
+    <type>org.exoplatform.services.mail.impl.MailServiceImpl</type>
+    <init-params>
+      <properties-param>
+        <name>config</name>
+        <property name="mail.smtp.auth.username" value="${gatein.email.smtp.username}"/>
+        <property name="mail.smtp.auth.password" value="${gatein.email.smtp.password}"/>
+        <property name="mail.smtp.host" value="${gatein.email.smtp.host}"/>
+        <property name="mail.smtp.port" value="${gatein.email.smtp.port}"/>
+        <property name="mail.smtp.starttls.enable" value="${gatein.email.smtp.starttls.enable}"/>
+        <property name="mail.smtp.auth" value="${gatein.email.smtp.auth}"/>
+        <property name="mail.smtp.debug" value="false"/>
+        <property name="mail.smtp.socketFactory.port" value="${gatein.email.smtp.socketFactory.port}"/>
+        <property name="mail.smtp.socketFactory.class" value="${gatein.email.smtp.socketFactory.class}"/>
+        <property name="mail.smtp.socketFactory.fallback" value="false"/>
+      </properties-param>
+    </init-params>
+</component>	
+</code></pre>
+				</section> 
+
+				<section>
+					<h1>Configuration Parameters</h1>
+					<ul>
+						<li><b>A service can be configured using parameters</b></li>
+						<li><b>Each services defines the parameters it interpretes</b></li>
+					</ul>
+<pre><code class="xml" contenteditable ><component>
+    <key>org.exoplatform.services.resources.LocaleConfigService</key>
+    <type>org.exoplatform.services.resources.impl.LocaleConfigServiceImpl</type>
+    <init-params>
+      <value-param>
+        <name>locale.config.file</name>
+        <value>war:/conf/common/locales-config.xml</value>
+      </value-param>
+    </init-params>
+  </component>
+</code></pre>
+
+				</section> 
+
+				<section>
+					<h1>Complex Parameters</h1>
+
+<pre><code class="xml" contenteditable ><component>
+    <key>org.exoplatform.services.cache.CacheService</key>
+    <jmx-name>cache:type=CacheService</jmx-name>
+    <type>org.exoplatform.services.cache.impl.CacheServiceImpl</type>
+    <init-params>
+      <object-param>
+        <name>cache.config.default</name>
+        <description>The default cache configuration</description>
+        <object type="org.exoplatform.services.cache.ExoCacheConfig">
+          <field name="name">
+            <string>default</string>
+          </field>
+          <field name="maxSize">
+            <int>${gatein.cache.default.maxsize:300}</int>
+          </field>
+          <field name="liveTime">
+            <long>${gatein.cache.default.livetime:600}</long>
+          </field>
+          <field name="distributed">
+            <boolean>false</boolean>
+          </field>
+          <field name="implementation">
+            <string>org.exoplatform.services.cache.concurrent.ConcurrentFIFOExoCache</string>
+          </field>
+        </object>
+      </object-param>
+    </init-params>
+  </component>
+</code></pre>
+
+				</section> 
+
+				<section>
+					<h1>Configuration Plugin</h1>
+					<ul>
+						<li><b>Services can provide plugins</b>
+							<ul>
+								<li>Methods of the service</li>
+								<li>Allows to add configuration without repeating the other configuration</li>
+							</ul>
+						</li>
+					</ul>
+
+<pre><code class="xml" contenteditable ><external-component-plugins>
+    <target-component>org.exoplatform.services.organization.OrganizationService</target-component>
+    <component-plugin>
+      <name>user.portal.config.listener</name>
+      <set-method>addListenerPlugin</set-method>
+      <type>org.exoplatform.portal.config.UserPortalConfigListener</type>
+    </component-plugin>
+    <component-plugin>
+      <name>group.portal.config.listener</name>
+      <set-method>addListenerPlugin</set-method>
+      <type>org.exoplatform.portal.config.GroupPortalConfigListener</type>
+    </component-plugin>
+  </external-component-plugins>
+</code></pre>
+
+				</section>
+
+				<section data-state="chapter-transition">
+					<div class="titles">
+						<h1>Configuration Profiles</h1>
+					</div>				
+				</section>
+
+				<section>
+					<h1>Configuration Profiles</h1>
+					<ul>
+						<li><b>Each profile activates certain configurations</b></li>
+						<li><b>Java System Variable exo.profiles</b></li>
+						<li><b>Example in tomcat/bin/setenv-customize.sample.sh :</b></li>
+<pre><code class="properties" contenteditable style="height:300px;"># -----------------------------------------------------------------------------
+#
+# Settings customisation
+#
+# Refer to eXo Platform Administrators Guide for more details.
+# http://docs.exoplatform.com
+#
+# -----------------------------------------------------------------------------
+# You have 2 ways to customize your installation settings :
+# 1- Rename the file setenv-customize.sample.sh to setenv-customize.sh and uncomment/change values below
+# 2- Use system environment variables of your system or local shell
+# -----------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
+# JVM configuration
+# -----------------------------------------------------------------------------
+
+# Home directory of the JVM to use (Default : try to auto-compute it from existing java executable in path by default)
+#JAVA_HOME=/opt/java/jdk6
+
+# Use EXO_JVM_VENDOR="IBM" with J9 JVMs (Default : "ORACLE")
+#EXO_JVM_VENDOR="IBM"
+
+# Maximum Heap Size to use (Default : 2g)
+#EXO_JVM_SIZE_MAX=1g
+
+# Minimum Heap Size to use (Default : 512m)
+#EXO_JVM_SIZE_MIN=1g
+
+# Size of the Permanent Generation. (Default : 256m)
+#EXO_JVM_PERMSIZE_MAX=128m
+
+# Default locale language
+#EXO_JVM_USER_LANGUAGE="fr"
+
+# Default locale region
+#EXO_JVM_USER_REGION="FR"
+
+# Loads in-process debugging libraries to attach a debugger (true with --debug option on start_eXo.sh script)
+#EXO_DEBUG=true
+
+# Listening port for the debugger
+#EXO_DEBUG_PORT=8000
+
+# -----------------------------------------------------------------------------
+# PLATFORM configuration
+# -----------------------------------------------------------------------------
+
+# eXo Platform comes with different runtime profiles, enabling you to customize which modules you want to enable/disable
+#EXO_PROFILES="default,cluster,cluster-index-local"
+
+# Assets versions used in static resources URLs. Useful to manage caches. (Default: The product version)
+#EXO_ASSETS_VERSION=42
+
+# Main directory where are stored all data (Default: ${CATALINA_BASE}/gatein/data) (also available with --data <path> option on start_eXo.sh script)
+#EXO_DATA_DIR=${HOME}/.eXo-platform/data
+
+# Activates the development mode of eXo platform (true with --dev option on start_eXo.sh script)
+#EXO_DEV=true
+
+# Activates the JCR sessions leaks detector (Default: $EXO_DEV. true with --dev option on start_eXo.sh script)
+#EXO_JCR_SESSION_TRACKING=true
+
+# -----------------------------------------------------------------------------
+# SMTP/Emails configuration
+# -----------------------------------------------------------------------------
+
+# Domain name used to produce absolute URLs in email notifications. (Default: http://localhost:8080)
+#EXO_DEPLOYMENT_URL=https://intranet.mycompany.com
+
+# Email display in "from" field of email notification. (Default: noreply@exoplatform.com)
+#EXO_EMAIL_FROM=intranet@mycompany.com
+
+# SMTP Server hostname. (Default: localhost)
+#EXO_EMAIL_SMTP_HOST=smtp.gmail.com
+
+# SMTP Server port. (Default: 25)
+#EXO_EMAIL_SMTP_PORT=465
+
+# True to enable the secure (TLS) SMTP. See RFC 3207. (Default: false)
+#EXO_EMAIL_SMTP_STARTTLS_ENABLE=true
+
+# True to enable the SMTP authentication. (Default: false)
+#EXO_EMAIL_SMTP_AUTH=true
+
+# Username to send for authentication. (Default: <NONE>)
+#EXO_EMAIL_SMTP_USERNAME=account@gmail.com
+
+# Password to send for authentication. (Default: <NONE>)
+#EXO_EMAIL_SMTP_PASSWORD=password
+
+# Specify the port to connect to when using the specified socket factory. (Default: <NONE>)
+#EXO_EMAIL_SMTP_SOCKET_FACTORY_PORT=465
+
+# This class will be used to create SMTP sockets. (Default: <NONE>)
+#EXO_EMAIL_SMTP_SOCKET_FACTORY_CLASS=javax.net.ssl.SSLSocketFactory
+
+# -----------------------------------------------------------------------------
+# JOD Converter configuration
+# -----------------------------------------------------------------------------
+# Used to preview documents
+#
+# Requires to have openoffice/libreoffice server installed
+
+# Jod Converter activation (Default : true)
+#EXO_JODCONVERTER_ENABLE=false
+
+# Comma separated list of ports numbers to use for open office servers used to convert documents.
+# One office server instance will be created for each port. (Default : 2002)
+#EXO_JODCONVERTER_PORTS=2002,2003,2004,2005
+
+# The absolute path to the office home on the server. (Default : Path automatically discovered based on the OS default locations)
+#EXO_JODCONVERTER_OFFICEHOME=/usr/lib/libreoffice
+
+# -----------------------------------------------------------------------------
+# Logs configuration
+# -----------------------------------------------------------------------------
+
+# Logback configuration file (http://logback.qos.ch/manual/configuration.html ) - For an advanced customization of logs
+#EXO_LOGS_LOGBACK_CONFIG_FILE=$CATALINA_BASE/conf/logback.xml
+
+# Enforce to display logs in the console (Default: true if started with start_eXo.sh without --background option, false otherwise)
+#EXO_LOGS_DISPLAY_CONSOLE=true
+
+# Enforce to display colorized logs in the console (Default: false for windows, true otherwise) (You can use --color and --nocolor options on start_eXo.sh to enforce the configuration)
+#EXO_LOGS_COLORIZED_CONSOLE=true
+
+# -----------------------------------------------------------------------------
+# Tomcat configuration
+# -----------------------------------------------------------------------------
+
+# File used to store the PID of the process. (Default: ${CATALINA_BASE}/temp/catalina.pid if start_eXO.sh is launched with --background option. Empty otherwise)
+#CATALINA_PID=$CATALINA_BASE/temp/catalina.pid
+
+# Explodes all wars in the webapps directory (Default: $EXO_DEV. true with --dev option on start_eXo.sh script)
+#EXO_TOMCAT_UNPACK_WARS=true
+</code></pre>
+						<li><b>Several profiles can be activated at the same time using a comma</b></li>
+					</ul>
+				</section>
+
+				<section>
+					<h1>Configuration Profiles</h1>
+					<ul>
+						<li><b>Any part of the configuration can be added to a profile</b></li>
+						<li><b>Profile-dependent configuration is only taken into account if the profile is used</b></li>
+						<li><b>A profile can depend on a list of profiles. In this case, the use of any profile activates the configuration</b></li>
+						<br/>
+						<pre><code contenteditable>&lt;value-param profiles="cluster">
+  &lt;name>cache.config.template&lt;/name>
+  &lt;value>classpath:/conf/jbosscache/cluster/config.xml&lt;/value>
+&lt;/value-param></code></pre>
+					</ul>
+				</section>
+
+				<section data-state="chapter-title">
+					<div class="titles">
+						<h1>Configuration and Extensions</h1>
+						<h2>Basic Customization</h2>
+					</div>				
+				</section>
+
+			</div>
+
+			<div class="footer">
+				<div class="footer-content">
+					<img class="logo" src="../../reveal/exo/images/exo-logo.png" width="70px"/>
+					<div id="slide-number" class="slide-number"></div>
+					<div class="copyright">Copyright 2013 eXo Platform</div>				
+				</div>
+			</div>	
+			
+		</div>
+
+		<script src="../../reveal/lib/js/head.min.js"></script>
+		<script src="../../reveal/js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				width: 1024,
+
+				controls: true,
+				progress: true,	
+				history: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: '../../reveal/plugin/highlight/highlight.js', async: true, callback: function() { window.hljs.initHighlightingOnLoad(); } },
+					{ src: '../../reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					/*{ src: '../../reveal/lib/js/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../reveal/lib/js/data-markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },*/
+					{ src: '../../reveal/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: '../../reveal/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+			var updateSlideNumber = function( event ) {
+			    // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+			    document.getElementById("slide-number").innerHTML = event.indexh + 1;
+			}
+
+			// Fires each time a new slide is activated
+			Reveal.addEventListener('ready', updateSlideNumber);
+    		Reveal.addEventListener('slidechanged', updateSlideNumber);
+		</script>
+
+	</body>
+</html>

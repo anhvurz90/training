@@ -1,0 +1,318 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
+/**
+ * Default theme for reveal.js.
+ *
+ * Copyright (C) 2011-2012 Hakim El Hattab, http://hakim.se
+ */
+@font-face {
+  font-family: 'League Gothic';
+  src: url("../lib/font/league_gothic-webfont.eot");
+  src: url("../lib/font/league_gothic-webfont.eot?#iefix") format("embedded-opentype"), url("../lib/font/league_gothic-webfont.woff") format("woff"), url("../lib/font/league_gothic-webfont.ttf") format("truetype"), url("../lib/font/league_gothic-webfont.svg#LeagueGothicRegular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+/*********************************************
+ * GLOBAL STYLES
+ *********************************************/
+body {
+  background-color: #FFFFFF;
+}
+
+.reveal {
+  font-family: "Arial", sans-serif;
+  font-size: 2em;
+  font-weight: 200;
+  letter-spacing: -0.02em;
+  color: #000;
+}
+
+::selection {
+  color: white;
+  background: #ff5e99;
+  text-shadow: none;
+}
+
+.reveal section {
+  height: 90%;
+  border-bottom: 3px #E0E0E0 solid;
+}
+
+/*********************************************
+ * HEADERS
+ *********************************************/
+.reveal h1 {
+  font-size: 1.5em;
+  color: #476a9c;
+  width: 100%;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  text-align: left;
+  background-image: url('images/line.png');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+}
+
+.reveal h2 {
+  color: #606060;
+  font-size: 1.1em;
+}
+
+/*********************************************
+ * LINKS
+ *********************************************/
+.reveal a:not(.image) {
+  color: #13daec;
+  text-decoration: none;
+  -webkit-transition: color .15s ease;
+  -moz-transition: color .15s ease;
+  -ms-transition: color .15s ease;
+  -o-transition: color .15s ease;
+  transition: color .15s ease; }
+
+.reveal a:not(.image):hover {
+  color: #71e9f4;
+  text-shadow: none;
+  border: none; }
+
+.reveal .roll span:after {
+  color: #fff;
+  background: #0d99a5; }
+
+/*********************************************
+ * IMAGES
+ *********************************************/
+.reveal section img {
+  margin: 15px 0px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid #909090;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  -webkit-transition: all .2s linear;
+  -moz-transition: all .2s linear;
+  -ms-transition: all .2s linear;
+  -o-transition: all .2s linear;
+  transition: all .2s linear; }
+
+.reveal a:hover img {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #13daec;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.55);
+}
+
+/*********************************************
+ * LISTS
+ *********************************************/
+.reveal ul {
+	display: block;
+	padding-left: 30px;
+  list-style: none;
+}
+
+.reveal ul ul {
+	padding-left: 0px;
+  list-style: none;
+}
+
+li {
+    line-height: 2em;
+    padding-left: 1em; 
+    text-indent: -.7em;
+}
+
+li li {
+    font-size: 1em;
+}
+
+li:before {
+    content: "•";
+    padding-right: 10px;
+    color: #476a9c; /* or whatever color you prefer */
+}
+
+/*********************************************
+ * NAVIGATION CONTROLS
+ *********************************************/
+.reveal .controls div.navigate-left,
+.reveal .controls div.navigate-left.enabled {
+  border-right-color: #F9CA0A; }
+
+.reveal .controls div.navigate-right,
+.reveal .controls div.navigate-right.enabled {
+  border-left-color: #F9CA0A; }
+
+.reveal .controls div.navigate-up,
+.reveal .controls div.navigate-up.enabled {
+  border-bottom-color: #F9CA0A; }
+
+.reveal .controls div.navigate-down,
+.reveal .controls div.navigate-down.enabled {
+  border-top-color: #F9CA0A; }
+
+.reveal .controls div.navigate-left.enabled:hover {
+  border-right-color: #71e9f4; }
+
+.reveal .controls div.navigate-right.enabled:hover {
+  border-left-color: #71e9f4; }
+
+.reveal .controls div.navigate-up.enabled:hover {
+  border-bottom-color: #71e9f4; }
+
+.reveal .controls div.navigate-down.enabled:hover {
+  border-top-color: #71e9f4; }
+
+/*********************************************
+ * PROGRESS BAR
+ *********************************************/
+.reveal .progress {
+  background: rgba(0, 0, 0, 0.2);
+  height: 10px;
+}
+
+.reveal .progress span {
+  background: #13daec;
+  -webkit-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
+  -moz-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
+  -ms-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
+  -o-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
+  transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985); }
+
+/*********************************************
+ * CODE
+ *********************************************/
+.reveal pre code {
+	padding: 10px;
+}
+
+/*********************************************
+ * CHAPTER TITLE
+ *********************************************/
+
+.chapter-title body {
+  background-image: radial-gradient(white, #DEDEDE); /* Norme W3C */
+  background-image: -moz-radial-gradient(white, #DEDEDE); /* Firefox */
+  background-image: -webkit-radial-gradient(50% 50%, circle closest-side, white, #DEDEDE); /* Chrome, Safari */
+  background-image: -o-radial-gradient(white, #DEDEDE); /* Opera */
+  background-image: -ms-radial-gradient(white, #DEDEDE); /* IE */
+}
+
+.chapter-title .reveal .slides section {
+  border: 0px;
+}
+
+.chapter-title .reveal .slides h1 {
+  background: none;
+  font-size: 2em;
+  color: #476a9c;
+  text-align: left;
+}
+
+.chapter-title .reveal .slides h2 {
+  font-size: 1.2em;
+  text-align: left;
+}
+
+.chapter-title .reveal .slides .speaker {
+  text-align: right;
+  color: #476a9c;
+}
+
+.chapter-title .reveal .slides .date {
+  text-align: right;
+  font-size: 0.8em;
+  color: #606060;
+}
+
+/*********************************************
+ * CHAPTER TRANSITIONS
+ *********************************************/
+
+.chapter-transition body {
+  background-image: radial-gradient(white, #DEDEDE); /* Norme W3C */
+  background-image: -moz-radial-gradient(white, #DEDEDE); /* Firefox */
+  background-image: -webkit-radial-gradient(50% 50%, circle closest-side, white, #DEDEDE); /* Chrome, Safari */
+  background-image: -o-radial-gradient(white, #DEDEDE); /* Opera */
+  background-image: -ms-radial-gradient(white, #DEDEDE); /* IE */
+}
+
+.chapter-transition .reveal .slides section {
+  border: 0px;
+}
+
+.chapter-transition .reveal .slides h1 {
+  background: none;
+  color: #000000;
+  text-align: center;
+}
+
+.chapter-transition .reveal .slides .titles {
+
+  background-color: rgba(255,255,255,0.2);
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+/*********************************************
+ * TOC
+ *********************************************/
+.reveal .slides .toc ol {
+    counter-reset:li; /* Initiate a counter */
+    margin-left:0; /* Remove the default left margin */
+    padding-left:0; /* Remove the default left padding */
+    line-height: 3em;
+    width: 80%;
+}
+.reveal .slides .toc ol > li {
+    position:relative; /* Create a positioning context */
+    margin:0 0 6px 2em; /* Give each list item a left margin to make room for the numbers */
+    padding:4px 8px; /* Add some spacing around the content */
+    list-style:none; /* Disable the normal item numbering */
+}
+.reveal .slides .toc ol > li:before {
+    content:counter(li); /* Use the counter as content */
+    counter-increment:li; /* Increment the counter by 1 */
+    /* Position and style the number */
+    position:absolute;
+    top:-2px;
+    left:-1.7em;
+    width:2em;
+    /* Some space between the number and the content in browsers that support
+       generated content but not positioning it (Camino 2 is one example) */
+    margin-right:8px;
+    padding:4px;
+    color:#476a9c;
+    font-size: 2em;
+}
+.reveal .slides .toc li ol,
+.reveal .slides .toc li ul {margin-top:6px;}
+.reveal .slides .toc ol ol li:last-child {margin-bottom:0;}
+
+/*********************************************
+ * FOOTER
+ *********************************************/
+.reveal .footer {
+  position: absolute;
+  left: 50%;
+  bottom: 25px;
+  width: 1024px;
+}
+
+.reveal .footer .footer-content {
+  position: relative;
+  left: -50%;
+}
+
+.reveal .footer .logo {
+  float: left;
+}
+
+.reveal .footer .copyright {
+  font-style: italic;
+  color: #B0B0B0;
+  text-align: center;
+}
+
+.reveal .footer .slide-number {
+  float: right;
+  color: #476a9c;
+  font-size: 1em;
+  font-weight: bold;
+}
