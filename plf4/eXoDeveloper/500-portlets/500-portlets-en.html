@@ -1,0 +1,893 @@
+
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>reveal.js - The HTML Presentation Framework</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<link rel="stylesheet" href="../../reveal/css/reveal.css">
+		<!--<link rel="stylesheet" href="../../reveal/css/theme/default.css" id="theme">-->
+		<link rel="stylesheet" href="../../reveal/exo/exo-theme.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="../../reveal/lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="../../reveal/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+<section data-state="chapter-title">
+	<div class="titles">
+		<h1>Portlet</h1>
+		<h2>How to develop with bridges?</h2>
+	</div>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<div class="speaker">eXo Platform Academy</div>
+	<div class="date">May 2013</div>
+</section>
+<section class="toc">
+	<h1>Agenda</h1>
+	<ol style="line-height:57px">
+		<li>Concepts</li>
+		<li>MVC Phases</li>
+		<li>Portlet versus Gadget</li>
+		<li>Architecture</li>
+		<li>JSP Code Snippets</li>
+		<li>Portlet Preferences</li>
+		<li>Simplest Hello World</li>
+		<li>Portlet Bridges</li>
+	</ol>
+</section>
+
+<section data-state="chapter-transition">
+	<div class="titles">
+		<h1>Concepts</h1>
+		<h2></h2>
+	</div>
+</section>
+
+
+<section>
+	<h1>Portlets</h1>
+	<ul>
+		<li>Enterprise portals aggregate your applications, contents and services</li>
+	</ul>
+	<div style="text-align: center;">
+		<img src="images/01-portlets.png" style="float: left;width:377px"/>
+		<img src="images/02-portal.png" style="float: right;width:494px"/>
+	</div>
+</section>
+
+<section>
+	<h1>Definition : JSR-286</h1>
+	<ul>
+		<li>Portlet : A portlet is an application that provides a specific piece of content (information or service) to be included as part of a portal page.</li>
+		<li>Portlet Container : A portlet container contains portlets and manages their lifecycle.</li>
+	</ul>
+</section>
+
+<section>
+	<h1>Concepts</h1>
+	<div style="text-align: center;">
+		<img src="images/03-window.png" style="width:690px"/>
+	</div>
+</section>
+
+<section>
+	<h1>Portlets</h1>
+	<ul>
+		<li>Portlets are server components
+		<ul>
+		 	<li>Similar to servlets</li>
+		 	<li>Designed for aggregation and personalization</li>
+		 	<li>Portlet 2.0 standard</li>
+		 	<li>Designed to integrate with the  Java EE ecosystem but not part of it</li>
+		 </ul> 
+		</li>
+	</ul>
+</section>
+
+<section>
+	<h1>Portlets</h1>
+	<ul>
+		<li>JSR 168 et JSR 286</li>
+		<li>Based on a Web Container (Servlets/JSP)</li>
+		<li>Extends the class <code>javax.portlet.GenericPortlet</code></li>
+		<li>Configuration: <code>./WEB-INF/portlet.xml</code></li>
+
+	</ul>
+	<div style="text-align: center;">
+		<img src="images/04-helloworld.png" style="float: right;width:301px"/>
+	</div>
+</section>
+
+<section data-state="chapter-transition">
+	<div class="titles">
+		<h1>MVC Phases</h1>
+		<h2>Model - View - Controller</h2>
+	</div>
+</section>
+
+<section>
+	<h1>The MVC Paradigm</h1>
+	<ul>
+		<li>Portlets interactions are divided into three phases:
+			<ul>
+			<li>action phase updates state and acts as controller</li>
+			<li>event (Portlet 2.0+) phase coordinates portlets, it is an extension of the action phase to other portlets on the same page</li>
+			<li>render phase retrieves markup to update the view</li>
+			</ul>
+		</li>
+	</ul>
+</section>
+
+<section>
+	<h1>Portlet Lifecycle</h1>
+	<ul>
+		<li><code>init()</code>
+			<ul><li>Initialization of the portlet</li></ul>
+		</li>
+		<li><code>processAction()</code>
+			<ul><li>Valid the form and commit changes in the database</li></ul>
+		</li>
+		<li><code>processEvent()</code>
+			<ul><li>Event management</li></ul>
+		</li>
+		<li><code>render()</code>
+			<ul><li>Render the content of the portlet and read in the database</li></ul>
+		</li>
+		<li><code>destroy()</code>
+			<ul><li>Destroy the portlet</li></ul>
+		</li>
+	</ul>
+</section>
+
+<section>
+	<h1>Portal Http GET</h1>
+	<ul>
+		<li>Renders a portal page
+		<ul><li>The render phase reads the state and create markup</li></ul>
+		</li>
+	</ul>
+</section>
+
+<section>
+	<h1>Portal Http POST</h1>
+	<ul>
+		<li>Triggered by a portlet to trigger the execution of its action phase
+			<ul>
+				<li>The action updates the state
+					<ul>
+						<li>Database</li>
+						<li>Session</li>
+						<li>Preferences</li>
+						<li>Parameter</li>
+					</ul>
+				</li>
+				<li>The optional event phase signals other portlet that something happened</li>
+				<li>Finally page rendering occurs again</li>
+			</ul>
+		</li>
+	</ul>
+</section>
+
+<section>
+	<h1>Phase Sequence</h1>
+	<div style="text-align: center;">
+		<img src="images/05-sequence.png" style="width:859px"/>
+	</div>
+</section>
+
+<section data-state="chapter-transition">
+	<div class="titles">
+		<h1>Portlet vs Gadget vs Servlet</h1>
+		<h2></h2>
+	</div>
+</section>
+
+<section>
+	<h1>Gadgets</h1>
+	<ul>
+		<li>Gadgets are browser components
+			<ul>
+				<li>An embeddable chunk of Javascript using web standards</li>
+				<li>Many implementations, many names: widgets, badge, module, webjit, capsule, snippet, ...</li>
+				<li>eXo uses the de facto standard “Google Gadget”</li>
+			</ul>
+		</li>
+	</ul>
+</section>
+
+<section>
+	<h1>Portlets vs Gadgets</h1>
+
+	<table>
+		<tr>
+			<th width="50%">Portlet</th>
+			<th>Gadget</th>
+		</tr>
+		<tr>
+			<td>Portlets use the javax.portlet interfaces and classes</td>
+			<td>Google Gadget API</td>
+		</tr>
+		<tr>
+			<td>Requires a build (compile/package/deploy)</td>
+			<td>No development process required</td>
+		</tr>
+		<tr>
+			<td>Supports Browser Back Button (BBB)</td>
+			<td>No support for BBB</td>
+		</tr>		
+		<tr>
+			<td>Supports bookmarkability</td>
+			<td>No support for bookmarkability</td>
+		</tr>
+	</table>
+
+</section>
+
+<section>
+	<h1>Portlets vs Gadgets</h1>
+
+	<table>
+		<tr>
+			<th width="50%">Portlet</th>
+			<th>Gadget</th>
+		</tr>
+		<tr>
+			<td>Request/response server interactions</td>
+			<td>Live user interface</td>
+		</tr>
+		<tr>
+			<td>State is shared between the portal and the portlet container</td>
+			<td>State is shared between the browser DOM and the portal<br>No development process required</td>
+		</tr>
+		<tr>
+			<td>Use container services (Database, EJB, ESB)</td>
+			<td>Use Programmable Web, usually REST Web Services</td>
+		</tr>		
+		<tr>
+			<td>Standardized coordination</td>
+			<td>De facto standard by Google</td>
+		</tr>
+	</table>
+
+</section>
+
+<section>
+	<h1>Portlet vs Servlet</h1>
+	<ul>
+		<li>Portlet Extras
+			<ul>
+				<li>Decorations
+					<ul>
+						<li>Portlet mode: view, edit, help, admin</li>
+						<li>Window state: minimized, normal, maximized</li>
+					</ul>
+				</li>
+				<li>Personalization</li>
+				<li>Specified support for internationalization</li>
+				<li>Categorization</li>
+			</ul>
+		</li>
+
+	</ul>
+</section>
+
+<section>
+	<h1>Portlet / Servlet similarities</h1>
+	<table>
+		<tr>
+			<th width="50%">Portlet</th>
+			<th>Servlet</th>
+		</tr>
+		<tr>
+			<td><code>PortletRequest</code></td>
+			<td><code>ServletRequest</code></td>
+		</tr>
+		<tr>
+			<td><code>PortletResponse</code></td>
+			<td><code>ServletResponse</code></td>
+		</tr>
+		<tr>
+			<td><code>PortletSession</code></td>
+			<td><code>ServletSession</code></td>
+		</tr>
+		<tr>
+			<td><code>PortletContext</code></td>
+			<td><code>ServletContext</code></td>
+		</tr>
+		<tr>
+			<td><code>PortletFilter</code></td>
+			<td><code>ServletFilter</code></td>
+		</tr>
+		<tr>
+			<td><code>PortletRequestDispatcher</code></td>
+			<td><code>RequestDispatcher</code></td>
+		</tr>
+	</table>
+
+</section>
+
+<section data-state="chapter-transition">
+	<div class="titles">
+		<h1>Architecture</h1>
+		<h2></h2>
+	</div>
+</section>
+
+<section>
+	<h1>Request/Response Objects</h1>
+	<ul>
+		<li>Each phase defines his own objects</li>
+		<li>Similar to the Servlet API</li>
+	</ul>
+	<div style="text-align: center;">	
+		<img src="images/06-servlet.png" style="width:844px"/>
+	</div>
+</section>
+
+<section>
+	<h1>Architecture</h1>
+	<div style="text-align: center;">
+		<img src="images/07-pc.png" style="width:851px"/>
+	</div>
+</section>
+
+<section>
+	<h1>Portlet Application Packaging</h1>
+	<ul>
+		<li>Portlets are packaged in a war file and the portlet container discovers them</li>
+		<li>The <code>portlet.xml</code> deployment descriptor configures and describes the portlets</li>
+	</ul>
+</section>
+
+<section>
+	<h1>Configuration</h1>
+	<pre><code class="xml" contenteditable>
+<?xml version="1.0" encoding="UTF-8"?>
+<portlet-app
+    xmlns="..." version="2.0"xmlns:xsi="..."xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd">
+  <portlet>
+    <description xml:lang="EN">HelloWorld Portlet</description>
+    <portlet-name>HelloWorld</portlet-name>
+    <display-name xml:lang="EN">Hello World Portlet</display-name>
+    <portlet-class>org.exoplatform.demo.HelloWorldPortlet</portlet-class>
+    <expiration-cache>0</expiration-cache>
+    <supports>
+      <mime-type>text/html</mime-type>
+      <portlet-mode>help</portlet-mode>
+      <portlet-mode>edit</portlet-mode>
+    </supports>
+    <supported-locale>en</supported-locale>
+    <supported-locale>fr</supported-locale>
+ 
+    <portlet-info>
+      <title>HelloWorld</title>
+      <short-title>Hello</short-title>
+    </portlet-info>    
+  </portlet>
+</portlet-app>		
+	</code></pre>
+</section>
+
+<section data-state="chapter-transition">
+	<div class="titles">
+		<h1>JSP Code Snippets</h1>
+		<h2></h2>
+	</div>
+</section>
+
+
+<section>
+	<h1>PortletRequestDispatcher</h1>
+	<ul>
+		<li>Delegate rendering to a jsp page</li>
+	</ul>
+	<pre><code class="java" contenteditable>private static final String VIEW_PAGE = "/WEB-INF/jsp/view.jsp";
+
+public void doView(RenderRequest pRequest, RenderResponse pResponse)
+                            throws PortletException, IOException 
+{
+	pResponse.setContentType("text/html");
+	PortletContext context = getPortletContext();
+	portletRequestDispatcher rd = context.getRequestDispatcher(VIEW_PAGE);
+	rd.include(pRequest, pResponse);
+}
+	</code></pre>
+</section>
+
+<section>
+	<h1>Portlets URL</h1>
+	<ul>
+		<li>Portlets URL are managed by the portal</li>
+		<li>The PortletURL object is available during rendering phase and allows to create an URL to the action phase or rendering phase of the portlet</li>
+	</ul>
+	<pre><code class="jsp" contenteditable>
+...
+PortletURL renderURL = response.createRenderURL();
+renderURL.setParameter("a", "b");
+renderURL.setPortletMode(PortletMode.EDIT”);
+renderURL.setWindowState(WindowState.MAXIMIZED);
+String url = portletURL.toString();
+
+PortletURL actionURL = response.createActionURL();
+...		
+	</code></pre>
+</section>
+
+<section>
+	<h1>Portlet Taglib for JSP</h1>
+	<pre><code class="jsp" contenteditable>
+...
+&lt;%@taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet"%&gt;
+&lt;!-- Mandatory !!! --&gt;
+&lt;portlet:defineObjects /&gt; &lt;br/&gt;
+...
+&lt;!-- une autre manière de créer des URLs --&gt;
+&lt;portlet:renderURL var="renderURL"/&gt; &lt;br/&gt;
+Render Link: &lt;a href="&lt;%=renderURL %&gt;"
+...
+WindowState and PortletMode &lt;br/&gt;
+&lt;%= renderRequest.getWindowState().toString()%&gt; &lt;br/&gt;
+&lt;%= renderRequest.getPortletMode().toString()%&gt; &lt;br/&gt;
+	</code></pre>
+</section>
+
+<section data-state="chapter-transition">
+	<div class="titles">
+		<h1>Portlet Preferences</h1>
+		<h2></h2>
+	</div>
+</section>
+
+
+<section>
+	<h1>Portlet Preferences</h1>
+	<ul>
+		<li>Classes and methods to manage personalization of portlets</li>
+		<li>Generally used in the "edit" mode</li>
+		<li>Preferences can be editable (action) or read only (render)</li>
+	</ul>
+</section>
+
+<section>
+	<h1>Portlet Preferences</h1>
+	<pre><code class="xml" contenteditable>
+<portlet-preferences>
+    <preference>
+        <name>message</name>
+        <value>Message par defaut</value>
+        <read-only>false</read-only>
+    </preference>
+</portlet-preferences>		
+	</code></pre>
+
+	<pre><code class="jsp" contenteditable>
+...
+  PortletPreferences prefs = actionRequest.getPreferences();
+  prefs.setValue("message", "Nouveau Message");
+  prefs.store();
+...
+...
+  String message = prefs.getValue("message", "");
+...		
+	</code></pre>
+
+</section>
+
+
+<section>
+	<h1>Save Preferences</h1>
+	<ul>
+		<li>InputForm</li>
+	</ul>
+	<pre><code class="jsp" contenteditable>
+...
+&lt;portlet:actionURL var="action"/&gt;
+&lt;form action="&lt;%=action %&gt;" method="post"&gt;
+	&lt;label for="messageinput"&gt;Message:&lt;/label&gt;
+	&lt;input type="text" name="message" id="messageinput" value="&lt;%= message %&gt;"/&gt;
+	&lt;input type="submit" label="Save" /&gt;
+&lt;/form&gt;
+...
+	</code></pre>
+	<ul>
+		<li>ProcessAction() call</li>
+	</ul>
+	<pre><code class="java" contenteditable> 
+...
+if (request.getPortletMode().equals(PortletMode.EDIT)  ) {
+	String message = request.getParameter("message");
+	PortletPreferences prefs = request.getPreferences();
+	prefs.setValue("message", message);
+	prefs.store();
+	response.setPortletMode(PortletMode.VIEW);
+}		
+	</code></pre>
+</section>
+
+<section data-state="chapter-transition">
+	<div class="titles">
+		<h1>Simple Portlet Example</h1>
+		<h2></h2>
+	</div>
+</section>
+
+<section>
+	<h1>Simple Hello World : package</h1>
+	<ul>
+		<li>SimpleHelloWorld-0.0.1.war</li>
+	</ul>
+	<pre><code class="text" contenteditable>
+Simple Hello World
+|-- SimplestHelloWorld-0.0.1.war
+|   `-- WEB-INF
+|       |-- classes
+|       |   `-- org
+|       |       `-- gatein
+|       |           `-- portal
+|       |               `-- examples
+|       |                   `-- portlets
+|       |                       `-- SimplestHelloWorldPortlet.class
+|       |-- portlet.xml
+|       `-- web.xml
+		
+	</code></pre>
+</section>
+
+<section>
+	<h1>Portlet Example - Portlet Class</h1>
+	<pre><code class="java" contenteditable>
+package org.jboss.portal.portlet.samples;
+
+import javax.portlet.GenericPortlet;
+import javax.portlet.PortletException;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+public class JSPHelloUserPortlet extends GenericPortlet
+{
+
+  public void doView(RenderRequest request, RenderResponse response) throws PortletException, IOException
+  {
+    PrintWriter writer = response.getWriter();
+    writer.write("Hello World");
+    writer.close();
+  }
+
+}		
+	</code></pre>
+</section>
+
+<section>
+	<h1>Portlet Example - <code>portlet.xml</code></h1>
+	<pre><code class="xml" contenteditable> <!--  style="height:150px;" -->
+&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" version="2.0"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd
+   http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd">
+   
+   &lt;portlet>
+      &lt;portlet-name>JSPHelloUserPortlet&lt;/portlet-name>
+      &lt;portlet-class>org.jboss.portal.portlet.samples.JSPHelloUserPortlet&lt;/portlet-class>
+      &lt;portlet-info>
+         &lt;title>JSP Hello User Portlet&lt;/title>
+      &lt;/portlet-info>
+   &lt;/portlet>
+&lt;/portlet-app>		
+	</code></pre>
+</section>
+
+<section>
+	<h1>Exercises - Simple Portlets</h1>
+	<ul>
+		<li>Simple Portlets
+			<ul>
+				<li>There are four examples of portlet bridges</li>
+				<li>Analyse, build and test these examples
+					<ul>
+						<li>Simple hello world (java only) (Add doEdit() method and "edit" in the portlet.xml file)</li>
+						<li>JSP: hello user (all phases)<br><br></li>
+					</ul>
+				</li>
+				<li>Extra: Take the JSP example, modify it depending on your experience: modify the rendering jsp files, access to eXo services, add a form and react to different parameters</li>
+			</ul>
+		</li>
+	</ul>
+</section>
+
+<section>
+	<h1>Extra Exercise – Portlet 2.0</h1>
+	<ul style="font-size: 26px">
+		<li>Push by RenderReponse:
+			<ul>
+				<li>In Portlet 2.0 you can modify any element of the response from any portlet.</li>
+				<li>Therefore you use the RenderResponse object.</li>
+				<li>An example of a RenderResponse is in a portlet’s form code that adds a javascript to header of the page:
+					<pre><code class="java" contenteditable>
+RenderResponse response = context.getResponse();
+Element elementS = response.createElement("script");
+elementS.setAttribute("type", "text/javascript");
+elementS.setAttribute("src", "/eXoWCMResources/javascript/eXo/wcm/backoffice/public/Components.js");
+response.addProperty(MimeResponse.MARKUP_HEAD_ELEMENT,elementS);											
+										</code></pre>					
+				</li>
+				<li>Exercise: Create a portlet that adds a favicon to the current page, access the favicon by a rest service. Or alternatively add Google Analytics.</li>
+				<li>Favicon hint:
+					<ul><li>&lt;link rel="shortcut icon" href=“/portal-rest-path/name_of_icon.ico"> or add a meta data (for search engines)</li></ul>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</section>
+
+<section data-state="chapter-transition">
+	<div class="titles">
+		<h1>Portlet Bridges</h1>
+		<h2></h2>
+	</div>
+</section>
+
+<section>
+	<h1>Portlet Bridges</h1>
+	<ul>
+		<li>Bridges are portlet implementations which adapt web framework to the portlet world and allows you to execute native applications
+			<ul>
+				<li>JSF Portlet Bridge / JSR 301</li>
+				<li>Struts 1 bridge deprecrated</li>
+				<li>Struts 2 portlet</li>
+				<li>SpringMVC portlet</li>
+				<li>Grails portlet</li>
+				<li>Tapestry portlet</li>
+			</ul>
+		</li>
+	</ul>
+</section>
+
+<section>
+	<h1>The web framework reality check</h1>
+	<ul>
+		<li>Gives you productivity</li>
+		<li>You should not develop an application with the Portlet API
+			<ul>
+				<li>low level</li>
+				<li>not productive</li>
+			</ul>
+		</li>
+	</ul>
+</section>
+
+<section>
+	<h1>Web Frameworks for Portals</h1>
+	<ul>
+		<li>The Portlet Bridge
+			<ul>
+				<li>An adapter for a web framework to the portlet container runtime</li>
+				<li>Works ideally with framework that does not expose the servlet container</li>
+				<li>Limited support for the full portlet API</li>
+			</ul>
+		</li>
+		<li>The Portlet Framework
+			<ul>
+				<li>The web framework approach to the portlet world</li>
+				<li>Leverage your knowledge of a framework</li>
+				<li>The full portlet API can be leveraged</li>
+			</ul>
+		</li>
+	</ul>
+</section>
+
+<section>
+	<h1>Portlet Bridges</h1>
+	<ul>
+		<li>Modern web frameworks have an abstraction (SPI) over the servlet API
+			<ul><li>The bridge implements the SPI by delegating to portlet container</li></ul>
+		</li>
+		<li>Legacy web frameworks relies on the servlet API
+			<ul><li>The bridge executes the target framework in its servlet container context</li></ul>
+		</li>
+	</ul>
+</section>
+
+<section>
+	<h1>JSF Portlet Bridge Specification</h1>
+	<ul>
+		<li>Portlet Bridge Specification for JavaServer Faces (JSR 301)
+			<ul>
+				<li>The main goal is to define how a JSF application executes in a portlet environment</li>
+				<li>Additionally it specifies how advanced portlet features can be used</li>
+				<li>Split into two specifications
+					<ul>
+						<li>Portlet 1.0 Bridge Specification for JavaServer Faces 1.2</li>
+						<li>Portlet 2.0 Bridge Specification for JavaServer Faces 1.2</li>	
+					</ul>
+				</li>
+			</ul>
+		</li>
+		<li>At least three open source implementations
+			<ul>
+				<li>Apache MyFaces Portlet (RI)</li>
+				<li>JBoss PortletBridge</li>
+				<li>OpenPortal JSF PortletBridge</li>
+			</ul>
+		</li>
+	</ul>
+</section>
+
+<section>
+	<h1>JSF Bridge Lifecycle</h1>
+	<div style="text-align: center;">
+		<img src="images/08-jsf.png" style="width:723px"/>
+	</div>
+</section>
+
+<section>
+	<h1>JSF Bridge Features</h1>
+	<ul>
+		<li>Clean room specification</li>
+		<li>Maintain action request attributes</li>
+		<li>Handle identifier namespacing</li>
+		<li>Handle redirects during the render phase</li>
+		<li>Supports portlet mode changes
+			<ul>
+				<li>Manage a view per mode</li>
+				<li>Navigation between modes
+					<ul style="font-size: 24px">
+						<li><code>/edit.jspx?javax.portlet.faces.PortletMode=edit</code></li>
+						<li><code>#{sessionScope['javax.portlet.faces.viewIdHistory.view']}</code></li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</section>
+
+<section>
+	<h1>WSRP : Remote Portlets</h1>
+	<div style="text-align: center;">
+		<img src="images/09-wsrp.png" style="width:867px"/>
+	</div>
+</section>
+
+<section>
+	<h1>JBoss Portlet Bridges</h1>
+	<ul>
+		<li>JBoss Portlet Bridge 
+			<ul>
+				<li>Implementation of the JSR-329 specification which supports the JSF 1.2 runtime within a JSR 286 portlet</li>
+				<li>Supports JSF, Seam and RichFaces</li>
+				<li>The developer no longer needs to worry about the underlying portlet development, portlet concepts, or the API.</li>
+			</ul>
+		</li>
+	</ul>
+</section>
+
+<section>
+	<h1>JBoss Portlet Bridges</h1>
+	<ul>
+		<li>Understanding how JSF works with Portal
+			<ul>
+				<li>The portlet bridge isn't a portlet. It's the mediator between the two environments and allows JSF and Portal to be completely unaware of each other. </li>
+				<li>The bridge is used to execute Faces requests on behalf of the portlet. </li>
+				<li>During each request, the Faces environment is setup and handled by the bridge. </li>
+				<li>Part of this implementation acts as a Faces controller much as the FacesServlet does in the direct client request world. </li>
+			</ul>
+		</li>
+	</ul>
+</section>
+
+<section>
+	<h1>Exercise : JBoss Portlet Bridges</h1>
+	<ul>
+		<li>Portlet Bridges
+			<lu>
+				<li>There are two examples of portlet bridges</li>
+					<ul>
+						<li>JSF: hello user </li>
+						<li>Extra: Struts: jpetstore </li>
+					</ul>
+				<li>Analyse, build and test these examples</li>
+				<li>Extra: Customize the JSF example</li>
+			</lu>
+		</li>
+	</ul>
+</section>
+
+<section data-state="chapter-transition">
+	<div class="titles">
+		<h1>Portlets</h1>
+		<h2>Questions and Answers</h2>
+	</div>
+</section>
+
+
+
+
+
+
+
+
+
+
+			</div>
+			<div class="footer">
+				<div class="footer-content">
+					<img class="logo" src="../../reveal/exo/images/exo-logo.png" width="70px"/>
+					<div id="slide-number" class="slide-number"></div>
+					<div class="copyright">Copyright 2013 eXo Platform</div>				
+				</div>
+			</div>	
+			
+		</div>
+
+		<script src="../../reveal/lib/js/head.min.js"></script>
+		<script src="../../reveal/js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				width: 1024,
+
+				controls: true,
+				progress: true,	
+				history: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: '../../reveal/plugin/highlight/highlight.js', async: true, callback: function() { window.hljs.initHighlightingOnLoad(); } },
+					{ src: '../../reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					/*{ src: '../../reveal/lib/js/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../reveal/lib/js/data-markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },*/
+					{ src: '../../reveal/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: '../../reveal/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+			var updateSlideNumber = function( event ) {
+			    // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+			    document.getElementById("slide-number").innerHTML = event.indexh + 1;
+			}
+
+			// Fires each time a new slide is activated
+			Reveal.addEventListener('ready', updateSlideNumber);
+    		Reveal.addEventListener('slidechanged', updateSlideNumber);
+		</script>
+
+	</body>
+</html>
+

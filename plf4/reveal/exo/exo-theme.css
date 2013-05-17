@@ -18,6 +18,23 @@ body {
   background-color: #FFFFFF;
 }
 
+.reveal table th {
+  text-align: center;
+  font-weight: bold;
+  background-color: #4f72ac; 
+  color: #FFF;
+  padding: 10px;
+}
+.reveal table td {
+  padding: 10px;
+  border-bottom: 2px solid #CCC;
+}
+
+/* hack to avoid 3rd level alignement problem */
+.reveal ul ul ul {
+  list-style-type: none;
+}
+
 .reveal {
   font-family: "Arial", sans-serif;
   font-size: 2em;
