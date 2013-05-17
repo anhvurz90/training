@@ -1,0 +1,384 @@
+
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>reveal.js - The HTML Presentation Framework</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<link rel="stylesheet" href="../../reveal/css/reveal.css">
+		<!--<link rel="stylesheet" href="../../reveal/css/theme/default.css" id="theme">-->
+		<link rel="stylesheet" href="../../reveal/exo/exo-theme.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="../../reveal/lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="../../reveal/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+<!-- SECTIONS AFTER THIS POINT -->
+
+<section data-state="chapter-title">
+	<div class="titles">
+		<h1>Advanced Portlets</h1>
+		<h2>PRP, Sessions, IPC</h2>
+	</div>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<div class="speaker">eXo Platform Academy</div>
+	<div class="date">May 2013</div>
+</section>			
+
+<section class="toc">
+	<h1>Agenda</h1>
+	<ol> <!-- for more than 4 : style="line-height:57px"-->
+		<li>Portlet Communication</li>
+		<li>Examples in Labs</li>
+	</ol>
+</section>
+
+<section data-state="chapter-transition">
+	<div class="titles">
+		<h1>Portlet Communication</h1>
+		<h2></h2>
+	</div>
+</section>
+
+<section>
+	<h1>Object sharing between portlets</h1>
+	<ul>
+		<li>How do we exchange information between portlets ?</li>
+		<li>The JSR 286 adds :
+			<ul>
+				<li>Portlet session</li>
+				<li>Public render parameter </li>
+			</ul>
+		</li>
+	</ul>
+</section>
+
+<section>
+	<h1>Portlets and Sessions</h1>
+	<ul>
+		<li>Info sharing in the same web application</li>
+		<li>Accessible from :
+			<ul>
+				<li><code>portletRequest.getPortletSession();</code></li>
+			</ul>
+		</li>
+		<li>Attributes stored at 2 levels :
+			<ul>
+				<li><code>Request.setAttribute(name, value, PortletSession.APPLICATION_SCOPE);</code></li>
+				<li><code>Request.setAttribute(name, value, PortletSession.PORTLET_SCOPE);</code></li>
+			</ul>
+		</li>
+	</ul>
+</section>
+
+<section>
+	<h1>Public Parameter</h1>
+	<ul>
+		<li>Simply share infos between portlets, in different possible applications</li>
+		<li>Easier lifecycle than Events</li>
+		<li>But limited to String sharing</li>
+		<li>For example :
+			<ul>
+				<li><code>portletRequest.getParameter()</code></li>
+				<li><code>portletRequest.setRenderParameter()</code></li>
+			</ul>
+		</li>
+	</ul>
+</section>
+
+<section>
+	<h1>Public Parameter</h1>
+	<pre><code class="xml" contenteditable> 
+&lt;portlet-app ... version="2.0">
+	&lt;portlet>
+		&lt;description xml:lang="EN">Public Parameter Consumer 003&lt;/description>
+		&lt;portlet-name>PublicParamterConsumer-003&lt;/portlet-name>
+           ...
+		&lt;supported-public-render-parameter>country&lt;/supported-public-render-parameter>
+	&lt;/portlet>
+
+	&lt;public-render-parameter>
+		&lt;identifier>country&lt;/identifier>
+		&lt;name>country&lt;/name>
+	&lt;/public-render-parameter>  
+&lt;/portlet-app>		
+	</code></pre>
+</section>
+
+<section>
+	<h1>Coordination : IPC Events</h1>
+	<ul>
+		<li>IPC: Inter Portlet Communication</li>
+		<li>Data sharing between portlets </li>
+		<li>The object has to be serializable and implements java.io.Serializable</li>
+	</ul>
+</section>
+
+<section>
+	<h1>Coordination : IPC Events Configuration</h1>
+	<pre><code class="xml" contenteditable style="max-height:700px;">
+&lt;portlet-app ... version="2.0">
+	&lt;event-definition>
+		&lt;name>addressBookInfo&lt;/name>
+		&lt;value-type>org.exoplatform.training.AddressBookEntry&lt;/value-type>
+	&lt;/event-definition>
+
+	&lt;portlet>
+		&lt;description xml:lang="EN">Address Book Form 005&lt;/description>
+		&lt;portlet-name>AddressBookForm-005&lt;/portlet-name>
+		....
+		&lt;supported-publishing-event>
+			&lt;name>addressBookInfo&lt;/name>
+		&lt;/supported-publishing-event>
+	&lt;/portlet>
+
+	&lt;portlet>
+		&lt;description xml:lang="EN">Address Book List 005&lt;/description>
+		&lt;portlet-name>AddressBookList-005&lt;/portlet-name>
+		&lt;portlet-class>
+			org.exoplatform.training.AddressBookListPortlet
+		&lt;/portlet-class>
+		....
+		&lt;supported-processing-event>
+			&lt;name>addressBookInfo&lt;/name>
+		&lt;/supported-processing-event>    
+	&lt;/portlet>		
+
+&lt;/portlet-app>
+	</code></pre>
+</section>
+
+<section>
+	<h1>Coordination: IPC Event Code</h1>
+	<h2>Serializable event</h2>
+	<ul>
+		<li>Event producer</li>
+	</ul>
+	<pre><code class="java" contenteditable>
+public void processAction(ActionRequest request, ActionResponse response) ... {
+    try {
+        AddressBookEntry entry = new AddressBookEntry();
+		entry.setFirstName( request.getParameter("firstName") );
+        ...
+        response.setEvent("addressBookInfo", entry);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+	</code></pre>
+	<ul>
+		<li>Consumer</li>
+	</ul>
+	<pre><code class="java" contenteditable>
+ public void processEvent(EventRequest request, EventResponse response) ... {
+	// get the event from the request
+	AddressBookEntry event = (AddressBookEntry) request.getEvent().getValue();
+	// Put the event in some parameter
+    request.setAttribute("event", event);
+}
+	</code></pre>
+</section>
+
+<section>
+	<h1>Portlet and Resources</h1>
+	<ul>
+		<li>Used to serve :
+			<ul>
+				<li>Resources for AJAX application</li>
+				<li>Binary resources : images, PDF, etc.</li>
+			</ul>
+		</li>
+		<li>Portlet has a complete control on the response sent to the client</li>
+		<li>Portlet must implement
+			<ul>
+				<li><code>serveResource(ResourceRequest, ResourceResponse)</code></li>
+			</ul>
+		</li>
+	</ul>
+</section>
+
+<section data-state="chapter-transition">
+	<div class="titles">
+		<h1>Exercises</h1>
+		<h2></h2>
+	</div>
+</section>
+
+<section>
+	<h1>Exercises</h1>
+	<ul>
+ 		<li>Create a HelloWorld Portlet</li>
+ 		<li>Add the preference management</li>
+ 		<li>Add a public parameter</li>
+ 		<li>Test portlet caching</li>
+ 		<li>Create 2 portlets using IPC events</li>
+ 		<li>Use PortletSession</li>
+	</ul>
+</section>
+
+<section>
+	<h1>Lab-001: Simple Portlet</h1>
+	<h2>Create HelloWorld Portlet</h2>
+	<ul>
+		<li>Implement the portlet (with or without a dispatcher)</li>
+		<li>Configure the portlet and the web application</li>
+		<li>Deploy the WAR</li>
+		<li>Import the portlet using the application registry</li>
+		<li>Show the portlet </li>
+	</ul>
+	<div style="text-align: center;">
+		<img src="images/01-lab.png" style="float: right;width:497px"/>
+	</div>
+</section>
+
+<section>
+	<h1>Lab-002: Preferences</h1>
+	<h2>Add the preference management</h2>
+	<ul>
+		<li>Form in <code>EDIT</code> mode</li>
+		<li>Show a message en <code>VIEW</code> mode</li>
+	</ul>
+	<div style="text-align: center;">
+		<img src="images/02-lab.png" style="float: right;width:638px"/>
+	</div>
+</section>
+
+
+<section>
+	<h1>Lab-003: Public Parameter</h1>
+	<h2>Create a public parameter</h2>
+	<ul>
+		<li>Interchange data between 2 portlets</li>
+		<li>Test the portlet with a parameter you enter in a form</li>
+	</ul>
+	<div style="text-align: center;">
+		<img src="images/03-lab.png" style="float: right;width:516px"/>
+	</div>
+</section>
+
+<section>
+	<h1>Lab-004: Caching</h1>
+	<h2>Test Portlet Caching</h2>
+	<ul>
+		<li>Configure a portlet with and without caching</li>
+		<li>Call <code>ProcessAction</code></li>
+	</ul>
+	<div style="text-align: center;">
+		<img src="images/04-lab.png" style="float: right;width:508px"/>
+	</div>
+</section>
+
+<section>
+	<h1>Lab-005: IPC</h1>
+	<h2>Inter Portlet Communication</h2>
+	<ul>
+		<li>Create an event (Java Class)</li>
+		<li>Exchange this event between 2 portlets</li>
+	</ul>
+	<div style="text-align: center;">
+		<img src="images/05-lab5.png" style="float: left;width:471px"/>
+		<img src="images/06-lab5.png" style="float: right;width:470px"/>
+	</div>
+</section>
+
+<section>
+	<h1>Lab-006: PorletSession</h1>
+	<h2>Create 2 portlets using PortletSession</h2>
+	<ul>
+		<li>Each portlet store its object in different scopes</li>
+	</ul>
+	<div style="text-align: center;">
+		<img src="images/07-lab6.png" style="float: left;width:442px"/>
+		<img src="images/08-lab6.png" style="float: right;width:442px"/>
+	</div>
+</section>
+
+<section data-state="chapter-transition">
+	<div class="titles">
+		<h1>Advanced Portlets</h1>
+		<h2>Questions and Answers</h2>
+	</div>
+</section>
+
+
+<!-- SECTIONS BEFORE THIS POINT -->
+			</div>
+			<div class="footer">
+				<div class="footer-content">
+					<img class="logo" src="../../reveal/exo/images/exo-logo.png" width="70px"/>
+					<div id="slide-number" class="slide-number"></div>
+					<div class="copyright">Copyright 2013 eXo Platform</div>				
+				</div>
+			</div>	
+			
+		</div>
+
+		<script src="../../reveal/lib/js/head.min.js"></script>
+		<script src="../../reveal/js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				width: 1024,
+
+				controls: true,
+				progress: true,	
+				history: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: '../../reveal/plugin/highlight/highlight.js', async: true, callback: function() { window.hljs.initHighlightingOnLoad(); } },
+					{ src: '../../reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					/*{ src: '../../reveal/lib/js/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../reveal/lib/js/data-markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },*/
+					{ src: '../../reveal/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: '../../reveal/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+			var updateSlideNumber = function( event ) {
+			    // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+			    document.getElementById("slide-number").innerHTML = event.indexh + 1;
+			}
+
+			// Fires each time a new slide is activated
+			Reveal.addEventListener('ready', updateSlideNumber);
+    		Reveal.addEventListener('slidechanged', updateSlideNumber);
+		</script>
+
+	</body>
+</html>
+
