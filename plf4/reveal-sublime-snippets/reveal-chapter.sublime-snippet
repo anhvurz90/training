@@ -1,0 +1,22 @@
+<snippet>
+	<content><![CDATA[
+<section data-state="chapter-title">
+	<div class="titles">
+		<h1>${1:Title}</h1>
+		<h2>${2:Description}</h2>
+	</div>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<div class="speaker">${3:eXo Platform Academy}</div>
+	<div class="date">${4:May 2013}</div>
+</section>
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>re-chapter</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>text.html</scope>
+</snippet>

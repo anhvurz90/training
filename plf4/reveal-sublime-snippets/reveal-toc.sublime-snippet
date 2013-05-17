@@ -1,0 +1,14 @@
+<snippet>
+	<content><![CDATA[
+<section class="toc">
+	<h1>${1:Agenda}</h1>
+	<ol> <!-- for more than 4 : style="line-height:57px"-->
+		<li>${2:first}</li>
+	</ol>
+</section>
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>re-toc</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>text.html</scope>
+</snippet>
