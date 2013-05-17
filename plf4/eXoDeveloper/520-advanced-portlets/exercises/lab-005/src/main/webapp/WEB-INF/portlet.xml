@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" version="2.0">
+
+	<portlet>
+		<description xml:lang="EN">Address Book Form 005</description>
+		<portlet-name>AddressBookForm-005</portlet-name>
+		<portlet-class>
+        org.exoplatform.training.portlet.eventing.AddressBookForm
+        </portlet-class>
+		<supports>
+			<mime-type>text/html</mime-type>
+			<portlet-mode>view</portlet-mode>
+		</supports>
+		<portlet-info>
+			<title>Address Book Form-005</title>
+		</portlet-info>
+		<portlet-preferences>
+			<preference>
+				<name>message</name>
+				<value>Hello World!</value>
+				<read-only>false</read-only>
+			</preference>
+		</portlet-preferences>		
+
+		<supported-publishing-event>
+			<name>addressBookInfo</name>
+		</supported-publishing-event>
+	    
+	</portlet>
+
+	<portlet>
+		<description xml:lang="EN">Address Book List 005</description>
+		<portlet-name>AddressBookList-005</portlet-name>
+		<portlet-class>
+        org.exoplatform.training.portlet.eventing.AddressBookListPortlet
+        </portlet-class>
+		<supports>
+			<mime-type>text/html</mime-type>
+			<portlet-mode>view</portlet-mode>
+		</supports>
+		<portlet-info>
+			<title>Address Book List-005</title>
+		</portlet-info>
+
+	    <supported-processing-event>
+			<name>addressBookInfo</name>
+		</supported-processing-event>
+	    
+	</portlet>
+
+
+
+	<event-definition>
+		<name>addressBookInfo</name>
+		<value-type>org.exoplatform.training.portlet.eventing.AddressBookEntry</value-type>
+	</event-definition>
+
+
+
+</portlet-app>

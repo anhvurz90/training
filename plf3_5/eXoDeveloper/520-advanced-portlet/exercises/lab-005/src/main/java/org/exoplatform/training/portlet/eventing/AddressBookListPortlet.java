@@ -43,6 +43,8 @@ public class AddressBookListPortlet extends GenericPortlet {
 	
 	private static final String viewPage = "/WEB-INF/jsp/addressbooklist/view.jsp";
 
+	private static AddressBookEntry event=null;
+
 	protected void doView(RenderRequest request, RenderResponse response)
 			throws PortletException, IOException {
 				
@@ -57,13 +59,9 @@ public class AddressBookListPortlet extends GenericPortlet {
 				if (event2 != null) System.out.println("Event has arrived in doView: " + event2.toString() );
 				if (eventRes != null) System.out.println("EventRes has arrived in doView: " + eventRes.toString() );
 				
-				
-			AddressBookEntry entry = new AddressBookEntry();
-			entry.setFirstName( "firstName" );
-			entry.setLastName( "lastName" );
-			entry.setAddress( "address" );
-			
-			request.setAttribute("event", entry );
+				if (this.event!=null) {					
+					request.setAttribute("event", this.event);
+				}
 		processRequest( request,  response); 
 	}
 
@@ -78,14 +76,17 @@ public class AddressBookListPortlet extends GenericPortlet {
 
 		System.out.println("Event has arrived in processEvent: " + event.toString());
 		
+		this.event = event;
+		/*
 		AddressBookEntry entry = new AddressBookEntry();
 			entry.setFirstName( "firstName" );
 			entry.setLastName( "lastName" );
 			entry.setAddress( "address" );
 			request.setAttribute("event", entry );
+			*/
 		
 		// Put the event in some parameter
-        //request.setAttribute("event", event);
+        request.setAttribute("event", event);
        
 
 	}
