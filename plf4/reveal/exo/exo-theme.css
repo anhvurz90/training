@@ -18,6 +18,9 @@ body {
   background-color: #FFFFFF;
 }
 
+.reveal .progress span {
+  background: #4f72ac!important;
+}
 .reveal table th {
   text-align: center;
   font-weight: bold;
