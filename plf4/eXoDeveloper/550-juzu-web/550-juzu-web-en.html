@@ -1,0 +1,665 @@
+
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>reveal.js - The HTML Presentation Framework</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<link rel="stylesheet" href="../../reveal/css/reveal.css">
+		<!--<link rel="stylesheet" href="../../reveal/css/theme/default.css" id="theme">-->
+		<link rel="stylesheet" href="../../reveal/exo/exo-theme.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="../../reveal/lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="../../reveal/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+<!-- SECTIONS AFTER THIS POINT -->
+
+<section data-state="chapter-title">
+	<div class="titles">
+		<h1>Juzu Web</h1>
+		<h2>Portlets made easy</h2>
+	</div>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<div class="speaker">eXo Platform Academy</div>
+	<div class="date">May 2013</div>
+</section>
+
+<section class="toc">
+	<h1>Agenda</h1>
+	<ol style="line-height:57px">
+		<li>Quickstart</li>
+		<li>Template</li>
+		<li>Dependency Injection</li>
+		<li>Views</li>
+		<li>Actions</li>
+		<li>Template safe templating</li>
+		<li>Less</li>
+		<li>Adding Ajax</li>
+	</ol>
+</section>
+
+<section data-state="chapter-transition">
+	<div class="titles">
+		<h1>Quickstart</h1>
+		<h2></h2>
+	</div>
+</section>
+
+<section>
+	<h1>Tutorial Applications</h1>
+	<ul>
+		<li>Weather1Application: Quickstart</li>
+		<li>Weather2Application: Template overwiew</li>
+		<li>Weather3Application: Dependency Injection</li>
+		<li>Weather4Application: Views</li>
+		<li>Weather5Application: Actions</li>
+		<li>Weather6Application: Type safe templating</li>
+		<li>Weather7Application: Styling the application</li>
+		<li>Weather8Application: Adding Ajax</li>
+	</ul>
+</section>
+
+<section>
+	<h1>The Basics</h1>
+	<ul>
+		<li>package-info.java</li>
+	</ul>
+	<pre><code class="java" contenteditable>
+@Application
+@Route("/weather1")
+@Portlet
+package examples.tutorial.weather1;		
+	</code></pre>
+	<ul>
+		<li>Controller</li>
+	</ul>
+	<pre><code class="java" contenteditable>
+@View
+public void index() {
+	index.render();
+}
+  	</code></pre>
+	<ul>
+		<li>Injecting Views</code></li>
+	</ul>
+	<pre><code class="java" contenteditable>
+@Inject
+@Path("index.gtmpl")
+Template index;
+	</code></pre>
+
+</section>
+
+
+<section>
+	<h1>Packaging</h1>
+	<ul>
+		<li>web.xml</li>
+	</ul>
+	<pre><code class="xml" contenteditable>
+&lt;web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+	&lt;context-param>
+		&lt;param-name>juzu.run_mode&lt;/param-name>
+		&lt;param-value>prod&lt;/param-value>
+	&lt;/context-param>
+&lt;/web-app>
+	</code></pre>
+	<ul>
+		<li>portlet.xml</li>
+	</ul>
+	<pre><code class="xml" contenteditable>
+&lt;portlet>
+	&lt;portlet-name>Weather1Portlet&lt;/portlet-name>
+	&lt;portlet-class>examples.tutorial.weather1.Weather1Portlet&lt;/portlet-class>
+&lt;/portlet>
+	</code></pre>
+</section>
+
+<section data-state="chapter-transition">
+	<div class="titles">
+		<h1>Template Overview</h1>
+		<h2></h2>
+	</div>
+</section>
+
+<section>
+	<h1>Template Overview</h1>
+	<ul>
+		<li>the template contains the <code>${ }</code> expression that makes it dynamic</li>
+	</ul>
+	<pre><code class="jsp" contenteditable>
+The weather temperature in ${location} is ${temperature} degrees.		
+	</code></pre>
+	<ul>
+		<li>we use a <code>Map</code> containing the <code>location</code> and <code>temperature</code> parameters.</li>
+	</ul>
+	<pre><code class="java" contenteditable>
+@View
+public void index() {
+	Map&lt;String, Object> parameters = new HashMap&lt;String, Object>();
+	parameters.put("location", "marseille");
+	parameters.put("temperature", "20");
+	index.render(parameters);
+}
+	</code></pre>
+</section>
+
+<section data-state="chapter-transition">
+	<div class="titles">
+		<h1>Dependency Injection</h1>
+		<h2></h2>
+	</div>
+</section>
+
+<section>
+	<h1>Dependency Injection</h1>
+	<ul>
+		<li>We can use a remote service that we encapsulate into the <code>WeatherService</code></li>
+	</ul>
+	<pre><code class="java" contenteditable>
+public class WeatherService {
+
+  /** A cache for temperatures. */
+  private final HashMap&lt;String, String> cache = new HashMap&lt;String, String>();
+
+  public WeatherService() {
+    System.out.println("aezfzef");
+  }
+
+  /**
+   * Returns the temperature for the specifed location in celsius degrees.
+   *
+   * @param location the location
+   * @return the temperature
+   */
+  public String getTemperature(String location) {
+    String temperature = cache.get(location);
+    if (temperature == null) {
+      cache.put(location, temperature = retrieveTemperature(location));
+    }
+    return temperature;
+  }
+
+  private String getValue(String url, String xpath) throws Exception {
+    XPathExpression expr = XPathFactory.
+        newInstance().newXPath().compile(xpath);
+    InputSource src = new InputSource(url);
+    return expr.evaluate(src);
+  }
+
+  /**
+   * Retrieve the temperature.
+   *
+   * @param location the location
+   * @return the temperature
+   */
+  protected String retrieveTemperature(String location) {
+    try {
+      // First we get the location WOEID
+      String woeidURL =
+          "http://query.yahooapis.com/v1/public/yql" +
+              "?q=select%20*%20from%20geo.places%20where%20text%3D%22" +
+              URLEncoder.encode(location, "UTF-8") +
+              "%22&format=xml";
+      String woeid = getValue(woeidURL, "//*[local-name()='woeid']/text()");
+
+      // Now get weather temperature
+      String weatherURL =
+          "http://weather.yahooapis.com/forecastrss?w=" +
+              URLEncoder.encode(woeid, "UTF-8") +
+              "&u=c";
+      return getValue(weatherURL, "//*[local-name()='condition']/@temp");
+    }
+    catch (Exception e) {
+      // Unavailable
+      return "?";
+    }
+  }
+}
+		
+	</code></pre>
+</section>
+
+<section>
+	<h1>Dependency Injection</h1>
+	<ul>
+		<li>The <a href="http://jcp.org/en/jsr/detail?id=330">&nbsp;&nbsp;&nbsp;JSR-330</a>, also knowns as <code>@Inject</code>, defines an API for dependency injection</li>
+		<li>Juzu relies on the portable <code>@Inject</code> annotation to declare sinjections</li>
+		<li>The following containers are supported :
+			<ul>
+				<li><a href="http://www.springsource.org">&nbsp;&nbsp;&nbsp;Spring Framework</a></li>
+				<li><a href="http://seamframework.org/Weld">&nbsp;&nbsp;&nbsp;JBoss Weld</a></li>
+				<li><a href="http://code.google.com/p/google-guice/wiki/Guice30">&nbsp;&nbsp;&nbsp;Google Guice 3.0</a></li>
+			</ul>
+		</li>
+	</ul>
+	<pre><code class="java" contenteditable>@Inject
+WeatherService weatherService;</code></pre>
+	<pre><code class="java" contenteditable>@View
+public void index() {
+Map<String, Object> parameters = new HashMap<String, Object>();
+	parameters.put("location", "marseille");
+	parameters.put("temperature", weatherService.getTemperature("marseille"));
+	index.render(parameters);
+}</code></pre>
+</section>
+
+<section data-state="chapter-transition">
+	<div class="titles">
+		<h1>Views</h1>
+		<h2></h2>
+	</div>
+</section>
+
+<section>
+	<h1>Views</h1>
+	<ul>
+		<li>Support for parameters
+			<ul>
+				<li>The <code>@Route("/show/{location}")</code> annotation binds the the index controller method to the <code>/show/*</code> route</li>
+			</ul>
+		</li>
+	</ul>
+	<pre><code class="java" contenteditable>@View
+@Route("/show/{location}")
+public void index(String location) {
+	Map&lt;String, Object> parameters = new HashMap&lt;String, Object>();
+	parameters.put("location", location);
+	parameters.put("temperature", weatherService.getTemperature(location));
+	index.render(parameters);
+}	</code></pre>
+	<ul>
+		<li>View parameters in templates</li>
+	</ul>
+	<pre><code class="jsp" contenteditable>The weather temperature in ${location} is ${temperature} degrees.
+&lt;a href="@{index(location = 'marseille')}">Marseille&lt;/a>
+&lt;a href="@{index(location = 'paris')}">Paris&lt;/a>		</code></pre>
+</section>
+
+<section data-state="chapter-transition">
+	<div class="titles">
+		<h1>Actions</h1>
+		<h2></h2>
+	</div>
+</section>
+
+<section>
+	<h1>Actions</h1>
+	<ul>
+		<li>Parameters can be encoded directly in the URL or be present in the form that triggers the action</li>
+	</ul>
+	<pre><code class="jsp" contenteditable>The weather temperature in ${location} is ${temperature} degrees.
+&lt;ul>&lt;% locations.each() { location -> %>
+&lt;li>&lt;a href="@{index(location = location)}">${location}&lt;/a>&lt;/li>
+&lt;% } %>
+&lt;/ul>
+
+&lt;form action="@{add()}" method="post">
+   &lt;input type="text" name="location" value=""/>
+   &lt;input type="submit"/>
+&lt;/form>	</code></pre>
+
+	<ul>
+		<li>Actions are method annotated by the <code>@Action</code> annotation
+			<ul>
+				<li>The method returns a <code>Response.View</code> object</li>
+				<li>The <code>Weather_</code> controller compagnion provides Type Safety</li>
+			</ul>
+		</li>
+	</ul>
+	<pre><code class="java" contenteditable>@Action
+@Route("/add")
+public Response.View add(String location) {
+	locations.add(location);
+	return Weather_.index(location);
+}</code></pre>
+
+</section>
+
+<section data-state="chapter-transition">
+	<div class="titles">
+		<h1>Type Safe Templating</h1>
+		<h2></h2>
+	</div>
+</section>
+
+<section>
+	<h1>Type Safe Templating</h1>
+	<ul>
+		<li>Templates use <code>${ }</code> expressions that often refers to parameters passed by the controller
+			<ul>
+				<li>Generic way but uses an untyped syntax</li>
+			</ul>
+		</li>
+		<li>Parameters can be declared as <code>param</code> inside the template</li>
+	</ul>
+	<pre><code class="jsp" contenteditable>#{param name=location/}
+#{param name=temperature/}
+#{param name=locations/}
+
+The weather temperature in ${location} is ${temperature} degrees.
+&lt;ul>&lt;% locations.each() { location -> %>
+&lt;li>&lt;a href="@{index(location = location)}">${location}&lt;/a>&lt;/li>
+&lt;% } %>
+&lt;/ul>
+
+&lt;form action="@{add()}" method="post">
+   &lt;input type="text" name="location" value=""/>
+   &lt;input type="submit"/>
+&lt;/form></code></pre>
+</section>
+
+<section>
+	<h1>Type Safe Templating : Params</h1>
+	<ul>
+		<li>With <code>param</code>, the <code>HashMap</code> is not used anymore</li>
+		<li>Parameter methods can be chained</li>
+		<li><code>render()</code> method is invoked to render the template</li>
+	</ul>
+	<pre><code class="java" contenteditable>@View
+public void index(String location) {
+	index.
+		with().
+		location(location).
+		temperature(weatherService.getTemperature(location)).
+		locations(locations).
+	render();
+}</code></pre>
+	<ul>
+		<li>We obtain the <code>examples.tutorial.weather6.templates.index</code> generated template class</li>
+	</ul>
+	<pre><code class="java" contenteditable>@Inject
+@Path("index.gtmpl")
+examples.tutorial.weather6.templates.index index;</code></pre>
+</section>
+
+<section data-state="chapter-transition">
+	<div class="titles">
+		<h1>Styling the application</h1>
+		<h2>How Juzu uses Less to do more?</h2>
+	</div>
+</section>
+
+<section>
+	<h1>Styling the application</h1>
+	<ul>
+		<li>With Juzu, we can use <a href="http://twitter.github.io/bootstrap/">&nbsp;&nbsp;&nbsp;Twitter Bootstrap</a> very easily</li>
+		<li>Bootstrap is based on the dynamic stylesheet language <a href="http://lesscss.org">&nbsp;&nbsp;&nbsp;Less</a></li>
+		<li>With <code>bootstrap.less</code>, we have Bootstrap "a la carte"</li>
+	</ul>
+	<pre><code class="less" contenteditable>/*!
+ * Bootstrap v2.0.3
+ *
+ * Copyright 2012 Twitter, Inc
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Designed and built with all the love in the world @twitter by @mdo and @fat.
+ */
+
+// CSS Reset
+@import "reset.less";
+
+// Core variables and mixins
+@import "variables.less"; // Modify this for custom colors, font-sizes, etc
+@import "mixins.less";
+
+// Grid system and page structure
+@import "scaffolding.less";
+
+// Base CSS
+@import "type.less";
+@import "forms.less";
+
+// Components: common
+@import "component-animations.less";
+
+// Components: Buttons & Alerts
+@import "buttons.less";
+@import "button-groups.less";
+
+// Components: Misc
+@import "accordion.less";		
+	</code></pre>
+</section>
+
+<section>
+	<h1>Plugins in Action</h1>
+	<ul>
+		<li>Juzu can be extended with plugins, in this section we will use two of them
+			<ul>
+				<li>The Less plugin compiles <code>less</code> files into <code>css</code> files</li>
+	<pre><code class="java" contenteditable>  @Less(value = "bootstrap.less", minify = true)
+package examples.tutorial;
+
+import juzu.plugin.less.Less;		</code></pre>
+				<li>The Asset plugin inject <code>asset</code> such as <code>stylesheet</code> or <code>javascript</code> in the application page</li>
+	<pre><code class="java" contenteditable>  @Application
+@Assets(stylesheets = @Stylesheet(
+  src = "/examples/tutorial/assets/bootstrap.css",
+  location = AssetLocation.CLASSPATH)
+)
+package examples.tutorial.weather7	</code></pre>
+			</ul>
+		</li>
+	</ul>
+</section>
+
+<section>
+	<h1>Bringing CSS to life</h1>
+	<ul>
+		<li>Accordion with <a href="http://twitter.github.io/bootstrap/javascript.html#collapse">&nbsp;&nbsp;&nbsp;Collapse Component</a></li>
+	</ul>
+	<pre><code class="jsp" contenteditable>&lt;div class="accordion-group">
+  &lt;div class="accordion-heading">&lt;a class="accordion-toggle" href="@{index(location = current)}">${current}&lt;/a>&lt;/div>
+  &lt;div class="accordion-body">
+    &lt;div class="accordion-inner">The weather temperature in ${current} is ${temperature}&deg; ${grade.toUpperCase()}.&lt;/div>
+  &lt;/div>
+&lt;/div></code></pre>
+	<ul>
+		<li>Adding a city with <a href="http://twitter.github.io/bootstrap/base-css.html#forms">&nbsp;&nbsp;&nbsp;Bootstrap form support</a></li>
+	</ul>
+	<pre><code class="jsp" contenteditable>&lt;form action="@{add()}" method="post">
+  &lt;fieldset>
+    &lt;div class="controls">
+      &lt;div class="input-append">
+         &lt;input class="span2" type="text" size="16"name="location" value=""/>
+         &lt;button type="submit" class="btn">Add&lt;/button>
+      &lt;/div>
+    &lt;/div>
+  &lt;/fieldset>
+&lt;/form></code></pre>
+</section>
+
+<section data-state="chapter-transition">
+	<div class="titles">
+		<h1>Adding Ajax</h1>
+		<h2></h2>
+	</div>
+</section>
+
+<section>
+	<h1>Adding scripts</h1>
+	<pre><code class="java" contenteditable>@Assets(
+   scripts = {
+      @Script(
+         id = "jquery", // 1 
+         src = "jquery-1.7.1.min.js",
+         location = AssetLocation.CLASSPATH),
+      @Script(
+         id = "transition",
+         src = "bootstrap-transition.js", // 2 
+         location = AssetLocation.CLASSPATH,
+         depends = "jquery"), // 1 
+      @Script(
+         id = "collapse",
+         src = "bootstrap-collapse.js",
+         location = AssetLocation.CLASSPATH,
+         depends = {
+            "jquery", // 1
+            "transition"}), // 2 
+      @Script(
+         src = "weather.js",
+         location = AssetLocation.CLASSPATH,
+         depends = {
+            "jquery",  // 1 
+            "collapse"}) // 3 
+   },
+   stylesheets = @Stylesheet(src = "/examples/tutorial/assets/bootstrap.css", location = AssetLocation.CLASSPATH)
+)
+package examples.tutorial.weather8;</code></pre>
+
+	<ul>
+		<li>[1] All other scripts than JQuery depends on JQuery</li>
+		<li>[2] The <i>collapse</i> JQuery plugin depends on the <i>transition</i> script</li>
+		<li>[3] Our <i>weather</i> script depends also on the JQuery <i>collapse</i> plugin</li>
+	</ul>
+
+</section>
+
+<section>
+	<h1>Ajax Controller</h1>
+	<ul>
+		<li><code>@Ajax</code> allows to load a markup fragment from jQuery</li>
+	</ul>
+	<pre><code class="java" contenteditable>@Inject
+@Path("fragment.gtmpl")
+examples.tutorial.weather8.templates.fragment fragment;
+
+@Ajax
+@Resource
+@Route("/fragment")
+public void getFragment(String location) {
+	fragment.
+		with().
+		location(location).
+		temperature(weatherService.getTemperature(location)).
+	render();
+}</code></pre>
+
+<pre><code class="javascript" contenteditable style="max-height: 200px">
+$(function () {
+
+  // Setup an event listener on the .collapse element when it is shown
+  $('.collapse').on('show', function () {
+
+    // Get the location attribute from the dom
+    var location = $(this).attr("id");
+
+    // Update the .accordion-inner fragment
+    $(this).
+      closest(".accordion-group").
+      find(".accordion-inner").
+      each(function () {
+
+      // Load the fragment from the resource controller
+      $(this).jzLoad(
+        "Weather.getFragment()",
+        {"location":location});
+
+    });
+  });
+
+  // Setup the collapse component
+  $(".collapse").collapse();
+});	
+</code></pre>
+
+</section>
+
+<section data-state="chapter-transition">
+	<div class="titles">
+		<h1>Juzu Web</h1>
+		<h2>Questions and Answers</h2>
+	</div>
+</section>
+
+
+
+
+
+<!-- SECTIONS BEFORE THIS POINT -->
+			</div>
+			<div class="footer">
+				<div class="footer-content">
+					<img class="logo" src="../../reveal/exo/images/exo-logo.png" width="70px"/>
+					<div id="slide-number" class="slide-number"></div>
+					<div class="copyright">Copyright 2013 eXo Platform</div>				
+				</div>
+			</div>	
+			
+		</div>
+
+		<script src="../../reveal/lib/js/head.min.js"></script>
+		<script src="../../reveal/js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				width: 1024,
+
+				controls: true,
+				progress: true,	
+				history: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: '../../reveal/plugin/highlight/highlight.js', async: true, callback: function() { window.hljs.initHighlightingOnLoad(); } },
+					{ src: '../../reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					/*{ src: '../../reveal/lib/js/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../reveal/lib/js/data-markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },*/
+					{ src: '../../reveal/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: '../../reveal/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+			var updateSlideNumber = function( event ) {
+			    // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+			    document.getElementById("slide-number").innerHTML = event.indexh + 1;
+			}
+
+			// Fires each time a new slide is activated
+			Reveal.addEventListener('ready', updateSlideNumber);
+    		Reveal.addEventListener('slidechanged', updateSlideNumber);
+		</script>
+
+	</body>
+</html>
+
