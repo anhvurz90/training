@@ -7,7 +7,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>reveal.js - The HTML Presentation Framework</title>
+		<title>${1:reveal.js - The HTML Presentation Framework}</title>
 
 		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
 		<meta name="author" content="Hakim El Hattab">
@@ -40,7 +40,7 @@
 			<div class="slides">
 <!-- SECTIONS AFTER THIS POINT -->
 
-			${1}
+			${2}
 
 <!-- SECTIONS BEFORE THIS POINT -->
 			</div>
