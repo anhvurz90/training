@@ -1,10 +1,10 @@
 <project>
 
-    <!--parent>
+    <parent>
     <groupId>org.exoplatform.training</groupId>
     <artifactId>config</artifactId>
     <version>trunk</version>
-    </parent--> 
+    </parent> 
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.exoplatform.training.lab001</groupId>

@@ -8,9 +8,9 @@
       <version>3.2.0-Beta01-SNAPSHOT</version>
    </parent -->
 
-   <groupId>org.gatein.portal.examples.portlets</groupId>
-   <artifactId>parent</artifactId>
-   <version>3.2.0-Beta01-SNAPSHOT</version>
+ <groupId>org.exoplatform.training</groupId>
+ <artifactId>config</artifactId>
+ <version>trunk</version>
    <packaging>pom</packaging>
    <name>eXo Training Portal Examples - Portlets</name>
 
