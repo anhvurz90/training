@@ -13,6 +13,7 @@
 		</supports>
 		<portlet-info>
 			<title>Public Parameter Consumer-003</title>
+      <keywords>training, demo, simple</keywords>
 		</portlet-info>
 		<portlet-preferences>
 			<preference>
@@ -39,6 +40,7 @@
 		</supports>
 		<portlet-info>
 			<title>Public Parameter Form-003</title>
+      <keywords>training, demo, simple</keywords>
 		</portlet-info>
 		<portlet-preferences>
 			<preference>

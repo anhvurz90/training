@@ -13,6 +13,7 @@
 		</supports>
 		<portlet-info>
 			<title>Address Book Form-005</title>
+      <keywords>training, demo, simple</keywords>
 		</portlet-info>
 		<portlet-preferences>
 			<preference>
@@ -40,6 +41,7 @@
 		</supports>
 		<portlet-info>
 			<title>Address Book List-005</title>
+      <keywords>training, demo, simple</keywords>
 		</portlet-info>
 
 	    <supported-processing-event>

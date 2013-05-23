@@ -13,6 +13,7 @@
 		</supports>
 		<portlet-info>
 			<title>Cached Portlet-004</title>
+      <keywords>training, demo, simple</keywords>
 		</portlet-info>
 		<portlet-preferences>
 			<preference>
@@ -36,6 +37,7 @@
 		</supports>
 		<portlet-info>
 			<title>Not Cached Portlet-004</title>
+      <keywords>training, demo, simple</keywords>
 		</portlet-info>
 		<portlet-preferences>
 			<preference>

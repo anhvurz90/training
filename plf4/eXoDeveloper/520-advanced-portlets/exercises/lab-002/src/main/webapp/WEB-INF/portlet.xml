@@ -13,6 +13,7 @@
 		</supports>
 		<portlet-info>
 			<title>Hello World-002</title>
+      <keywords>training, demo, simple</keywords>
 		</portlet-info>
 	</portlet>
 	
@@ -31,6 +32,7 @@
 		</supports>
 		<portlet-info>
 			<title>Hello World JSP-002</title>
+      <keywords>training, demo, simple</keywords>
 		</portlet-info>
 		<portlet-preferences>
 			<preference>

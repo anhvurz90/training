@@ -13,6 +13,7 @@
 		</supports>
 		<portlet-info>
 			<title>Portlet Session-006</title>
+      <keywords>training, demo, simple</keywords>
 		</portlet-info>
 	</portlet>
 
@@ -28,6 +29,7 @@
 		</supports>
 		<portlet-info>
 			<title>Portlet Session Application Scope-006</title>
+      <keywords>training, demo, simple</keywords>
 		</portlet-info>
 	</portlet>
 
