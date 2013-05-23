@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>800 - CRaSH</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<link rel="stylesheet" href="../../reveal/css/reveal.css">
+		<!--<link rel="stylesheet" href="../../reveal/css/theme/default.css" id="theme">-->
+		<link rel="stylesheet" href="../../reveal/exo/exo-theme.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="../../reveal/lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="../../reveal/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section data-state="chapter-title">
+					<div class="titles">
+						<h1>CRaSH</h1>
+						<h2>Common Reusable SHell</h2>
+					</div>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<div class="speaker">eXo Platform Academy</div>
+					<div class="date">May 2013</div>
+				</section>
+
+				<section class="toc">
+					<h1>Agenda</h1>
+					<ol>
+						<li>Overview and Architecture</li>
+						<li>Configuration</li>
+						<li>Commands</li>
+						<li>Exercises</li>
+					</ol>
+				</section>
+
+				<section data-state="chapter-transition">
+					<div class="titles">
+						<h1>Overview and Architecture</h1>
+						<h2></h2>
+					</div>
+				</section>
+
+				<section>
+					<h1>Overview</h1>
+					<ul>
+						<li>A shell for the JVM
+							<ul>
+								<li>Execute a "command" on the JVM</li>
+								<li>Comes with a bunch of commands</li>
+								<li>You can create your own !</li>
+								<li>Very useful for managing and monitoring the platform</li>
+							</ul>
+						</li>												
+						<li>Available as an extension in eXoPlatform 4.0</li>
+						<li>Not tied to eXoPlatform</li>
+						<li>Website : http://www.crashub.org/</li>
+					</ul>
+				</section>
+        
+				<section>
+					<h1>Architecture</h1>
+					<ul>
+						<li>A webapp installed in eXoPlatform</li>
+						<li>Commands are written in Groovy</li>
+					</ul>
+
+					<br>
+					<i>Describe the others modes (standalone, ...) ?</i>
+				</section>
+
+				<section data-state="chapter-transition">
+					<div class="titles">
+						<h1>Installation and Configuration</h1>
+						<h2></h2>
+					</div>
+				</section>
+
+				<section>
+					<h1>How to install it ?</h1>
+					<br>
+					Use the extension installation script :
+					<pre><code class="bash" contenteditable>&lt;EXOPLATFORM_ROOT&gt;/extension.(sh|bat) --install crash</code></pre>
+					<br>
+					That's it !
+				</section>
+
+				<section>
+					<h1>Configuration</h1>
+					<ul>
+						<li>All configuration in /WEB-INF/crash/crash.properties</li>
+						<ul>
+							<li>SSH port (default is 2000)</li>
+							<li>SSH key</li>
+							<li>Telnet port (default is 5000)</li>
+							<li>Authentication configuration</li>
+							<li>...</li>
+						</ul>
+						<pre><code class="properties" contenteditable>
+# VFS configuration
+crash.vfs.refresh_period=1
+
+# SSH configuration
+crash.ssh.port=2000
+#crash.ssh.keypath=/path/to/the/key/file
+
+# Telnet configuration
+crash.telnet.port=5000
+
+# Authentication configuration
+crash.auth=jaas
+crash.auth.jaas.domain=gatein-domain
+						</code></pre>
+					</ul>
+				</section>
+
+				<section data-state="chapter-transition">
+					<div class="titles">
+						<h1>Commands</h1>
+						<h2></h2>
+					</div>
+				</section>
+        
+        		<section>
+					<h1>Connection</h1>
+					<ul>
+						<li>Telnet connection</li>
+					</ul>
+					<pre><code class="bash" contenteditable>telnet localhost 5000</code></pre>
+					<ul>
+						<li>SSH connection (use your eXoPlatform credentials)</li>
+					</ul>
+					<pre><code class="bash" contenteditable>ssh -p 2000 root@localhost</code></pre>
+					<br>
+					<br>
+					<pre><code class="bash" contenteditable>root@localhost's password: 
+   ______
+ .~      ~. |`````````,       .'.                   ..'''' |         |
+|           |'''|'''''      .''```.              .''       |_________|
+|           |    `.       .'       `.         ..'          |         |
+ `.______.' |      `.   .'           `. ....''             |         | 1.2.1
+
+Follow and support the project on http://www.crashub.org
+Welcome to thomas-laptop + !
+It is Thu May 23 14:26:29 CEST 2013 now
+%</code></pre> 
+				</section>
+
+				<section>
+					<h1>Connection with Putty</h1>
+					<img src="images/putty.png"/>
+				</section>
+
+				<section>
+					<h1>Available commands</h1>
+					<b>help</b> command lists all the available commands
+					<pre><code class="bash" contenteditable>% help
+Try one of these commands with the -h or --help switch:
+
+NAME      DESCRIPTION
+cd        changes the current node
+commit    saves changes
+cp        copy a node to another
+dashboard
+env       display the term env
+filter    A filter for a stream of map
+help      provides basic help
+java      various java language commands
+jdbc      JDBC connection
+jmx       Java Management Extensions
+jndi      Java Naming and Directory Interface
+jpa       Java persistance API
+jvm       JVM informations
+log       logging commands
+ls        list the content of a node
+man       format and display the on-line manual pages
+mixin     mixin commands
+mv        move a node
+node      node commands
+pwd       print the current node path
+repo      repository interaction commands
+rm        remove one or several node or a property
+rollback  rollback changes
+select    execute a JCR sql query
+shell     shell related command
+sleep     sleep for some time
+sort      Sort a map
+system    vm system properties commands
+thread    JVM thread commands
+version   versioning commands
+ws        workspace commands
+xpath     execute a JCR xpath query</code></pre>
+				
+				</section>
+
+				<section>
+					<h1>Commands help</h1>
+					<b>--help</b> or <b>-h</b> lists the command options. Try “jdbc -h”
+					<pre><code class="bash" contenteditable>% jdbc -h
+usage: jdbc[-h | --help] COMMAND [ARGS]
+
+The most commonly used jdbc commands are:
+   props            show the database properties
+   close            close the current connection
+   table            describe the tables
+   open             open a connection from JNDI bound datasource
+   info             describe the database
+   connect          connect to database with a JDBC connection string
+   execute          execute a SQL statement
+   select           select SQL statement
+   tables           describe the tables</code></pre>
+				</section>
+
+				<section>
+					<h1>JCR Commands</h1>
+					Some of the commands are dedicated to the JCR. They allow to browse and manage it.<br>
+					The first thing is to do is to connect to a workspace (here the <b>collaboration</b> workspace) :
+					<pre><code class="bash" contenteditable>% repo use container=portal
+% ws login -u root collaboration</code></pre>
+					<br>
+					Now all the JCR commands are available : cd, ls, pwd, mv, rm, export, import, ...
+					<br>
+					<br>
+					Disconnect from the workspace with :
+					<pre><code class="bash" contenteditable>% ws logout</code></pre>
+				</section>
+
+				<section>
+					<h1>JCR Commands examples</h1>
+					<ul>
+						<li>
+							<b>ls</b>
+							<ul><li>ls lists not only folder contents but also details of a single node</li></ul>
+						</li>
+						<pre><code class="bash" contenteditable>% ls
+/sites/intranet                                                                                                                                                           
++-properties                                                                                                                                                              
+| +-jcr:primaryType: exo:portalFolder                                                                                                                                     
+| +-jcr:mixinTypes: [exo:modify,exo:datetime,exo:owneable,exo:sortable,metadata:siteMetadata,dc:elementSet]                                                               
+| +-keywords: 'intranet'                                                                                                                                                  
+| +-robots: 'index,follow'                                                                                                                                                
+| +-siteTitle: 'intranet'                                                                                                                                                 
+| +-exo:dateCreated: 2013-05-23T14:47:23.154+02:00                                                                                                                        
+| +-exo:dateModified: 2013-05-23T14:47:23.154+02:00                                                                                                                       
+| +-exo:index: 1000                                                                                                                                                       
+| +-exo:internalUse: false                                                                                                                                                
+| +-exo:lastModifiedDate: 2013-05-23T14:47:23.158+02:00                                                                                                                   
+| +-exo:lastModifier: '__system'                                                                                                                                          
+| +-exo:name: 'intranet'                                                                                                                                                  
+| +-exo:owner: '__system'                                                                                                                                                 
++-children                                                                                                                                                                
+  +-/sites/intranet/js                                                                                                                                                    
+  +-/sites/intranet/css                                                                                                                                                   
+  +-/sites/intranet/medias                                                                                                                                                
+  +-/sites/intranet/documents                                                                                                                                             
+  +-/sites/intranet/web contents                                                                                                                                          
+  +-/sites/intranet/links                                                                                                                                                 
+  +-/sites/intranet/categories                                                                                                                                            
+  +-/sites/intranet/ApplicationData</code></pre>
+					</ul>
+				</section>
+
+				<section>
+					<h1>JCR Commands examples</h1>
+					<ul>
+						<li>
+							<b>select</b>
+							<ul><li>SQL-like select command for queries on the JCR</li></ul>
+						</li>
+						<pre><code class="bash" contenteditable>% select * from nt:file where jcr:path like '/sites/intranet/%'
+...
+The query matched 42 nodes
+...</code></pre>
+					</ul>
+				</section>
+
+				<section>
+					<h1>JCR Commands examples</h1>
+					<ul>
+						<li>
+							<b>node set</b>
+							<ul><li>Add/Update a property on the current node</li></ul>
+						</li>
+						<pre><code class="bash" contenteditable>% node set exo:permissions '[any read]'</code></pre>
+
+						<br>
+						<i style="background-color: yellow">No more setperm ? To be tested, faced some issues...</i>
+					</ul>
+				</section>
+
+				<section>
+					<h1>JCR Session Commands</h1>
+					<ul>
+						<li>
+							<b>You are working in a CRaSH session</b>
+							<ul><li>The changes you do in the session are not visible outside of your CRaSH session!</li></ul>
+						</li>
+						<br>
+						<li>
+							<b>Commit !</b>
+							<ul>
+								<li>Saves the changes you did in the current session.</li>
+								<li>A node can be provided to save the state of the this nodes and its descendants only.</li>
+							</ul>
+						</li>
+						<br>
+						<li>
+							<b>Rollback</b>
+							<ul>
+								<li>In order to rollback the changes of the current session.</li>
+								<li>A node can be provided to rollback the state of the this nodes and its descendants only.</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<h1>JCR SCP Export and Import</h1>
+					<ul>
+						<li><b>You can use scp (with your favorite tool) to export/import nodes</b></li>
+						<br>
+						<li>
+							<b>Export</b>
+							<pre><code class="bash" contenteditable>	scp -P 2000 root@localhost:portal:portal-system:/production/app:gadgets .</code></pre>
+							Export the node <b>/production/app:gadgets</b> of the workspace <b>portal-system</b> in the file <b>app_gadget.xml</b>
+						</li>
+						<br>
+						<li>
+							<b>Import</b>
+							<pre><code class="bash" contenteditable>	scp -P 2000 app_gadgets.xml root@localhost:portal:portal-system/production/app:gadgets</code></pre>
+						</li>
+						<br>
+						<i>For Windows:	pscp -scp -P 2000 root@localhost:portal…</i>		
+					</ul>
+				</section>
+
+				<section>
+					<h1>Commands Operators</h1>
+					<ul>
+						<li>
+							<b>“|”  Pipe Operator</b>
+							<ul>
+								<li>Streams a command output stream to a command input stream</li>
+								<li>Example: select * from exo:article | addmixin mix:referenceable</li>
+							</ul>
+						</li>
+						<br>
+						<li>
+							<b>“+” Distributor Operator</b>
+							<ul>
+								<li>Merges (“distributes”) two streams into one stream</li>
+							</ul>
+						</li>
+						<br>
+						<li>
+							<b>“+” after the pipe</b>
+							<ul>
+								<li>select * from nt:unstructured | setperm -i any -a read + setperm -i any -a write</li>
+							</ul>
+						</li>
+						<br>
+						<li>
+							<b>“+” before the pipe</b>
+							<ul>
+								<li>select * from nt:file + select * from nt:folder | addmixin mix:votable</li>
+							</ul>
+						</li>
+					</ul>
+				</section>				
+
+				<section>
+					<h1>Exercises</h1>
+					<ul>
+						<li>Connect to CRaSH <img src="images/aide.png" onclick="document.getElementById('crash_exercise_1').style.display='block'" style="width: 30px;cursor: pointer"></img></li>
+						<pre style="display:none" id="crash_exercise_1"><code class="bash" contenteditable>ssh -p 2000 root@localhost</code></pre>
+						<li>Login to the collaboration workspace <img src="images/aide.png" onclick="document.getElementById('crash_exercise_2').style.display='block'" style="width: 30px;cursor: pointer"></img></li>
+						<pre style="display:none" id="crash_exercise_2"><code class="bash" contenteditable>% repo use container=portal
+% ws login -u root collaboration</code></pre>
+						<li>Test the commands: ls, cd, mv, rm, pwd</img></li>
+						<li>Add a mix:versionable mixin to an existing node <img src="images/aide.png" onclick="document.getElementById('crash_exercise_3').style.display='block'" style="width: 30px;cursor: pointer"></li>
+						<pre style="display:none" id="crash_exercise_3"><code class="bash" contenteditable>% ???</code></pre>
+						<li>Find all the nt:file node in the collaboration workspace in /sites/intranet <img src="images/aide.png" onclick="document.getElementById('crash_exercise_4').style.display='block'" style="width: 30px;cursor: pointer"></li>
+						<pre style="display:none" id="crash_exercise_4"><code class="bash" contenteditable>% select * from nt:file where jcr:path like '/sites/intranet/%'</code></pre>
+					</ul>
+					<br>
+					<i style="background-color: yellow">TODO : addmixin does not exist anymore, use node set ?</i>
+				</section>
+
+				<section data-state="chapter-transition">
+					<div class="titles">
+						<h1>Create your own commands !</h1>
+						<h2></h2>
+					</div>
+				</section>
+
+				<section>
+					<h1>Create your own commands !</h1>
+					<ul>
+						<li>You can easily add your own commands</li>
+						<li>A command is a Groovy script located in /WEB-INF/crash/commands</li>
+						<img src="images/crash_commands_files.png">
+						<li>Commands are hot reloaded</li>
+						<li>All you need to know is here : http://www.crashub.org/reference.html#d5e517</li>
+					</ul>
+				</section>
+
+				<section>
+					<h1>Exercises</h1>
+					<ul>
+						<li>Create a command that lists all the users
+							<ul>
+								<li>Create a new Groovy script called users.groovy in /WEB-INF/crash/commands (copy an existing one)</li>
+							</ul>
+						</li>						
+					</ul>
+					<br>
+					<br>
+					<i style="background-color: yellow">TODO : create the script and add tips in the slide</i>
+				</section>
+
+				<section data-state="chapter-title">
+					<div class="titles">
+						<h1>CRaSH</h1>
+						<h2>Common Reusable SHell</h2>
+					</div>				
+				</section>
+
+			</div>
+
+			<div class="footer">
+				<div class="footer-content">
+					<img class="logo" src="../../reveal/exo/images/exo-logo.png" width="70px"/>
+					<div id="slide-number" class="slide-number"></div>
+					<div class="copyright">Copyright 2013 eXo Platform</div>				
+				</div>
+			</div>	
+			
+		</div>
+
+		<script src="../../reveal/lib/js/head.min.js"></script>
+		<script src="../../reveal/js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				width: 1024,
+
+				controls: true,
+				progress: true,	
+				history: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: '../../reveal/plugin/highlight/highlight.js', async: true, callback: function() { window.hljs.initHighlightingOnLoad(); } },
+					{ src: '../../reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					/*{ src: '../../reveal/lib/js/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../reveal/lib/js/data-markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },*/
+					{ src: '../../reveal/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: '../../reveal/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+			var updateSlideNumber = function( event ) {
+			    // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+			    document.getElementById("slide-number").innerHTML = event.indexh + 1;
+			}
+
+			// Fires each time a new slide is activated
+			Reveal.addEventListener('ready', updateSlideNumber);
+    		Reveal.addEventListener('slidechanged', updateSlideNumber);
+		</script>
+
+	</body>
+</html>
