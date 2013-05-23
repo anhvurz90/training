@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.juzu</groupId>
+    <artifactId>juzu-doc-tutorial-parent</artifactId>
+    <version>0.6.0</version>
+  </parent>
+
+  <groupId>org.juzu</groupId>
+  <artifactId>juzu-doc-tutorial-examples</artifactId>
+  <version>0.6.0</version>
+  <packaging>war</packaging>
+
+  <name>Juzu Tutorial Examples</name>
+  <description>Various tutorial examples</description>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.juzu</groupId>
+      <artifactId>juzu-bom-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.juzu</groupId>
+      <artifactId>juzu-plugins-less</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.juzu</groupId>
+      <artifactId>juzu-plugins-servlet</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.juzu</groupId>
+      <artifactId>juzu-plugins-portlet</artifactId>
+    </dependency>
+
+    <!-- -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.juzu</groupId>
+      <artifactId>juzu-bom-arquillian</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.juzu</groupId>
+      <artifactId>juzu-bom-arquillian-tomcat7</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <finalName>juzu-tutorial-examples</finalName>
+    <plugins>
+
+      <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.3</version>
+        <configuration>
+          <packagingExcludes>
+            WEB-INF/lib/aopalliance-*.jar,
+            WEB-INF/lib/c3p0-*.jar,
+            WEB-INF/lib/cdi-api-*.jar,
+            WEB-INF/lib/commons-lang3-*.jar,
+            WEB-INF/lib/commons-juzu-4.0.0-*.jar,
+            WEB-INF/lib/groovy-all-*.jar,
+            WEB-INF/lib/guava-*.jar,
+            WEB-INF/lib/guice-*.jar,
+            WEB-INF/lib/javassist-*.jar,
+            WEB-INF/lib/javax.servlet-api-*.jar,
+            WEB-INF/lib/jboss-interceptors-*.jar,
+            WEB-INF/lib/jsr250-*.jar,
+            WEB-INF/lib/jsr305-*.jar,
+            WEB-INF/lib/portlet-api-*.jar,
+            WEB-INF/lib/quartz-*.jar,
+            WEB-INF/lib/servlet-api-*.jar,
+            WEB-INF/lib/slf4j-*.jar,
+            WEB-INF/lib/*.jar
+          </packagingExcludes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+
+</project>
